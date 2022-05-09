@@ -18,6 +18,8 @@
 # include "config.h"
 #endif
 
+#include "unicode/uversion.h"
+
 #include "php.h"
 #include "ext/standard/info.h"
 #include "php_ecma_intl.h"
@@ -73,6 +75,7 @@ PHP_MINFO_FUNCTION(ecma_intl)
 {
 	php_info_print_table_start();
 	php_info_print_table_header(2, "ecma_intl support", "enabled");
+	php_info_print_table_header(2, "icu version", U_ICU_VERSION);
 	php_info_print_table_end();
 }
 /* }}} */
