@@ -1,0 +1,7 @@
+ARG_ENABLE('ecma_intl', 'ecma_intl support', 'no');
+
+if (PHP_ECMA_INTL != 'no') {
+	AC_DEFINE('HAVE_ECMA_INTL', 1, 'ecma_intl support enabled');
+
+	EXTENSION('ecma_intl', 'ecma_intl.c', null, '/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1');
+}
