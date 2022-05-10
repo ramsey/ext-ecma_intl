@@ -2,6 +2,11 @@
 
 /** @generate-class-entries */
 
-function test1(): void {}
-
-function test2(string $str = ""): string {}
+namespace Ecma\Intl {
+    /**
+     * @param string[] $locales
+     *
+     * @return string[]
+     */
+    function getCanonicalLocales(array $locales): array {}
+}

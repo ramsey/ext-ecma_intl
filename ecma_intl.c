@@ -20,48 +20,60 @@
 # include "config.h"
 #endif
 
-#include "unicode/uversion.h"
+#include <unicode/uloc.h>
+#include <unicode/uversion.h>
+#include <php.h>
+#include <ext/spl/spl_exceptions.h>
+#include <ext/standard/info.h>
 
-#include "php.h"
-#include "ext/standard/info.h"
 #include "php_ecma_intl.h"
 #include "ecma_intl_arginfo.h"
 
-/* For compatibility with older PHP versions */
-#ifndef ZEND_PARSE_PARAMETERS_NONE
-#define ZEND_PARSE_PARAMETERS_NONE() \
-	ZEND_PARSE_PARAMETERS_START(0, 0) \
-	ZEND_PARSE_PARAMETERS_END()
-#endif
-
-/* {{{ void test1() */
-PHP_FUNCTION(test1)
+void toCanonicalBcp47LanguageTag(const char *localeId, char *languageTag)
 {
-	ZEND_PARSE_PARAMETERS_NONE();
+	int32_t languageTagCapacity = ULOC_FULLNAME_CAPACITY;
+	UErrorCode status = U_ZERO_ERROR;
 
-	php_printf("The extension %s is loaded and working!\r\n", "ecma_intl");
+	uloc_toLanguageTag(localeId, languageTag, languageTagCapacity, true, &status);
+
+	if (status != U_ZERO_ERROR) {
+		zend_throw_error(spl_ce_RangeException,
+						 "Invalid language tag: \"%s\"",
+						 localeId);
+	}
 }
-/* }}} */
 
-/* {{{ string test2( [ string $var ] ) */
-PHP_FUNCTION(test2)
+PHP_FUNCTION(getCanonicalLocales)
 {
-	char *var = "World";
-	size_t var_len = sizeof("World") - 1;
-	zend_string *retval;
+	HashTable *locales;
+	zval *locale;
 
-	ZEND_PARSE_PARAMETERS_START(0, 1)
-		Z_PARAM_OPTIONAL
-		Z_PARAM_STRING(var, var_len)
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		Z_PARAM_ARRAY_HT(locales)
 	ZEND_PARSE_PARAMETERS_END();
 
-	retval = strpprintf(0, "Hello %s", var);
+	array_init_size(return_value, zend_hash_num_elements(locales));
 
-	RETURN_STR(retval);
+	if (zend_hash_num_elements(locales) == 0) {
+		return;
+	}
+
+	ZEND_HASH_FOREACH_VAL(locales, locale)
+		if (Z_TYPE_P(locale) != IS_STRING) {
+			zend_throw_error(spl_ce_InvalidArgumentException,
+							 "The $locales argument must be an array of type string");
+			RETURN_THROWS();
+		}
+		char languageTag[ULOC_FULLNAME_CAPACITY];
+		toCanonicalBcp47LanguageTag(Z_STRVAL_P(locale), languageTag);
+		add_next_index_string(return_value, languageTag);
+	ZEND_HASH_FOREACH_END();
+
+	if (EG(exception)) {
+		RETURN_THROWS();
+	}
 }
-/* }}}*/
 
-/* {{{ PHP_RINIT_FUNCTION */
 PHP_RINIT_FUNCTION(ecma_intl)
 {
 #if defined(ZTS) && defined(COMPILE_DL_ECMA_INTL)
@@ -70,9 +82,7 @@ PHP_RINIT_FUNCTION(ecma_intl)
 
 	return SUCCESS;
 }
-/* }}} */
 
-/* {{{ PHP_MINFO_FUNCTION */
 PHP_MINFO_FUNCTION(ecma_intl)
 {
 	php_info_print_table_start();
@@ -80,9 +90,7 @@ PHP_MINFO_FUNCTION(ecma_intl)
 	php_info_print_table_header(2, "icu version", U_ICU_VERSION);
 	php_info_print_table_end();
 }
-/* }}} */
 
-/* {{{ ecma_intl_module_entry */
 zend_module_entry ecma_intl_module_entry = {
 	STANDARD_MODULE_HEADER,
 	"ecma_intl",					/* Extension name */
@@ -95,7 +103,6 @@ zend_module_entry ecma_intl_module_entry = {
 	PHP_ECMA_INTL_VERSION,		/* Version */
 	STANDARD_MODULE_PROPERTIES
 };
-/* }}} */
 
 #ifdef COMPILE_DL_ECMA_INTL
 # ifdef ZTS
