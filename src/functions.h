@@ -19,24 +19,9 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef PHP_ECMA_INTL_H
-# define PHP_ECMA_INTL_H
+#ifndef ECMA_INTL_FUNCTIONS_H
+# define ECMA_INTL_FUNCTIONS_H
 
-#include <php.h>
+void toCanonicalBcp47LanguageTag(const char *localeId, char *languageTag);
 
-extern zend_module_entry ecma_intl_module_entry;
-# define phpext_ecma_intl_ptr &ecma_intl_module_entry
-
-# define PHP_ECMA_INTL_VERSION "0.1.0"
-
-# if defined(ZTS) && defined(COMPILE_DL_ECMA_INTL)
-ZEND_TSRMLS_CACHE_EXTERN()
-# endif
-
-PHP_MINIT_FUNCTION(ecma_intl);
-PHP_MSHUTDOWN_FUNCTION(ecma_intl);
-PHP_RINIT_FUNCTION(ecma_intl);
-PHP_RSHUTDOWN_FUNCTION(ecma_intl);
-PHP_MINFO_FUNCTION(ecma_intl);
-
-#endif	/* PHP_ECMA_INTL_H */
+#endif	/* ECMA_INTL_FUNCTIONS_H */

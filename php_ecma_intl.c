@@ -19,24 +19,68 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef PHP_ECMA_INTL_H
-# define PHP_ECMA_INTL_H
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
 
 #include <php.h>
+#include <ext/standard/info.h>
+#include <unicode/uchar.h>
+#include <unicode/uversion.h>
 
-extern zend_module_entry ecma_intl_module_entry;
-# define phpext_ecma_intl_ptr &ecma_intl_module_entry
+#include "php_ecma_intl.h"
+#include "php_ecma_intl_arginfo.h"
 
-# define PHP_ECMA_INTL_VERSION "0.1.0"
+zend_module_entry ecma_intl_module_entry = {
+	STANDARD_MODULE_HEADER,
+	"ecma_intl",
+	ext_functions,
+	PHP_MINIT(ecma_intl),
+	PHP_MSHUTDOWN(ecma_intl),
+	PHP_RINIT(ecma_intl),
+	PHP_RSHUTDOWN(ecma_intl),
+	PHP_MINFO(ecma_intl),
+	PHP_ECMA_INTL_VERSION,
+	STANDARD_MODULE_PROPERTIES
+};
 
-# if defined(ZTS) && defined(COMPILE_DL_ECMA_INTL)
-ZEND_TSRMLS_CACHE_EXTERN()
+#ifdef COMPILE_DL_ECMA_INTL
+# ifdef ZTS
+ZEND_TSRMLS_CACHE_DEFINE()
 # endif
+ZEND_GET_MODULE(ecma_intl)
+#endif
 
-PHP_MINIT_FUNCTION(ecma_intl);
-PHP_MSHUTDOWN_FUNCTION(ecma_intl);
-PHP_RINIT_FUNCTION(ecma_intl);
-PHP_RSHUTDOWN_FUNCTION(ecma_intl);
-PHP_MINFO_FUNCTION(ecma_intl);
+PHP_MINIT_FUNCTION(ecma_intl)
+{
+	return SUCCESS;
+}
 
-#endif	/* PHP_ECMA_INTL_H */
+PHP_MSHUTDOWN_FUNCTION(ecma_intl)
+{
+	return SUCCESS;
+}
+
+PHP_RINIT_FUNCTION(ecma_intl)
+{
+#if defined(ZTS) && defined(COMPILE_DL_ECMA_INTL)
+	ZEND_TSRMLS_CACHE_UPDATE();
+#endif
+
+	return SUCCESS;
+}
+
+PHP_RSHUTDOWN_FUNCTION(ecma_intl)
+{
+	return SUCCESS;
+}
+
+PHP_MINFO_FUNCTION(ecma_intl)
+{
+	php_info_print_table_start();
+	php_info_print_table_header(2, "Internationalization Support, Ecma-style (ECMA-402)", "enabled");
+	php_info_print_table_row(2, "ICU version", U_ICU_VERSION);
+	php_info_print_table_row(2, "ICU Data version", U_ICU_DATA_VERSION);
+	php_info_print_table_row(2, "ICU Unicode version", U_UNICODE_VERSION);
+	php_info_print_table_end();
+}
