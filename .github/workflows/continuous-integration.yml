@@ -1,0 +1,82 @@
+# GitHub Actions Documentation: https://docs.github.com/en/actions
+
+name: "build"
+
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "*"
+  pull_request:
+    branches:
+      - "main"
+
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  functional-tests:
+    name: "Functional tests"
+    runs-on: "ubuntu-22.04"
+
+    steps:
+      - name: "Install ICU"
+        run: |
+          set -e
+          sudo apt-get update
+          sudo apt-get -y install build-essential clang git
+          cd /tmp
+          git clone https://github.com/unicode-org/icu.git
+          cd icu/icu4c/source/
+          git checkout release-71-1
+          ./runConfigureICU Linux --prefix=/tmp/icu-build
+          make -j$(nproc)
+          make install
+
+          # We shouldn't need to manually set up these links, but the built
+          # ecma_intl.so PHP extension can't find these dynamic libraries unless
+          # we place them in /usr/local/lib or /usr/lib.
+          sudo ln -s /tmp/icu-build/lib/libicudata.so.71 /usr/local/lib/libicudata.so.71
+          sudo ln -s /tmp/icu-build/lib/libicui18n.so.71 /usr/local/lib/libicui18n.so.71
+          sudo ln -s /tmp/icu-build/lib/libicuio.so.71 /usr/local/lib/libicuio.so.71
+          sudo ln -s /tmp/icu-build/lib/libicuuc.so.71 /usr/local/lib/libicuuc.so.71
+
+      - name: "Install PHP"
+        run: |
+          set -e
+          sudo apt-get update
+          sudo apt-get -y install php8.1 php8.1-dev
+          sudo update-alternatives --set phpize /usr/bin/phpize8.1
+          $(php-config --php-binary) --version
+          phpize --version
+
+      - name: "Checkout repository"
+        uses: "actions/checkout@v3"
+
+      - name: "Build and install ecma_intl"
+        run: |
+          set -e
+          phpize
+
+          # Using PKG_CONFIG_PATH should be enough, but for some reason, the
+          # linker can't find the libraries unless we use ICU_CFLAGS and ICU_LIBS.
+          ICU_CFLAGS="-I/tmp/icu-build/include" \
+            ICU_LIBS="-L/tmp/icu-build/lib -licuio -licui18n -licuuc -licudata" \
+            ./configure --enable-ecma_intl
+
+          make -j$(nproc)
+          sudo make install
+          sudo sh -c 'echo "extension=ecma_intl.so\n" > "$(php-config --ini-dir)/99-ecma_intl.ini"'
+          "$(php-config --php-binary)" --ri ecma_intl
+
+      - name: "Run tests"
+        run: |
+          set -e
+          export PHP_BINARY="$(php-config --php-binary)"
+          $PHP_BINARY run-tests.php -q -P \
+            --show-diff tests \
+            -g 'FAIL,XFAIL,BORK,WARN,LEAK,SKIP'

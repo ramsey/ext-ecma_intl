@@ -4,7 +4,7 @@
  * ecma_intl extension for PHP
  * Internationalization Support, Ecma-style (ECMA-402)
  *
- * Copyright (c) Ben Ramsey <ramsey@php.net>
+ * Copyright (c) Ben Ramsey <ben@benramsey.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
