@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 22ed5f6e7f2352490d283f88a34be099cbb8f339 */
+ * Stub hash: 9a33cd261f0ad5fa5ed0045a095a5f5bb5067d3b */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_Ecma_Intl_getCanonicalLocales, 0, 1, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_INFO(0, locales, IS_ARRAY, 0)

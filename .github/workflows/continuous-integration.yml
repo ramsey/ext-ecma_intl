@@ -23,37 +23,13 @@ jobs:
     name: "Functional tests"
     runs-on: "ubuntu-latest"
     container:
-      image: "ubuntu:22.04"
+      image: "benramsey/ecma_intl-dev:latest"
       volumes:
         - "${{ github.workspace }}:/ecma_intl"
 
     steps:
       - name: "Checkout repository"
         uses: "actions/checkout@v3"
-
-      - name: "Install ICU"
-        run: |
-          set -e
-          apt-get update
-          apt-get install -y build-essential clang git
-          cd /tmp
-          git clone https://github.com/unicode-org/icu.git
-          cd icu/icu4c/source/
-          git checkout release-71-1
-          ./runConfigureICU Linux
-          make -j$(nproc)
-          make install
-
-      - name: "Install PHP"
-        run: |
-          set -e
-          export DEBIAN_FRONTEND=noninteractive
-          apt-get update
-          ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
-          apt-get -y install build-essential php8.1 php8.1-dev tzdata
-          dpkg-reconfigure --frontend noninteractive tzdata
-          $(php-config --php-binary) --version
-          phpize --version
 
       - name: "Build and install ecma_intl"
         run: |
