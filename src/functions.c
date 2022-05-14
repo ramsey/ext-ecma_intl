@@ -84,3 +84,22 @@ PHP_FUNCTION(getCanonicalLocales)
 		RETURN_THROWS();
 	}
 }
+
+PHP_FUNCTION(getSupportedLocales)
+{
+	int32_t count;
+
+	ZEND_PARSE_PARAMETERS_NONE();
+
+	count = uloc_countAvailable();
+
+	array_init_size(return_value, count);
+
+	for (int i = 0; i < count; i++) {
+		const char *locale;
+		char languageTag[ULOC_FULLNAME_CAPACITY];
+		locale = uloc_getAvailable(i);
+		toCanonicalBcp47LanguageTag(locale, languageTag);
+		add_next_index_string(return_value, languageTag);
+	}
+}

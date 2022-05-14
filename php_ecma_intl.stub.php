@@ -29,3 +29,8 @@ namespace Ecma\Intl;
  * @return string[]
  */
 function getCanonicalLocales(array|string $locales): array {}
+
+/**
+ * @return string[]
+ */
+function getSupportedLocales(): array {}
