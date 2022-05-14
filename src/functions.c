@@ -45,28 +45,39 @@ void toCanonicalBcp47LanguageTag(const char *localeId, char *languageTag)
 
 PHP_FUNCTION(getCanonicalLocales)
 {
-	HashTable *locales;
-	zval *locale;
+	HashTable *localeArray;
+	zval *localeFromArray, localeFromString;
+	zend_string *localeString;
 
 	ZEND_PARSE_PARAMETERS_START(1, 1)
-		Z_PARAM_ARRAY_HT(locales)
+		Z_PARAM_ARRAY_HT_OR_STR(localeArray, localeString)
 	ZEND_PARSE_PARAMETERS_END();
 
-	array_init_size(return_value, zend_hash_num_elements(locales));
+	if (localeArray == NULL) {
+		localeArray = (HashTable *) malloc(sizeof(HashTable));
+		zend_hash_init(localeArray, 1, NULL, ZVAL_PTR_DTOR, 0);
+		ZVAL_STR(&localeFromString, localeString);
+		zend_hash_index_update(localeArray, 0, &localeFromString);
+		zend_string_release(localeString);
+		zval_ptr_dtor(&localeFromString);
+	}
 
-	if (zend_hash_num_elements(locales) == 0) {
+	array_init_size(return_value, zend_hash_num_elements(localeArray));
+
+	if (zend_hash_num_elements(localeArray) == 0) {
 		return;
 	}
 
-	ZEND_HASH_FOREACH_VAL(locales, locale)
-		if (Z_TYPE_P(locale) != IS_STRING) {
+	ZEND_HASH_FOREACH_VAL(localeArray, localeFromArray)
+		if (Z_TYPE_P(localeFromArray) != IS_STRING) {
 			zend_throw_error(spl_ce_InvalidArgumentException,
 							 "The $locales argument must be an array of type string");
 			RETURN_THROWS();
 		}
 		char languageTag[ULOC_FULLNAME_CAPACITY];
-		toCanonicalBcp47LanguageTag(Z_STRVAL_P(locale), languageTag);
+		toCanonicalBcp47LanguageTag(Z_STRVAL_P(localeFromArray), languageTag);
 		add_next_index_string(return_value, languageTag);
+		zval_ptr_dtor(localeFromArray);
 	ZEND_HASH_FOREACH_END();
 
 	if (EG(exception)) {
