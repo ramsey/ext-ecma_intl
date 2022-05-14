@@ -27,6 +27,8 @@ namespace Ecma\Intl;
  * @param string[]|string $locales
  *
  * @return string[]
+ *
+ * @throws \RangeException
  */
 function getCanonicalLocales(array|string $locales): array {}
 
