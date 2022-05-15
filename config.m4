@@ -14,6 +14,7 @@ if test "$PHP_ECMA_INTL" != "no"; then
   AC_DEFINE(HAVE_ECMA_INTL, 1, [ Have ecma_intl support ])
 
   PHP_NEW_EXTENSION(ecma_intl, php_ecma_intl.c \
+    src/exceptions.c \
     src/functions.c \
     , $ext_shared)
 
