@@ -23,6 +23,7 @@
 # define ECMA_INTL_EXCEPTIONS_H
 
 #include <php.h>
+#include <Zend/zend_exceptions.h>
 
 void exceptions_register_Exception_class(void);
 extern zend_class_entry *ecma_intl_ce_Exception;

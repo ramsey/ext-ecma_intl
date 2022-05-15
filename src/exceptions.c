@@ -19,9 +19,7 @@
    +----------------------------------------------------------------------+
 */
 
-#include <php.h>
-#include <Zend/zend_exceptions.h>
-
+#include "exceptions.h"
 #include "exceptions_arginfo.h"
 
 zend_class_entry *ecma_intl_ce_Exception = NULL;
