@@ -1,5 +1,5 @@
 --TEST--
-Ecma\Intl\supportedLocales() returns an array of BCP 47 locales
+Ecma\Intl\getSupportedLocales() returns an array of BCP 47 locales
 --EXTENSIONS--
 ecma_intl
 --FILE--

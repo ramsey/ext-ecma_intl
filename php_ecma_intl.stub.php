@@ -36,3 +36,12 @@ function getCanonicalLocales(array|string $locales): array {}
  * @return string[]
  */
 function getSupportedLocales(): array {}
+
+/**
+ * @psalm-param 'calendar'|'collation'|'currency'|'numberingSystem'|'timeZone'|'unit' $key
+ *
+ * @return string[]
+ *
+ * @throws \RangeException An unsupported key was passed as a parameter.
+ */
+function supportedValuesOf(string $key): array {}

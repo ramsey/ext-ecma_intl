@@ -19,15 +19,24 @@
    +----------------------------------------------------------------------+
 */
 
-#ifdef HAVE_CONFIG_H
-# include "config.h"
-#endif
-
 #include <php.h>
 #include <ext/spl/spl_exceptions.h>
+#include <unicode/ucal.h>
+#include <unicode/ucol.h>
+#include <unicode/ucurr.h>
 #include <unicode/uloc.h>
+#include <unicode/unumsys.h>
+#include <unicode/utypes.h>
 
+#include "exceptions.h"
 #include "functions.h"
+
+#define CATEGORY_CALENDAR "calendar"
+#define CATEGORY_COLLATION "collation"
+#define CATEGORY_CURRENCY "currency"
+#define CATEGORY_NUMBERING_SYSTEM "numberingSystem"
+#define CATEGORY_TIME_ZONE "timeZone"
+#define CATEGORY_UNIT "unit"
 
 void toCanonicalBcp47LanguageTag(const char *localeId, char *languageTag)
 {
@@ -36,11 +45,16 @@ void toCanonicalBcp47LanguageTag(const char *localeId, char *languageTag)
 
 	uloc_toLanguageTag(localeId, languageTag, languageTagCapacity, true, &status);
 
-	if (status != U_ZERO_ERROR) {
+	if (U_FAILURE(status)) {
 		zend_throw_error(spl_ce_RangeException,
 						 "Invalid language tag: \"%s\"",
 						 localeId);
 	}
+}
+
+static zend_always_inline int php_array_string_case_compare(Bucket *f, Bucket *s)
+{
+	return string_case_compare_function(&f->val, &s->val);
 }
 
 PHP_FUNCTION(getCanonicalLocales)
@@ -102,4 +116,53 @@ PHP_FUNCTION(getSupportedLocales)
 		toCanonicalBcp47LanguageTag(locale, languageTag);
 		add_next_index_string(return_value, languageTag);
 	}
+}
+
+PHP_FUNCTION(supportedValuesOf)
+{
+	zend_string *key;
+	UEnumeration *unicodeEnum = NULL;
+	UErrorCode status = U_ZERO_ERROR;
+	int32_t count, i, length;
+	const char* id;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+		 Z_PARAM_STR(key)
+	ZEND_PARSE_PARAMETERS_END();
+
+	array_init_size(return_value, 1);
+
+	if (strcasecmp(CATEGORY_CALENDAR, ZSTR_VAL(key)) == 0) {
+		unicodeEnum = ucal_getKeywordValuesForLocale("calendar", NULL, 0, &status);
+	} else if (strcasecmp(CATEGORY_COLLATION, ZSTR_VAL(key)) == 0) {
+		unicodeEnum = ucol_getKeywordValues("collation", &status);
+	} else if (strcasecmp(CATEGORY_CURRENCY, ZSTR_VAL(key)) == 0) {
+		unicodeEnum = ucurr_openISOCurrencies(UCURR_ALL, &status);
+	} else if (strcasecmp(CATEGORY_NUMBERING_SYSTEM, ZSTR_VAL(key)) == 0) {
+		unicodeEnum = unumsys_openAvailableNames(&status);
+	} else if (strcasecmp(CATEGORY_TIME_ZONE, ZSTR_VAL(key)) == 0) {
+		unicodeEnum = ucal_openTimeZones(&status);
+	} else if (strcasecmp(CATEGORY_UNIT, ZSTR_VAL(key)) == 0) {
+	} else {
+		zend_throw_error(spl_ce_RangeException,
+						 "Unknown key for Ecma\\Intl\\supportedValuesOf()");
+		RETURN_THROWS();
+	}
+
+	if (U_FAILURE(status)) {
+		zend_throw_error(ecma_intl_ce_Exception,"%s", u_errorName(status));
+		RETURN_THROWS();
+	}
+
+	count = uenum_count(unicodeEnum, &status);
+	uenum_reset(unicodeEnum, &status);
+
+	for (i = 0; i < count; i++) {
+		id = uenum_next(unicodeEnum, &length, &status);
+		add_next_index_string(return_value, id);
+	}
+
+	uenum_close(unicodeEnum);
+
+	zend_hash_sort(Z_ARRVAL_P(return_value), php_array_string_case_compare, 1);
 }
