@@ -30,8 +30,8 @@
 #include <unicode/uversion.h>
 
 #include "php_ecma_intl.h"
-#include "php_ecma_intl_arginfo.h"
 #include "src/exceptions.h"
+#include "src/functions_arginfo.h"
 
 zend_module_entry ecma_intl_module_entry = {
 	STANDARD_MODULE_HEADER,
