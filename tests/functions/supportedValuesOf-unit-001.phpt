@@ -14,6 +14,8 @@ if (count($units) > 0) {
     echo "Does not support any units.\n";
 }
 
+var_dump($units);
+
 $tests = [
     'acre',
     'hour',

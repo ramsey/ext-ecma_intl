@@ -30,6 +30,7 @@
 
 #include "exceptions.h"
 #include "functions.h"
+#include "measure_unit_bridge.h"
 
 #define CATEGORY_CALENDAR "calendar"
 #define CATEGORY_COLLATION "collation"
@@ -140,6 +141,7 @@ PHP_FUNCTION(supportedValuesOf)
 	} else if (strcasecmp(CATEGORY_TIME_ZONE, ZSTR_VAL(key)) == 0) {
 		values = ucal_openTimeZones(&status);
 	} else if (strcasecmp(CATEGORY_UNIT, ZSTR_VAL(key)) == 0) {
+		values = ecma_intl_getMeasurementUnits(&status);
 	} else {
 		zend_throw_error(spl_ce_RangeException,
 						 "Unknown key for Ecma\\Intl\\supportedValuesOf()");
