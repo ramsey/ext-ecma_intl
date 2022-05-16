@@ -38,7 +38,7 @@
 #define CATEGORY_TIME_ZONE "timeZone"
 #define CATEGORY_UNIT "unit"
 
-void toCanonicalBcp47LanguageTag(const char *localeId, char *languageTag)
+void ecma_intl_toCanonicalBcp47LanguageTag(const char *localeId, char *languageTag)
 {
 	int32_t languageTagCapacity = ULOC_FULLNAME_CAPACITY;
 	UErrorCode status = U_ZERO_ERROR;
@@ -89,7 +89,7 @@ PHP_FUNCTION(getCanonicalLocales)
 			RETURN_THROWS();
 		}
 		char languageTag[ULOC_FULLNAME_CAPACITY];
-		toCanonicalBcp47LanguageTag(Z_STRVAL_P(localeFromArray), languageTag);
+		ecma_intl_toCanonicalBcp47LanguageTag(Z_STRVAL_P(localeFromArray), languageTag);
 		add_next_index_string(return_value, languageTag);
 		zval_ptr_dtor(localeFromArray);
 	ZEND_HASH_FOREACH_END();
@@ -101,11 +101,9 @@ PHP_FUNCTION(getCanonicalLocales)
 
 PHP_FUNCTION(getSupportedLocales)
 {
-	int32_t count;
-
 	ZEND_PARSE_PARAMETERS_NONE();
 
-	count = uloc_countAvailable();
+	int count = uloc_countAvailable();
 
 	array_init_size(return_value, count);
 
@@ -113,7 +111,7 @@ PHP_FUNCTION(getSupportedLocales)
 		const char *locale;
 		char languageTag[ULOC_FULLNAME_CAPACITY];
 		locale = uloc_getAvailable(i);
-		toCanonicalBcp47LanguageTag(locale, languageTag);
+		ecma_intl_toCanonicalBcp47LanguageTag(locale, languageTag);
 		add_next_index_string(return_value, languageTag);
 	}
 }
@@ -121,27 +119,26 @@ PHP_FUNCTION(getSupportedLocales)
 PHP_FUNCTION(supportedValuesOf)
 {
 	zend_string *key;
-	UEnumeration *unicodeEnum = NULL;
+	UEnumeration *values = NULL;
 	UErrorCode status = U_ZERO_ERROR;
-	int32_t count, i, length;
-	const char* id;
+
+	int count, length, i;
+	const char* identifier;
 
 	ZEND_PARSE_PARAMETERS_START(1, 1)
 		 Z_PARAM_STR(key)
 	ZEND_PARSE_PARAMETERS_END();
 
-	array_init_size(return_value, 1);
-
 	if (strcasecmp(CATEGORY_CALENDAR, ZSTR_VAL(key)) == 0) {
-		unicodeEnum = ucal_getKeywordValuesForLocale("calendar", NULL, 0, &status);
+		values = ucal_getKeywordValuesForLocale("calendar", NULL, 0, &status);
 	} else if (strcasecmp(CATEGORY_COLLATION, ZSTR_VAL(key)) == 0) {
-		unicodeEnum = ucol_getKeywordValues("collation", &status);
+		values = ucol_getKeywordValues("collation", &status);
 	} else if (strcasecmp(CATEGORY_CURRENCY, ZSTR_VAL(key)) == 0) {
-		unicodeEnum = ucurr_openISOCurrencies(UCURR_ALL, &status);
+		values = ucurr_openISOCurrencies(UCURR_ALL, &status);
 	} else if (strcasecmp(CATEGORY_NUMBERING_SYSTEM, ZSTR_VAL(key)) == 0) {
-		unicodeEnum = unumsys_openAvailableNames(&status);
+		values = unumsys_openAvailableNames(&status);
 	} else if (strcasecmp(CATEGORY_TIME_ZONE, ZSTR_VAL(key)) == 0) {
-		unicodeEnum = ucal_openTimeZones(&status);
+		values = ucal_openTimeZones(&status);
 	} else if (strcasecmp(CATEGORY_UNIT, ZSTR_VAL(key)) == 0) {
 	} else {
 		zend_throw_error(spl_ce_RangeException,
@@ -154,15 +151,17 @@ PHP_FUNCTION(supportedValuesOf)
 		RETURN_THROWS();
 	}
 
-	count = uenum_count(unicodeEnum, &status);
-	uenum_reset(unicodeEnum, &status);
+	count = uenum_count(values, &status);
+	uenum_reset(values, &status);
+
+	array_init_size(return_value, count);
 
 	for (i = 0; i < count; i++) {
-		id = uenum_next(unicodeEnum, &length, &status);
-		add_next_index_string(return_value, id);
+		identifier = uenum_next(values, &length, &status);
+		add_next_index_string(return_value, identifier);
 	}
 
-	uenum_close(unicodeEnum);
+	uenum_close(values);
 
 	zend_hash_sort(Z_ARRVAL_P(return_value), php_array_string_case_compare, 1);
 }
