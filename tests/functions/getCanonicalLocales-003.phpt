@@ -29,12 +29,12 @@ foreach ($tests as $test) {
 }
 ?>
 --EXPECT--
-InvalidArgumentException: The $locales argument must be an array of type string
-InvalidArgumentException: The $locales argument must be an array of type string
-InvalidArgumentException: The $locales argument must be an array of type string
-InvalidArgumentException: The $locales argument must be an array of type string
-InvalidArgumentException: The $locales argument must be an array of type string
-InvalidArgumentException: The $locales argument must be an array of type string
-InvalidArgumentException: The $locales argument must be an array of type string
-InvalidArgumentException: The $locales argument must be an array of type string
-InvalidArgumentException: The $locales argument must be an array of type string
+InvalidArgumentException: The $locales argument must be type string or an array of type string
+InvalidArgumentException: The $locales argument must be type string or an array of type string
+InvalidArgumentException: The $locales argument must be type string or an array of type string
+InvalidArgumentException: The $locales argument must be type string or an array of type string
+InvalidArgumentException: The $locales argument must be type string or an array of type string
+InvalidArgumentException: The $locales argument must be type string or an array of type string
+InvalidArgumentException: The $locales argument must be type string or an array of type string
+InvalidArgumentException: The $locales argument must be type string or an array of type string
+InvalidArgumentException: The $locales argument must be type string or an array of type string

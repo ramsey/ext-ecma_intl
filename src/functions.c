@@ -86,7 +86,7 @@ PHP_FUNCTION(getCanonicalLocales)
 	ZEND_HASH_FOREACH_VAL(localeArray, localeFromArray)
 		if (Z_TYPE_P(localeFromArray) != IS_STRING) {
 			zend_throw_error(spl_ce_InvalidArgumentException,
-							 "The $locales argument must be an array of type string");
+							 "The $locales argument must be type string or an array of type string");
 			RETURN_THROWS();
 		}
 		char languageTag[ULOC_FULLNAME_CAPACITY];
