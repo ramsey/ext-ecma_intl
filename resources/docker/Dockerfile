@@ -7,34 +7,64 @@ FROM ubuntu:21.10
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update \
-    && apt-get install -y build-essential clang git
-
-# Install ICU
-RUN cd /tmp \
-    && git clone https://github.com/unicode-org/icu.git \
-    && cd icu/icu4c/source/ \
-    && git checkout release-71-1 \
-    && ./runConfigureICU Linux \
-    && make -j$(nproc) \
-    && make install
-
-# Install PHP
+# Configure the system for building ICU and PHP.
 RUN apt-get update \
     && ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime \
     && apt-get install -y \
-        apt-transport-https \
+        autoconf \
+        automake \
         ca-certificates \
-        lsb-release \
-        software-properties-common \
+        clang \
+        cmake \
+        curl \
+        g++ \
+        gcc \
+        gdb \
+        libc6-dev \
+        libffi7 \
+        libpcre2-dev \
+        libsqlite3-dev \
+        libssl-dev \
+        libtool \
+        locales \
+        make \
+        pkg-config \
+        shtool \
         tzdata \
     && dpkg-reconfigure --frontend noninteractive tzdata \
-    && apt-add-repository -y ppa:ondrej/php \
-    && apt-get update \
-    && apt-get -y install php8.1 php8.1-dev
+    && locale-gen en_US.UTF-8
 
-# Tools for use with JetBrains CLion
-RUN apt-get update \
-    && apt-get install -y cmake gdb locales wget \
-    && locale-gen en_US.UTF-8 \
-    && ln -fs /tmp/ecma_intl/modules/ecma_intl.so "$(php-config --extension-dir)/ecma_intl.so"
+# Install ICU
+RUN cd /tmp \
+    && curl -LOs https://github.com/unicode-org/icu/releases/download/release-71-1/icu4c-71_1-src.tgz \
+    && tar -zxf icu4c-71_1-src.tgz \
+    && cd icu/source/ \
+    && ./runConfigureICU Linux \
+    && make -j$(nproc) \
+    && make install \
+    && ldconfig \
+    && cd /tmp \
+    && rm -rf /tmp/icu /tmp/icu4c-71_1-src.tgz
+
+# Install PHP
+RUN cd /tmp \
+    && curl -LOs https://www.php.net/distributions/php-8.1.6.tar.xz \
+    && tar -Jxf php-8.1.6.tar.xz \
+    && cd php-8.1.6/ \
+    && ./configure \
+        --enable-debug \
+        --enable-zts \
+        --with-layout=GNU \
+        --with-config-file-scan-dir=/usr/local/etc/php.conf.d \
+    && make -j$(nproc) \
+    && make install \
+    && mkdir -p "$(php-config --extension-dir)" \
+    && mkdir -p "$(php-config --ini-dir)" \
+    && cp php.ini-development "$(php-config --ini-path)/php.ini" \
+    && cd /tmp \
+    && rm -rf /tmp/php-8.1.6 /tmp/php-8.1.6.tar.xz
+
+# Prepare for running tests with ecma_intl from JetBrains CLion.
+RUN ln -fs /tmp/ecma_intl/modules/ecma_intl.so "$(php-config --extension-dir)/ecma_intl.so"
+
+WORKDIR /tmp/ecma_intl
