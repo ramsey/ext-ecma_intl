@@ -46,4 +46,4 @@ jobs:
         run: |
           set -e
           export PHP_BINARY="$(php-config --php-binary)"
-          $PHP_BINARY run-tests.php -q -P --show-diff tests
+          $PHP_BINARY run-tests.php -j$(nproc) -P -q -m --show-diff --show-mem
