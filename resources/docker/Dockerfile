@@ -67,4 +67,8 @@ RUN cd /tmp \
 # Prepare for running tests with ecma_intl from JetBrains CLion.
 RUN ln -fs /tmp/ecma_intl/modules/ecma_intl.so "$(php-config --extension-dir)/ecma_intl.so"
 
+# Add additional tools
+RUN apt-get update \
+    && apt-get install -y valgrind
+
 WORKDIR /tmp/ecma_intl
