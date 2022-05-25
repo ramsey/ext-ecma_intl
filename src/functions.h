@@ -22,6 +22,6 @@
 #ifndef ECMA_INTL_FUNCTIONS_H
 # define ECMA_INTL_FUNCTIONS_H
 
-void ecma_intl_toCanonicalBcp47LanguageTag(const char *localeId, char *languageTag);
+bool ecma_intl_toCanonicalBcp47LanguageTag(const char *localeId, char *languageTag);
 
 #endif	/* ECMA_INTL_FUNCTIONS_H */

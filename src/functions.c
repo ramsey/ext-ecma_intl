@@ -39,7 +39,7 @@
 #define CATEGORY_TIME_ZONE "timeZone"
 #define CATEGORY_UNIT "unit"
 
-void ecma_intl_toCanonicalBcp47LanguageTag(const char *localeId, char *languageTag)
+bool ecma_intl_toCanonicalBcp47LanguageTag(const char *localeId, char *languageTag)
 {
 	int32_t languageTagCapacity = ULOC_FULLNAME_CAPACITY;
 	UErrorCode status = U_ZERO_ERROR;
@@ -50,7 +50,11 @@ void ecma_intl_toCanonicalBcp47LanguageTag(const char *localeId, char *languageT
 		zend_throw_error(spl_ce_RangeException,
 						 "Invalid language tag: \"%s\"",
 						 localeId);
+
+		return false;
 	}
+
+	return true;
 }
 
 static zend_always_inline int php_array_string_case_compare(Bucket *f, Bucket *s)
@@ -80,6 +84,9 @@ PHP_FUNCTION(getCanonicalLocales)
 	array_init_size(return_value, zend_hash_num_elements(localeArray));
 
 	if (zend_hash_num_elements(localeArray) == 0) {
+		if (localeString) {
+			zend_hash_destroy(localeArray);
+		}
 		return;
 	}
 
@@ -90,10 +97,14 @@ PHP_FUNCTION(getCanonicalLocales)
 			RETURN_THROWS();
 		}
 		char languageTag[ULOC_FULLNAME_CAPACITY];
-		ecma_intl_toCanonicalBcp47LanguageTag(Z_STRVAL_P(localeFromArray), languageTag);
-		add_next_index_string(return_value, languageTag);
-		zval_ptr_dtor(localeFromArray);
+		if (ecma_intl_toCanonicalBcp47LanguageTag(Z_STRVAL_P(localeFromArray), languageTag)) {
+			add_next_index_string(return_value, languageTag);
+		}
 	ZEND_HASH_FOREACH_END();
+
+	if (localeString) {
+		zend_hash_destroy(localeArray);
+	}
 
 	if (EG(exception)) {
 		RETURN_THROWS();
