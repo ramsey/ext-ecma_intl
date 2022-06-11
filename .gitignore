@@ -34,13 +34,5 @@ phpt.*
 phpunit.xml
 run-test-info.php
 run-tests.php
-tests/**/*.db
-tests/**/*.diff
-tests/**/*.exp
-tests/**/*.log
-tests/**/*.mem
-tests/**/*.out
-tests/**/*.php
-tests/**/*.sh
 tmp-php.ini
 vendor

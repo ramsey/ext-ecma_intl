@@ -10,14 +10,28 @@
             "homepage": "https://benramsey.com"
         }
     ],
+    "require": {
+        "php": "^8.1"
+    },
     "require-dev": {
         "captainhook/captainhook": "^5.10",
         "captainhook/plugin-composer": "^5.3",
         "ergebnis/composer-normalize": "^2.28",
+        "hamcrest/hamcrest-php": "^2.0",
+        "mockery/mockery": "^1.5",
+        "phpunit/phpunit": "^9.5",
         "ramsey/conventional-commits": "^1.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "autoload-dev": {
+        "psr-4": {
+            "Ecma\\Test\\Intl\\": "tests/phpunit/"
+        },
+        "classmap": [
+            "src/ecma_intl.stub.php"
+        ]
+    },
     "config": {
         "allow-plugins": {
             "ergebnis/composer-normalize": true,
@@ -32,5 +46,25 @@
         "ramsey/conventional-commits": {
             "configFile": "conventional-commits.json"
         }
+    },
+    "scripts": {
+        "dev:build": "make all",
+        "dev:test": [
+            "@dev:build",
+            "@dev:test:phpt",
+            "@dev:test:phpunit"
+        ],
+        "dev:test:memcheck": "USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 php run-tests.php -q -m --show-diff --show-mem --color -n -d extension=\"$PWD/modules/ecma_intl.so\"",
+        "dev:test:phpt": "php run-tests.php -q --show-diff --color -n -d extension=\"$PWD/modules/ecma_intl.so\"",
+        "dev:test:phpunit": "php -n -d extension=\"$PWD/modules/ecma_intl.so\" vendor/bin/phpunit",
+        "test": "@dev:test"
+    },
+    "scripts-descriptions": {
+        "dev:build": "Compiles the extension with 'make all'.",
+        "dev:test": "Runs all PHPT and PHPUnit test suites.",
+        "dev:test:memcheck": "Runs PHPT tests through Valgrind to check for memory leaks.",
+        "dev:test:phpt": "Runs all PHPT tests.",
+        "dev:test:phpunit": "Runs all PHPUnit tests.",
+        "test": "Runs all PHPT and PHPUnit test suites."
     }
 }

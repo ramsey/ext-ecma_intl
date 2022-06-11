@@ -1,0 +1,106 @@
+# GitHub Actions Documentation: https://docs.github.com/en/actions
+
+name: "build"
+
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "*"
+  pull_request:
+    branches:
+      - "main"
+
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  memcheck:
+    name: "Test for Memory Leaks"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout repository"
+        uses: "actions/checkout@v3.0.1"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@2.18.1"
+        with:
+          php-version: "latest"
+          extensions: "intl-71.1"
+          coverage: "none"
+
+      - name: "Install Valgrind"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y valgrind
+
+      - name: "Install dependencies (Composer)"
+        uses: "ramsey/composer-install@2.1.0"
+
+      - name: "Build and install ecma_intl"
+        run: |
+          phpize
+          ./configure --enable-ecma_intl
+          make -j$(nproc)
+          sudo make install
+          sudo mkdir -p "$(php-config --ini-dir)"
+          sudo su -c "echo 'extension=ecma_intl.so' > '$(php-config --ini-dir)/99-ecma_intl.ini'"
+          php --ri ecma_intl
+
+      - name: "Run tests (phpt with memcheck)"
+        run: |
+          export USE_ZEND_ALLOC=0
+          export ZEND_DONT_UNLOAD_MODULES=1
+          php run-tests.php -q -m --show-diff --show-mem --color
+
+  tests:
+    name: "Tests: PHP ${{ matrix.php-version }}, ICU ${{ matrix.icu-version }}"
+    needs: ["memcheck"]
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "8.1"
+        icu-version:
+          - "67.1"
+          - "68.2"
+          - "69.1"
+          - "70.1"
+          - "71.1"
+
+    steps:
+      - name: "Checkout repository"
+        uses: "actions/checkout@v3.0.1"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@2.18.1"
+        with:
+          php-version: "${{ matrix.php-version }}"
+          extensions: "intl-${{ matrix.icu-version }}"
+          coverage: "none"
+
+      - name: "Install dependencies (Composer)"
+        uses: "ramsey/composer-install@2.1.0"
+
+      - name: "Build and install ecma_intl"
+        run: |
+          phpize
+          ./configure --enable-ecma_intl
+          make -j$(nproc)
+          sudo make install
+          sudo mkdir -p "$(php-config --ini-dir)"
+          sudo su -c "echo 'extension=ecma_intl.so' > '$(php-config --ini-dir)/99-ecma_intl.ini'"
+          php --ri ecma_intl
+
+      - name: "Run tests (phpt)"
+        run: "php run-tests.php -q --show-diff --color"
+
+      - name: "Run tests (phpunit)"
+        run: "php vendor/bin/phpunit"
