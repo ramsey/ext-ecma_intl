@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
+         xsi:schemaLocation="https://pear.php.net/dtd/tasks-1.0 https://pear.php.net/dtd/tasks-1.0.xsd https://pear.php.net/dtd/package-2.0 https://pear.php.net/dtd/package-2.0.xsd">
+    <name>ecma_intl</name>
+    <channel>pecl.php.net</channel>
+    <summary>ecma_intl i18n and l10n library</summary>
+    <description>
+        A PHP implementation of the ECMAScript 2023 Internationalization API
+        Specification (ECMA-402), this package provides an alternate interface
+        to the ICU library for internationalization and localization.
+    </description>
+    <lead>
+        <name>Ben Ramsey</name>
+        <user>ramsey</user>
+        <email>ben@benramsey.com</email>
+        <active>yes</active>
+    </lead>
+    <date>2022-06-05</date>
+    <version>
+        <release>0.1.0</release>
+        <api>0.1.0</api>
+    </version>
+    <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+    </stability>
+    <license uri="https://opensource.org/licenses/MIT">MIT</license>
+    <notes>
+        - TBD
+    </notes>
+    <contents>
+        <dir name="/">
+            <file name="config.m4" role="src"/>
+            <file name="CREDITS" role="doc"/>
+            <file name="LICENSE" role="doc"/>
+            <file name="php_ecma_intl.c" role="src"/>
+            <file name="php_ecma_intl.h" role="src"/>
+            <file name="README.md" role="doc"/>
+            <dir name="src">
+            </dir>
+            <dir name="tests">
+            </dir>
+        </dir>
+    </contents>
+    <dependencies>
+        <required>
+            <php>
+                <min>8.1.0</min>
+            </php>
+            <pearinstaller>
+                <min>1.4.3</min>
+            </pearinstaller>
+        </required>
+    </dependencies>
+    <providesextension>ecma_intl</providesextension>
+    <extsrcrelease/>
+    <changelog>
+        <release>
+            <date>2022-06-05</date>
+            <time>01:44:05</time>
+            <version>
+                <release>0.1.0</release>
+                <api>0.1.0</api>
+            </version>
+            <stability>
+                <release>alpha</release>
+                <api>alpha</api>
+            </stability>
+            <license uri="https://opensource.org/licenses/MIT">MIT</license>
+            <notes>
+                - TBD
+            </notes>
+        </release>
+    </changelog>
+</package>
