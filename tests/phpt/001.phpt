@@ -4,7 +4,7 @@ Check if ecma_intl is loaded
 ecma_intl
 --FILE--
 <?php
-echo 'The extension "ecma_intl" is available';
+var_export(extension_loaded('ecma_intl'));
 ?>
 --EXPECT--
-The extension "ecma_intl" is available
+true
