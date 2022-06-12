@@ -13,5 +13,6 @@
 /conventional-commits.json  export-ignore
 /docs/                      export-ignore
 /phpunit.xml.dist           export-ignore
+/resources/                 export-ignore
 /SECURITY.md                export-ignore
 /tests/                     export-ignore
