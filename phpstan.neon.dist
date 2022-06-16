@@ -1,0 +1,6 @@
+parameters:
+    level: max
+    stubFiles:
+        - ./src/ecma_intl.stub.php
+    paths:
+        - ./tests/phpunit

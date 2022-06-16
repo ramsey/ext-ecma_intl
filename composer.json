@@ -20,7 +20,14 @@
         "hamcrest/hamcrest-php": "^2.0",
         "mockery/mockery": "^1.5",
         "phpunit/phpunit": "^9.5",
-        "ramsey/conventional-commits": "^1.3"
+        "ramsey/conventional-commits": "^1.3",
+        "phpstan/phpstan": "^1.7",
+        "vimeo/psalm": "^4.23",
+        "psalm/plugin-phpunit": "^0.17.0",
+        "psalm/plugin-mockery": "^0.9.1",
+        "phpstan/phpstan-phpunit": "^1.1",
+        "phpstan/phpstan-mockery": "^1.1",
+        "phpstan/extension-installer": "^1.1"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -35,7 +42,8 @@
     "config": {
         "allow-plugins": {
             "ergebnis/composer-normalize": true,
-            "captainhook/plugin-composer": true
+            "captainhook/plugin-composer": true,
+            "phpstan/extension-installer": true
         },
         "sort-pacakges": true
     },
