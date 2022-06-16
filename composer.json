@@ -57,6 +57,10 @@
     },
     "scripts": {
         "dev:build": "make all",
+        "dev:clean": [
+            "echo $(make distclean 2> /dev/null) 2> /dev/null",
+            "git clean -fXd --exclude '!.idea' --exclude '!.idea/**' --exclude '!vendor' --exclude '!vendor/**' --exclude '!composer.lock'"
+        ],
         "dev:test": [
             "@dev:build",
             "@dev:test:phpt",
@@ -69,6 +73,7 @@
     },
     "scripts-descriptions": {
         "dev:build": "Compiles the extension with 'make all'.",
+        "dev:clean:deep": "Runs 'make distclean' and performs a git clean to remove only ignored files.",
         "dev:test": "Runs all PHPT and PHPUnit test suites.",
         "dev:test:memcheck": "Runs PHPT tests through Valgrind to check for memory leaks.",
         "dev:test:phpt": "Runs all PHPT tests.",
