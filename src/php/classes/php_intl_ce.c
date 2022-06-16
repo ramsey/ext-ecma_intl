@@ -60,9 +60,7 @@ PHP_METHOD(Ecma_Intl, getCanonicalLocales) {
 
   ZEND_HASH_FOREACH_VAL(localeArray, localeFromArray)
   if (Z_TYPE_P(localeFromArray) != IS_STRING) {
-    zend_throw_error(
-        zend_ce_value_error,
-        "The $locales argument must be type string or an array of type string");
+    zend_value_error("The $locales argument must be type string or an array of type string");
     RETURN_THROWS();
   }
   char bcp47LanguageTag[ULOC_FULLNAME_CAPACITY];
