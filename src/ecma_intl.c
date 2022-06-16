@@ -12,10 +12,9 @@
    |     https://opensource.org/licenses/MIT                              |
    |                                                                      |
    | Unless required by applicable law or agreed to in writing, software  |
-   | distributed under the License is IS PROVIDED "AS IS", WITHOUT        |
-   | WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. See the License for the    |
-   | specific language governing permissions and limitations under the    |
-   | License.                                                             |
+   | distributed under the License IS PROVIDED "AS IS", WITHOUT WARRANTY  |
+   | OF ANY KIND, EXPRESS OR IMPLIED. See the License for the specific    |
+   | language governing permissions and limitations under the License.    |
    +----------------------------------------------------------------------+
 */
 
@@ -31,12 +30,13 @@
 #include "ecma_intl.h"
 
 #include "src/ecma_intl_arginfo.h"
+#include "src/php/classes/php_exceptions_ce.h"
 
 #include <ext/standard/info.h>
 
 zend_module_entry ecma_intl_module_entry = {STANDARD_MODULE_HEADER,
                                             "ecma_intl",
-                                            ext_functions,
+                                            NULL,
                                             PHP_MINIT(ecma_intl),
                                             NULL,
                                             PHP_RINIT(ecma_intl),
@@ -53,6 +53,8 @@ ZEND_GET_MODULE(ecma_intl)
 #endif
 
 PHP_MINIT_FUNCTION(ecma_intl) {
+  ecmaIntlRegisterExceptionClasses();
+
   return SUCCESS;
 }
 

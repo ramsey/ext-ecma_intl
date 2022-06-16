@@ -18,22 +18,15 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef PHP_ECMA_INTL_H
-#define PHP_ECMA_INTL_H
+#ifndef ECMA_INTL_PHP_EXCEPTIONS_CE_H
+#define ECMA_INTL_PHP_EXCEPTIONS_CE_H
 
-#include "common.h"
+#include "src/common.h"
 
-extern zend_module_entry ecma_intl_module_entry;
-#define phpext_ecma_intl_ptr &ecma_intl_module_entry
+extern zend_class_entry *ecmaIntlIcuExceptionClass;
+extern zend_class_entry *ecmaIntlRangeErrorClass;
+extern zend_class_entry *ecmaIntlExceptionInterface;
 
-#define PHP_ECMA_INTL_VERSION "0.1.0"
+void ecmaIntlRegisterExceptionClasses(void);
 
-#if defined(ZTS) && defined(COMPILE_DL_ECMA_INTL)
-ZEND_TSRMLS_CACHE_EXTERN()
-#endif
-
-PHP_MINIT_FUNCTION(ecma_intl);
-PHP_RINIT_FUNCTION(ecma_intl);
-PHP_MINFO_FUNCTION(ecma_intl);
-
-#endif /* PHP_ECMA_INTL_H */
+#endif /* ECMA_INTL_PHP_EXCEPTIONS_CE_H */

@@ -22,7 +22,7 @@ if test "$PHP_ECMA_INTL" != "no"; then
   PHP_NEW_EXTENSION(ecma_intl,                                                 \
                                                                                \
     src/ecma_intl.c                                                            \
-    src/functions.c                                                            \
+    src/php/classes/php_exceptions_ce.c                                        \
                                                                                \
     , $ext_shared, , $ECMA_INTL_COMMON_FLAGS, cxx)
 
