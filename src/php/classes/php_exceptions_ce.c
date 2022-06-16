@@ -18,22 +18,23 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef PHP_ECMA_INTL_H
-#define PHP_ECMA_INTL_H
+#include "php_exceptions_ce.h"
 
-#include "common.h"
+#include <Zend/zend_exceptions.h>
+#include <ext/spl/spl_exceptions.h>
 
-extern zend_module_entry ecma_intl_module_entry;
-#define phpext_ecma_intl_ptr &ecma_intl_module_entry
+#include "src/ecma_intl_arginfo.h"
 
-#define PHP_ECMA_INTL_VERSION "0.1.0"
+zend_class_entry *ecmaIntlIcuExceptionClass = NULL;
+zend_class_entry *ecmaIntlRangeErrorClass = NULL;
+zend_class_entry *ecmaIntlExceptionInterface = NULL;
 
-#if defined(ZTS) && defined(COMPILE_DL_ECMA_INTL)
-ZEND_TSRMLS_CACHE_EXTERN()
-#endif
+void ecmaIntlRegisterExceptionClasses() {
+  ecmaIntlExceptionInterface = register_class_Ecma_Intl_Exception();
 
-PHP_MINIT_FUNCTION(ecma_intl);
-PHP_RINIT_FUNCTION(ecma_intl);
-PHP_MINFO_FUNCTION(ecma_intl);
+  ecmaIntlIcuExceptionClass = register_class_Ecma_Intl_IcuException(
+      spl_ce_RuntimeException, ecmaIntlExceptionInterface);
 
-#endif /* PHP_ECMA_INTL_H */
+  ecmaIntlRangeErrorClass = register_class_Ecma_Intl_RangeError(
+      zend_ce_value_error, ecmaIntlExceptionInterface);
+}

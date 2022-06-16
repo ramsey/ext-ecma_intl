@@ -1,20 +1,51 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: efdd79c2c8ccff694699c86fdd6248a13839c744 */
-
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_test1, 0, 0, IS_VOID, 0)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_test2, 0, 0, IS_STRING, 0)
-	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, str, IS_STRING, 0, "\"\"")
-ZEND_END_ARG_INFO()
+ * Stub hash: 6274855dc17f45f7aaef9ab154a755b4f8076565 */
 
 
-ZEND_FUNCTION(test1);
-ZEND_FUNCTION(test2);
 
 
-static const zend_function_entry ext_functions[] = {
-	ZEND_FE(test1, arginfo_test1)
-	ZEND_FE(test2, arginfo_test2)
+static const zend_function_entry class_Ecma_Intl_Exception_methods[] = {
 	ZEND_FE_END
 };
+
+
+static const zend_function_entry class_Ecma_Intl_IcuException_methods[] = {
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_Ecma_Intl_RangeError_methods[] = {
+	ZEND_FE_END
+};
+
+static zend_class_entry *register_class_Ecma_Intl_Exception(void)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl", "Exception", class_Ecma_Intl_Exception_methods);
+	class_entry = zend_register_internal_interface(&ce);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_IcuException(zend_class_entry *class_entry_RuntimeException, zend_class_entry *class_entry_Ecma_Intl_Exception)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl", "IcuException", class_Ecma_Intl_IcuException_methods);
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_RuntimeException);
+	zend_class_implements(class_entry, 1, class_entry_Ecma_Intl_Exception);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_RangeError(zend_class_entry *class_entry_ValueError, zend_class_entry *class_entry_Ecma_Intl_Exception)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl", "RangeError", class_Ecma_Intl_RangeError_methods);
+	class_entry = zend_register_internal_class_ex(&ce, class_entry_ValueError);
+	zend_class_implements(class_entry, 1, class_entry_Ecma_Intl_Exception);
+
+	return class_entry;
+}
