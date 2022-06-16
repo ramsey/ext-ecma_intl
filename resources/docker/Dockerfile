@@ -80,7 +80,7 @@ RUN cd /tmp \
     && rm -rf /tmp/php-8.1.7 /tmp/php-8.1.7.tar.xz
 
 # Prepare for running tests with ecma_intl from JetBrains CLion.
-RUN ln -fs /tmp/ecma_intl/modules/ecma_intl.so "$(php-config --extension-dir)/ecma_intl.so"
+RUN ln -fs /tmp/ext-ecma_intl/modules/ecma_intl.so "$(php-config --extension-dir)/ecma_intl.so"
 
 # Add additional tools
 COPY composer-install.sh /usr/bin
@@ -90,4 +90,4 @@ RUN apt-get update \
     && mv composer.phar /usr/bin/composer \
     && rm /usr/bin/composer-install.sh
 
-WORKDIR /tmp/ecma_intl
+WORKDIR /tmp/ext-ecma_intl

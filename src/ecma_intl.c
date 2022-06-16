@@ -31,6 +31,7 @@
 
 #include "src/ecma_intl_arginfo.h"
 #include "src/php/classes/php_exceptions_ce.h"
+#include "src/php/classes/php_intl_ce.h"
 
 #include <ext/standard/info.h>
 
@@ -54,6 +55,7 @@ ZEND_GET_MODULE(ecma_intl)
 
 PHP_MINIT_FUNCTION(ecma_intl) {
   ecmaIntlRegisterExceptionClasses();
+  ecmaIntlRegisterClass();
 
   return SUCCESS;
 }

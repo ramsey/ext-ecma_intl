@@ -88,13 +88,6 @@ class IntlTest extends TestCase
     public function getCanonicalLocalesThrowsValueErrorForInvalidValuesProvider(): array
     {
         return [
-            ['input' => null],
-            ['input' => 1234],
-            ['input' => 1234.56],
-            ['input' => true],
-            ['input' => false],
-            ['input' => 0],
-            ['input' => new stdClass()],
             ['input' => [null]],
             ['input' => [1234]],
             ['input' => [1234.56]],
@@ -116,7 +109,7 @@ class IntlTest extends TestCase
         array | string $input,
         string $expectedInvalidTag = ''
     ): void {
-        if (is_string($input)) {
+        if (is_string($input) && !$expectedInvalidTag) {
             $expectedInvalidTag = $input;
         }
 
