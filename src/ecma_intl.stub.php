@@ -37,6 +37,15 @@ namespace Ecma
         public static function getCanonicalLocales(array|string $locales): array {}
 
         /**
+         * Returns an array containing the values for the given category (i.e.,
+         * calendar, collation, currency, numbering system, etc.) that are
+         * supported by this implementation
+         *
+         * @return string[]
+         */
+        public static function supportedValuesOf(Intl\Category $category): array {}
+
+        /**
          * Intl may not be instantiated
          */
         private function __construct() {}
@@ -45,6 +54,23 @@ namespace Ecma
 
 namespace Ecma\Intl
 {
+    /**
+     * Category represents a category of values supported by this implementation
+     *
+     * @see \Ecma\Intl::supportedValuesOf()
+     * @link https://tc39.es/proposal-intl-enumeration/#sec-intl.supportedvaluesof Intl Enumeration API Specification
+     * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/supportedValuesOf MDN: Intl.supportedValuesOf()
+     */
+    enum Category: string
+    {
+        case Calendar = 'calendar';
+        case Collation = 'collation';
+        case Currency = 'currency';
+        case NumberingSystem = 'numberingSystem';
+        case TimeZone = 'timeZone';
+        case Unit = 'unit';
+    }
+
     /**
      * Exception is the base interface for ecma_intl errors and exceptions
      */

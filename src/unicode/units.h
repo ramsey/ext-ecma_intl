@@ -18,24 +18,21 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_COMMON_H
-#define ECMA_INTL_COMMON_H
+#ifndef ECMA_INTL_UNITS_H
+#define ECMA_INTL_UNITS_H
 
-#include <php.h>
-#include <zend_enum.h>
+#include <unicode/errorcode.h>
+#include <unicode/uenum.h>
 
-#define CATEGORY_CALENDAR "calendar"
-#define CATEGORY_COLLATION "collation"
-#define CATEGORY_CURRENCY "currency"
-#define CATEGORY_NUMBERING_SYSTEM "numberingSystem"
-#define CATEGORY_TIME_ZONE "timeZone"
-#define CATEGORY_UNIT "unit"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#define KEYWORD_ICU_CALENDAR "calendar"
-#define KEYWORD_ICU_CASE_FIRST "colcasefirst"
-#define KEYWORD_ICU_COLLATION "collation"
-#define KEYWORD_ICU_HOUR_CYCLE "hours"
-#define KEYWORD_ICU_NUMBERING_SYSTEM "numbers"
-#define KEYWORD_ICU_NUMERIC "colnumeric"
+UEnumeration *icuGetMeasurementUnits(const char **units,
+                                     const UErrorCode *errorCode);
 
-#endif /* ECMA_INTL_COMMON_H */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* ECMA_INTL_UNITS_H */

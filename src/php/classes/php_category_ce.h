@@ -18,24 +18,13 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_COMMON_H
-#define ECMA_INTL_COMMON_H
+#ifndef ECMA_INTL_PHP_CATEGORY_CE_H
+#define ECMA_INTL_PHP_CATEGORY_CE_H
 
-#include <php.h>
-#include <zend_enum.h>
+#include "src/common.h"
 
-#define CATEGORY_CALENDAR "calendar"
-#define CATEGORY_COLLATION "collation"
-#define CATEGORY_CURRENCY "currency"
-#define CATEGORY_NUMBERING_SYSTEM "numberingSystem"
-#define CATEGORY_TIME_ZONE "timeZone"
-#define CATEGORY_UNIT "unit"
+extern zend_class_entry *ecmaIntlCategoryEnum;
 
-#define KEYWORD_ICU_CALENDAR "calendar"
-#define KEYWORD_ICU_CASE_FIRST "colcasefirst"
-#define KEYWORD_ICU_COLLATION "collation"
-#define KEYWORD_ICU_HOUR_CYCLE "hours"
-#define KEYWORD_ICU_NUMBERING_SYSTEM "numbers"
-#define KEYWORD_ICU_NUMERIC "colnumeric"
+void ecmaIntlCategoryRegisterEnum(void);
 
-#endif /* ECMA_INTL_COMMON_H */
+#endif /* ECMA_INTL_PHP_CATEGORY_CE_H */
