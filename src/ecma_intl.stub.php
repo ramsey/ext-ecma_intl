@@ -34,32 +34,66 @@ namespace Ecma
          *
          * @return string[]
          */
-        public static function getCanonicalLocales(array|string $locales): array {}
+        public static function getCanonicalLocales(array|string $locales): array
+        {
+        }
 
         /**
          * Returns an array containing the values for the given category (i.e.,
          * calendar, collation, currency, numbering system, etc.) that are
          * supported by this implementation
          *
+         * @link https://tc39.es/proposal-intl-enumeration/#sec-intl.supportedvaluesof Intl Enumeration API Specification
+         * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/supportedValuesOf MDN: Intl.supportedValuesOf()
+         *
          * @return string[]
          */
-        public static function supportedValuesOf(Intl\Category $category): array {}
+        public static function supportedValuesOf(Intl\Category $category): array
+        {
+        }
 
         /**
          * Intl may not be instantiated
          */
-        private function __construct() {}
+        private function __construct()
+        {
+        }
     }
 }
 
 namespace Ecma\Intl
 {
     /**
-     * Category represents a category of values supported by this implementation
+     * Calendars
+     *
+     * @link https://github.com/unicode-org/cldr/blob/main/common/bcp47/calendar.xml Unicode CLDR calendar values
+     */
+    enum Calendar: string
+    {
+        case Buddhist = 'buddhist';
+        case Chinese = 'chinese';
+        case Coptic = 'coptic';
+        case Dangi = 'dangi';
+        case Ethioaa = 'ethioaa';
+        case Ethiopic = 'ethiopic';
+        case Gregory = 'gregory';
+        case Hebrew = 'hebrew';
+        case Indian = 'indian';
+        case Islamic = 'islamic';
+        case IslamicCivil = 'islamic-civil';
+        case IslamicRgsa = 'islamic-rgsa';
+        case IslamicTbla = 'islamic-tbla';
+        case IslamicUmalqura = 'islamic-umalqura';
+        case Iso8601 = 'iso8601';
+        case Japanese = 'japanese';
+        case Persian = 'persian';
+        case Roc = 'roc';
+    }
+
+    /**
+     * Values categories supported by this implementation
      *
      * @see \Ecma\Intl::supportedValuesOf()
-     * @link https://tc39.es/proposal-intl-enumeration/#sec-intl.supportedvaluesof Intl Enumeration API Specification
-     * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/supportedValuesOf MDN: Intl.supportedValuesOf()
      */
     enum Category: string
     {

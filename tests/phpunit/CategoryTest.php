@@ -13,7 +13,7 @@ class CategoryTest extends TestCase
      */
     public function testCategoryValues(Category $category, string $expectedValue): void
     {
-        $this->assertSame($expectedValue, json_encode($category));
+        $this->assertSame($expectedValue, $category->value);
     }
 
     /**
@@ -24,27 +24,27 @@ class CategoryTest extends TestCase
         return [
             [
                 'category' => Category::Calendar,
-                'expectedValue' => '"calendar"',
+                'expectedValue' => 'calendar',
             ],
             [
                 'category' => Category::Collation,
-                'expectedValue' => '"collation"',
+                'expectedValue' => 'collation',
             ],
             [
                 'category' => Category::Currency,
-                'expectedValue' => '"currency"',
+                'expectedValue' => 'currency',
             ],
             [
                 'category' => Category::NumberingSystem,
-                'expectedValue' => '"numberingSystem"',
+                'expectedValue' => 'numberingSystem',
             ],
             [
                 'category' => Category::TimeZone,
-                'expectedValue' => '"timeZone"',
+                'expectedValue' => 'timeZone',
             ],
             [
                 'category' => Category::Unit,
-                'expectedValue' => '"unit"',
+                'expectedValue' => 'unit',
             ],
         ];
     }
