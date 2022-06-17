@@ -23,6 +23,7 @@ if test "$PHP_ECMA_INTL" != "no"; then
                                                                                \
     src/ecma_intl.c                                                            \
     src/php/classes/php_calendar_ce.c                                          \
+    src/php/classes/php_case_first_ce.c                                        \
     src/php/classes/php_category_ce.c                                          \
     src/php/classes/php_exceptions_ce.c                                        \
     src/php/classes/php_intl_ce.c                                              \
