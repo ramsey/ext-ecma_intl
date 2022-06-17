@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: a8d240892b2bf497289b3dc6a9140d83bad63704 */
+ * Stub hash: 3135be929ccb8423314a55edbc30ca76b122b59e */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Ecma_Intl_getCanonicalLocales, 0, 1, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_MASK(0, locales, MAY_BE_ARRAY|MAY_BE_STRING, NULL)
@@ -22,6 +22,11 @@ static const zend_function_entry class_Ecma_Intl_methods[] = {
 	ZEND_ME(Ecma_Intl, getCanonicalLocales, arginfo_class_Ecma_Intl_getCanonicalLocales, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(Ecma_Intl, supportedValuesOf, arginfo_class_Ecma_Intl_supportedValuesOf, ZEND_ACC_PUBLIC|ZEND_ACC_STATIC)
 	ZEND_ME(Ecma_Intl, __construct, arginfo_class_Ecma_Intl___construct, ZEND_ACC_PRIVATE)
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_Ecma_Intl_Calendar_methods[] = {
 	ZEND_FE_END
 };
 
@@ -52,6 +57,103 @@ static zend_class_entry *register_class_Ecma_Intl(void)
 	INIT_NS_CLASS_ENTRY(ce, "Ecma", "Intl", class_Ecma_Intl_methods);
 	class_entry = zend_register_internal_class_ex(&ce, NULL);
 	class_entry->ce_flags |= ZEND_ACC_FINAL;
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_Calendar(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("Ecma\\Intl\\Calendar", IS_STRING, class_Ecma_Intl_Calendar_methods);
+
+	zval enum_case_Buddhist_value;
+	zend_string *enum_case_Buddhist_value_str = zend_string_init("buddhist", sizeof("buddhist") - 1, 1);
+	ZVAL_STR(&enum_case_Buddhist_value, enum_case_Buddhist_value_str);
+	zend_enum_add_case_cstr(class_entry, "Buddhist", &enum_case_Buddhist_value);
+
+	zval enum_case_Chinese_value;
+	zend_string *enum_case_Chinese_value_str = zend_string_init("chinese", sizeof("chinese") - 1, 1);
+	ZVAL_STR(&enum_case_Chinese_value, enum_case_Chinese_value_str);
+	zend_enum_add_case_cstr(class_entry, "Chinese", &enum_case_Chinese_value);
+
+	zval enum_case_Coptic_value;
+	zend_string *enum_case_Coptic_value_str = zend_string_init("coptic", sizeof("coptic") - 1, 1);
+	ZVAL_STR(&enum_case_Coptic_value, enum_case_Coptic_value_str);
+	zend_enum_add_case_cstr(class_entry, "Coptic", &enum_case_Coptic_value);
+
+	zval enum_case_Dangi_value;
+	zend_string *enum_case_Dangi_value_str = zend_string_init("dangi", sizeof("dangi") - 1, 1);
+	ZVAL_STR(&enum_case_Dangi_value, enum_case_Dangi_value_str);
+	zend_enum_add_case_cstr(class_entry, "Dangi", &enum_case_Dangi_value);
+
+	zval enum_case_Ethioaa_value;
+	zend_string *enum_case_Ethioaa_value_str = zend_string_init("ethioaa", sizeof("ethioaa") - 1, 1);
+	ZVAL_STR(&enum_case_Ethioaa_value, enum_case_Ethioaa_value_str);
+	zend_enum_add_case_cstr(class_entry, "Ethioaa", &enum_case_Ethioaa_value);
+
+	zval enum_case_Ethiopic_value;
+	zend_string *enum_case_Ethiopic_value_str = zend_string_init("ethiopic", sizeof("ethiopic") - 1, 1);
+	ZVAL_STR(&enum_case_Ethiopic_value, enum_case_Ethiopic_value_str);
+	zend_enum_add_case_cstr(class_entry, "Ethiopic", &enum_case_Ethiopic_value);
+
+	zval enum_case_Gregory_value;
+	zend_string *enum_case_Gregory_value_str = zend_string_init("gregory", sizeof("gregory") - 1, 1);
+	ZVAL_STR(&enum_case_Gregory_value, enum_case_Gregory_value_str);
+	zend_enum_add_case_cstr(class_entry, "Gregory", &enum_case_Gregory_value);
+
+	zval enum_case_Hebrew_value;
+	zend_string *enum_case_Hebrew_value_str = zend_string_init("hebrew", sizeof("hebrew") - 1, 1);
+	ZVAL_STR(&enum_case_Hebrew_value, enum_case_Hebrew_value_str);
+	zend_enum_add_case_cstr(class_entry, "Hebrew", &enum_case_Hebrew_value);
+
+	zval enum_case_Indian_value;
+	zend_string *enum_case_Indian_value_str = zend_string_init("indian", sizeof("indian") - 1, 1);
+	ZVAL_STR(&enum_case_Indian_value, enum_case_Indian_value_str);
+	zend_enum_add_case_cstr(class_entry, "Indian", &enum_case_Indian_value);
+
+	zval enum_case_Islamic_value;
+	zend_string *enum_case_Islamic_value_str = zend_string_init("islamic", sizeof("islamic") - 1, 1);
+	ZVAL_STR(&enum_case_Islamic_value, enum_case_Islamic_value_str);
+	zend_enum_add_case_cstr(class_entry, "Islamic", &enum_case_Islamic_value);
+
+	zval enum_case_IslamicCivil_value;
+	zend_string *enum_case_IslamicCivil_value_str = zend_string_init("islamic-civil", sizeof("islamic-civil") - 1, 1);
+	ZVAL_STR(&enum_case_IslamicCivil_value, enum_case_IslamicCivil_value_str);
+	zend_enum_add_case_cstr(class_entry, "IslamicCivil", &enum_case_IslamicCivil_value);
+
+	zval enum_case_IslamicRgsa_value;
+	zend_string *enum_case_IslamicRgsa_value_str = zend_string_init("islamic-rgsa", sizeof("islamic-rgsa") - 1, 1);
+	ZVAL_STR(&enum_case_IslamicRgsa_value, enum_case_IslamicRgsa_value_str);
+	zend_enum_add_case_cstr(class_entry, "IslamicRgsa", &enum_case_IslamicRgsa_value);
+
+	zval enum_case_IslamicTbla_value;
+	zend_string *enum_case_IslamicTbla_value_str = zend_string_init("islamic-tbla", sizeof("islamic-tbla") - 1, 1);
+	ZVAL_STR(&enum_case_IslamicTbla_value, enum_case_IslamicTbla_value_str);
+	zend_enum_add_case_cstr(class_entry, "IslamicTbla", &enum_case_IslamicTbla_value);
+
+	zval enum_case_IslamicUmalqura_value;
+	zend_string *enum_case_IslamicUmalqura_value_str = zend_string_init("islamic-umalqura", sizeof("islamic-umalqura") - 1, 1);
+	ZVAL_STR(&enum_case_IslamicUmalqura_value, enum_case_IslamicUmalqura_value_str);
+	zend_enum_add_case_cstr(class_entry, "IslamicUmalqura", &enum_case_IslamicUmalqura_value);
+
+	zval enum_case_Iso8601_value;
+	zend_string *enum_case_Iso8601_value_str = zend_string_init("iso8601", sizeof("iso8601") - 1, 1);
+	ZVAL_STR(&enum_case_Iso8601_value, enum_case_Iso8601_value_str);
+	zend_enum_add_case_cstr(class_entry, "Iso8601", &enum_case_Iso8601_value);
+
+	zval enum_case_Japanese_value;
+	zend_string *enum_case_Japanese_value_str = zend_string_init("japanese", sizeof("japanese") - 1, 1);
+	ZVAL_STR(&enum_case_Japanese_value, enum_case_Japanese_value_str);
+	zend_enum_add_case_cstr(class_entry, "Japanese", &enum_case_Japanese_value);
+
+	zval enum_case_Persian_value;
+	zend_string *enum_case_Persian_value_str = zend_string_init("persian", sizeof("persian") - 1, 1);
+	ZVAL_STR(&enum_case_Persian_value, enum_case_Persian_value_str);
+	zend_enum_add_case_cstr(class_entry, "Persian", &enum_case_Persian_value);
+
+	zval enum_case_Roc_value;
+	zend_string *enum_case_Roc_value_str = zend_string_init("roc", sizeof("roc") - 1, 1);
+	ZVAL_STR(&enum_case_Roc_value, enum_case_Roc_value_str);
+	zend_enum_add_case_cstr(class_entry, "Roc", &enum_case_Roc_value);
 
 	return class_entry;
 }
