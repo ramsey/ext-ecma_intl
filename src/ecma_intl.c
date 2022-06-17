@@ -32,6 +32,7 @@
 #include "src/ecma_intl_arginfo.h"
 #include "src/php/classes/php_calendar_ce.h"
 #include "src/php/classes/php_category_ce.h"
+#include "src/php/classes/php_case_first_ce.h"
 #include "src/php/classes/php_exceptions_ce.h"
 #include "src/php/classes/php_intl_ce.h"
 
@@ -57,6 +58,7 @@ ZEND_GET_MODULE(ecma_intl)
 
 PHP_MINIT_FUNCTION(ecma_intl) {
   ecmaIntlCalendarRegisterEnum();
+  ecmaIntlCaseFirstRegisterEnum();
   ecmaIntlCategoryRegisterEnum();
   ecmaIntlRegisterExceptionClasses();
   ecmaIntlRegisterClass();
