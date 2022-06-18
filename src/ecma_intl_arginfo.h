@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 5f5d5a4bff2756a73c41bdfdd6d8b89af187653e */
+ * Stub hash: 3f8886d8cc9c1cfe33159549653e643421180a29 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Ecma_Intl_getCanonicalLocales, 0, 1, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_MASK(0, locales, MAY_BE_ARRAY|MAY_BE_STRING, NULL)
@@ -42,6 +42,11 @@ static const zend_function_entry class_Ecma_Intl_CaseFirst_methods[] = {
 
 
 static const zend_function_entry class_Ecma_Intl_Exception_methods[] = {
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_Ecma_Intl_HourCycle_methods[] = {
 	ZEND_FE_END
 };
 
@@ -228,6 +233,33 @@ static zend_class_entry *register_class_Ecma_Intl_Exception(void)
 
 	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl", "Exception", class_Ecma_Intl_Exception_methods);
 	class_entry = zend_register_internal_interface(&ce);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_HourCycle(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("Ecma\\Intl\\HourCycle", IS_STRING, class_Ecma_Intl_HourCycle_methods);
+
+	zval enum_case_H11_value;
+	zend_string *enum_case_H11_value_str = zend_string_init("h11", sizeof("h11") - 1, 1);
+	ZVAL_STR(&enum_case_H11_value, enum_case_H11_value_str);
+	zend_enum_add_case_cstr(class_entry, "H11", &enum_case_H11_value);
+
+	zval enum_case_H12_value;
+	zend_string *enum_case_H12_value_str = zend_string_init("h12", sizeof("h12") - 1, 1);
+	ZVAL_STR(&enum_case_H12_value, enum_case_H12_value_str);
+	zend_enum_add_case_cstr(class_entry, "H12", &enum_case_H12_value);
+
+	zval enum_case_H23_value;
+	zend_string *enum_case_H23_value_str = zend_string_init("h23", sizeof("h23") - 1, 1);
+	ZVAL_STR(&enum_case_H23_value, enum_case_H23_value_str);
+	zend_enum_add_case_cstr(class_entry, "H23", &enum_case_H23_value);
+
+	zval enum_case_H24_value;
+	zend_string *enum_case_H24_value_str = zend_string_init("h24", sizeof("h24") - 1, 1);
+	ZVAL_STR(&enum_case_H24_value, enum_case_H24_value_str);
+	zend_enum_add_case_cstr(class_entry, "H24", &enum_case_H24_value);
 
 	return class_entry;
 }
