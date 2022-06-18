@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 3f8886d8cc9c1cfe33159549653e643421180a29 */
+ * Stub hash: 8a98147c732f0779e67a6a6b8327b13c42774d20 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Ecma_Intl_getCanonicalLocales, 0, 1, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_MASK(0, locales, MAY_BE_ARRAY|MAY_BE_STRING, NULL)
@@ -37,6 +37,11 @@ static const zend_function_entry class_Ecma_Intl_Category_methods[] = {
 
 
 static const zend_function_entry class_Ecma_Intl_CaseFirst_methods[] = {
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_Ecma_Intl_Collation_methods[] = {
 	ZEND_FE_END
 };
 
@@ -223,6 +228,108 @@ static zend_class_entry *register_class_Ecma_Intl_CaseFirst(void)
 	zend_string *enum_case_Upper_value_str = zend_string_init("upper", sizeof("upper") - 1, 1);
 	ZVAL_STR(&enum_case_Upper_value, enum_case_Upper_value_str);
 	zend_enum_add_case_cstr(class_entry, "Upper", &enum_case_Upper_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_Collation(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("Ecma\\Intl\\Collation", IS_STRING, class_Ecma_Intl_Collation_methods);
+
+	zval enum_case_Big5han_value;
+	zend_string *enum_case_Big5han_value_str = zend_string_init("big5han", sizeof("big5han") - 1, 1);
+	ZVAL_STR(&enum_case_Big5han_value, enum_case_Big5han_value_str);
+	zend_enum_add_case_cstr(class_entry, "Big5han", &enum_case_Big5han_value);
+
+	zval enum_case_Compat_value;
+	zend_string *enum_case_Compat_value_str = zend_string_init("compat", sizeof("compat") - 1, 1);
+	ZVAL_STR(&enum_case_Compat_value, enum_case_Compat_value_str);
+	zend_enum_add_case_cstr(class_entry, "Compat", &enum_case_Compat_value);
+
+	zval enum_case_Dict_value;
+	zend_string *enum_case_Dict_value_str = zend_string_init("dict", sizeof("dict") - 1, 1);
+	ZVAL_STR(&enum_case_Dict_value, enum_case_Dict_value_str);
+	zend_enum_add_case_cstr(class_entry, "Dict", &enum_case_Dict_value);
+
+	zval enum_case_Direct_value;
+	zend_string *enum_case_Direct_value_str = zend_string_init("direct", sizeof("direct") - 1, 1);
+	ZVAL_STR(&enum_case_Direct_value, enum_case_Direct_value_str);
+	zend_enum_add_case_cstr(class_entry, "Direct", &enum_case_Direct_value);
+
+	zval enum_case_Ducet_value;
+	zend_string *enum_case_Ducet_value_str = zend_string_init("ducet", sizeof("ducet") - 1, 1);
+	ZVAL_STR(&enum_case_Ducet_value, enum_case_Ducet_value_str);
+	zend_enum_add_case_cstr(class_entry, "Ducet", &enum_case_Ducet_value);
+
+	zval enum_case_Emoji_value;
+	zend_string *enum_case_Emoji_value_str = zend_string_init("emoji", sizeof("emoji") - 1, 1);
+	ZVAL_STR(&enum_case_Emoji_value, enum_case_Emoji_value_str);
+	zend_enum_add_case_cstr(class_entry, "Emoji", &enum_case_Emoji_value);
+
+	zval enum_case_Eor_value;
+	zend_string *enum_case_Eor_value_str = zend_string_init("eor", sizeof("eor") - 1, 1);
+	ZVAL_STR(&enum_case_Eor_value, enum_case_Eor_value_str);
+	zend_enum_add_case_cstr(class_entry, "Eor", &enum_case_Eor_value);
+
+	zval enum_case_Gb2312_value;
+	zend_string *enum_case_Gb2312_value_str = zend_string_init("gb2312", sizeof("gb2312") - 1, 1);
+	ZVAL_STR(&enum_case_Gb2312_value, enum_case_Gb2312_value_str);
+	zend_enum_add_case_cstr(class_entry, "Gb2312", &enum_case_Gb2312_value);
+
+	zval enum_case_Phonebk_value;
+	zend_string *enum_case_Phonebk_value_str = zend_string_init("phonebk", sizeof("phonebk") - 1, 1);
+	ZVAL_STR(&enum_case_Phonebk_value, enum_case_Phonebk_value_str);
+	zend_enum_add_case_cstr(class_entry, "Phonebk", &enum_case_Phonebk_value);
+
+	zval enum_case_Phonetic_value;
+	zend_string *enum_case_Phonetic_value_str = zend_string_init("phonetic", sizeof("phonetic") - 1, 1);
+	ZVAL_STR(&enum_case_Phonetic_value, enum_case_Phonetic_value_str);
+	zend_enum_add_case_cstr(class_entry, "Phonetic", &enum_case_Phonetic_value);
+
+	zval enum_case_Pinyin_value;
+	zend_string *enum_case_Pinyin_value_str = zend_string_init("pinyin", sizeof("pinyin") - 1, 1);
+	ZVAL_STR(&enum_case_Pinyin_value, enum_case_Pinyin_value_str);
+	zend_enum_add_case_cstr(class_entry, "Pinyin", &enum_case_Pinyin_value);
+
+	zval enum_case_Reformed_value;
+	zend_string *enum_case_Reformed_value_str = zend_string_init("reformed", sizeof("reformed") - 1, 1);
+	ZVAL_STR(&enum_case_Reformed_value, enum_case_Reformed_value_str);
+	zend_enum_add_case_cstr(class_entry, "Reformed", &enum_case_Reformed_value);
+
+	zval enum_case_Search_value;
+	zend_string *enum_case_Search_value_str = zend_string_init("search", sizeof("search") - 1, 1);
+	ZVAL_STR(&enum_case_Search_value, enum_case_Search_value_str);
+	zend_enum_add_case_cstr(class_entry, "Search", &enum_case_Search_value);
+
+	zval enum_case_Searchjl_value;
+	zend_string *enum_case_Searchjl_value_str = zend_string_init("searchjl", sizeof("searchjl") - 1, 1);
+	ZVAL_STR(&enum_case_Searchjl_value, enum_case_Searchjl_value_str);
+	zend_enum_add_case_cstr(class_entry, "Searchjl", &enum_case_Searchjl_value);
+
+	zval enum_case_Standard_value;
+	zend_string *enum_case_Standard_value_str = zend_string_init("standard", sizeof("standard") - 1, 1);
+	ZVAL_STR(&enum_case_Standard_value, enum_case_Standard_value_str);
+	zend_enum_add_case_cstr(class_entry, "Standard", &enum_case_Standard_value);
+
+	zval enum_case_Stroke_value;
+	zend_string *enum_case_Stroke_value_str = zend_string_init("stroke", sizeof("stroke") - 1, 1);
+	ZVAL_STR(&enum_case_Stroke_value, enum_case_Stroke_value_str);
+	zend_enum_add_case_cstr(class_entry, "Stroke", &enum_case_Stroke_value);
+
+	zval enum_case_Trad_value;
+	zend_string *enum_case_Trad_value_str = zend_string_init("trad", sizeof("trad") - 1, 1);
+	ZVAL_STR(&enum_case_Trad_value, enum_case_Trad_value_str);
+	zend_enum_add_case_cstr(class_entry, "Trad", &enum_case_Trad_value);
+
+	zval enum_case_Unihan_value;
+	zend_string *enum_case_Unihan_value_str = zend_string_init("unihan", sizeof("unihan") - 1, 1);
+	ZVAL_STR(&enum_case_Unihan_value, enum_case_Unihan_value_str);
+	zend_enum_add_case_cstr(class_entry, "Unihan", &enum_case_Unihan_value);
+
+	zval enum_case_Zhuyin_value;
+	zend_string *enum_case_Zhuyin_value_str = zend_string_init("zhuyin", sizeof("zhuyin") - 1, 1);
+	ZVAL_STR(&enum_case_Zhuyin_value, enum_case_Zhuyin_value_str);
+	zend_enum_add_case_cstr(class_entry, "Zhuyin", &enum_case_Zhuyin_value);
 
 	return class_entry;
 }

@@ -122,6 +122,34 @@ namespace Ecma\Intl
     }
 
     /**
+     * Values for collation (co) options
+     *
+     * @link https://github.com/unicode-org/cldr/blob/main/common/bcp47/collation.xml Unicode CLDR collation values
+     */
+    enum Collation: string
+    {
+        case Big5han = 'big5han';
+        case Compat = 'compat';
+        case Dict = 'dict';
+        case Direct = 'direct';
+        case Ducet = 'ducet';
+        case Emoji = 'emoji';
+        case Eor = 'eor';
+        case Gb2312 = 'gb2312';
+        case Phonebk = 'phonebk';
+        case Phonetic = 'phonetic';
+        case Pinyin = 'pinyin';
+        case Reformed = 'reformed';
+        case Search = 'search';
+        case Searchjl = 'searchjl';
+        case Standard = 'standard';
+        case Stroke = 'stroke';
+        case Trad = 'trad';
+        case Unihan = 'unihan';
+        case Zhuyin = 'zhuyin';
+    }
+
+    /**
      * Exception is the base interface for ecma_intl errors and exceptions
      */
     interface Exception
