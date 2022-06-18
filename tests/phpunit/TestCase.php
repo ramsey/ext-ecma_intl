@@ -13,6 +13,9 @@ abstract class TestCase extends PHPUnitTestCase
 {
     use MockeryPHPUnitIntegration;
 
+    protected $backupStaticAttributes = false;
+    protected $runTestInSeparateProcess = false;
+
     /**
      * Configures and returns a mock object
      *

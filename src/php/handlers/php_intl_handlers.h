@@ -25,6 +25,6 @@
 
 extern zend_object_handlers ecmaIntlObjHandlers;
 
-void ecmaIntlRegisterHandlers();
+void ecmaIntlRegisterHandlers(void);
 
 #endif /* ECMA_INTL_PHP_INTL_HANDLERS_H */

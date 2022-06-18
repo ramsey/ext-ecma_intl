@@ -133,4 +133,64 @@ class IntlTest extends TestCase
             ],
         ];
     }
+
+    /**
+     * @param string[] $shouldContain
+     * @param string[] $shouldNotContain
+     *
+     * @dataProvider supportedValuesOfReturnsSupportedValuesProvider
+     */
+    public function testSupportedValuesOfReturnsSupportedValues(
+        Intl\Category $category,
+        array $shouldContain,
+        array $shouldNotContain = [],
+    ): void {
+        $values = Intl::supportedValuesOf($category);
+
+        $this->assertGreaterThan(0, count($values));
+
+        foreach ($shouldContain as $value) {
+            $this->assertContains($value, $values);
+        }
+
+        foreach ($shouldNotContain as $value) {
+            $this->assertNotContains($value, $values);
+        }
+    }
+
+    /**
+     * @return array<array{category: Intl\Category, shouldContain: string[], shouldNotContain?: string[]}>
+     */
+    public function supportedValuesOfReturnsSupportedValuesProvider(): array
+    {
+        return [
+            [
+                'category' => Intl\Category::Calendar,
+                'shouldContain' => ['gregory', 'ethioaa'],
+                'shouldNotContain' => ['gregorian', 'ethiopic-amete-alem'],
+            ],
+            [
+                'category' => Intl\Category::Collation,
+                'shouldContain' => ['dict', 'gb2312', 'phonebk', 'trad'],
+                'shouldNotContain' => ['dictionary', 'gb2312han', 'phonebook', 'traditional'],
+            ],
+            [
+                'category' => Intl\Category::Currency,
+                'shouldContain' => ['AUD', 'CAD', 'EUR', 'USD'],
+            ],
+            [
+                'category' => Intl\Category::NumberingSystem,
+                'shouldContain' => ['arab', 'fullwide'],
+                'shouldNotContain' => ['traditional'],
+            ],
+            [
+                'category' => Intl\Category::TimeZone,
+                'shouldContain' => ['America/New_York', 'Asia/Tokyo', 'Europe/Paris', 'GMT', 'UTC'],
+            ],
+            [
+                'category' => Intl\Category::Unit,
+                'shouldContain' => ['acre', 'hour', 'meter', 'percent'],
+            ],
+        ];
+    }
 }

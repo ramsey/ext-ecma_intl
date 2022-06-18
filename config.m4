@@ -22,6 +22,7 @@ if test "$PHP_ECMA_INTL" != "no"; then
   PHP_NEW_EXTENSION(ecma_intl,                                                 \
                                                                                \
     src/ecma_intl.c                                                            \
+    src/php/classes/php_category_ce.c                                          \
     src/php/classes/php_exceptions_ce.c                                        \
     src/php/classes/php_intl_ce.c                                              \
     src/php/handlers/php_intl_handlers.c                                       \
@@ -31,6 +32,7 @@ if test "$PHP_ECMA_INTL" != "no"; then
     , $ext_shared, , $ECMA_INTL_COMMON_FLAGS, cxx)
 
   PHP_ECMA_INTL_CXX_SOURCES="                                                  \
+    src/unicode/units.cpp                                                      \
     "
 
   PHP_REQUIRE_CXX()
