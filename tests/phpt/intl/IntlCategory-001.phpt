@@ -34,7 +34,10 @@ $tests = [
 ];
 
 foreach ($tests as $test) {
-    assert($test['category']->value === $test['expectedValue']);
+    assert(
+        $test['category']->value === $test['expectedValue'],
+        sprintf('Actual "%s" is not the same as expected "%s"', $test['category']->value, $test['expectedValue']),
+    );
     echo json_encode($test['category']) . "\n";
 }
 ?>
