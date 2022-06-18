@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 0557bf4a61d9cbc6e830eed500e54fe9cc8f3b8b */
+ * Stub hash: f61bd29454a9ffb9d2b059997d11890216706e2d */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Ecma_Intl_getCanonicalLocales, 0, 1, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_MASK(0, locales, MAY_BE_ARRAY|MAY_BE_STRING, NULL)
@@ -47,6 +47,11 @@ static const zend_function_entry class_Ecma_Intl_Collation_methods[] = {
 
 
 static const zend_function_entry class_Ecma_Intl_Exception_methods[] = {
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_Ecma_Intl_Formatting_methods[] = {
 	ZEND_FE_END
 };
 
@@ -345,6 +350,28 @@ static zend_class_entry *register_class_Ecma_Intl_Exception(void)
 
 	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl", "Exception", class_Ecma_Intl_Exception_methods);
 	class_entry = zend_register_internal_interface(&ce);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_Formatting(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("Ecma\\Intl\\Formatting", IS_STRING, class_Ecma_Intl_Formatting_methods);
+
+	zval enum_case_Long_value;
+	zend_string *enum_case_Long_value_str = zend_string_init("long", sizeof("long") - 1, 1);
+	ZVAL_STR(&enum_case_Long_value, enum_case_Long_value_str);
+	zend_enum_add_case_cstr(class_entry, "Long", &enum_case_Long_value);
+
+	zval enum_case_Narrow_value;
+	zend_string *enum_case_Narrow_value_str = zend_string_init("narrow", sizeof("narrow") - 1, 1);
+	ZVAL_STR(&enum_case_Narrow_value, enum_case_Narrow_value_str);
+	zend_enum_add_case_cstr(class_entry, "Narrow", &enum_case_Narrow_value);
+
+	zval enum_case_Short_value;
+	zend_string *enum_case_Short_value_str = zend_string_init("short", sizeof("short") - 1, 1);
+	ZVAL_STR(&enum_case_Short_value, enum_case_Short_value_str);
+	zend_enum_add_case_cstr(class_entry, "Short", &enum_case_Short_value);
 
 	return class_entry;
 }

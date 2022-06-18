@@ -157,6 +157,16 @@ namespace Ecma\Intl
     }
 
     /**
+     * Common formatting options used throughout ECMA-402
+     */
+    enum Formatting: string
+    {
+        case Long = 'long';
+        case Narrow = 'narrow';
+        case Short = 'short';
+    }
+
+    /**
      * Values for hour cycle (hc) options
      *
      * @link https://www.unicode.org/reports/tr35/#UnicodeHourCycleIdentifier Unicode Hour Cycle Identifier
