@@ -188,6 +188,17 @@ namespace Ecma\Intl
     }
 
     /**
+     * Locale matching algorithms for use in locale negotiation
+     *
+     * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locale_negotiation MDN: Locale negotiation
+     */
+    enum LocaleMatcher: string
+    {
+        case BestFit = 'best fit';
+        case Lookup = 'lookup';
+    }
+
+    /**
      * Values for numbering system (nu) options
      *
      * @link https://github.com/unicode-org/cldr/blob/main/common/bcp47/number.xml Unicode CLDR numbering system values

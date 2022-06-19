@@ -38,6 +38,7 @@
 #include "src/php/classes/php_formatting_ce.h"
 #include "src/php/classes/php_hour_cycle_ce.h"
 #include "src/php/classes/php_intl_ce.h"
+#include "src/php/classes/php_locale_matcher_ce.h"
 #include "src/php/classes/php_numbering_system_ce.h"
 
 #include <ext/standard/info.h>
@@ -67,6 +68,7 @@ PHP_MINIT_FUNCTION(ecma_intl) {
   ecmaIntlCollationRegisterEnum();
   ecmaIntlFormattingRegisterEnum();
   ecmaIntlHourCycleRegisterEnum();
+  ecmaIntlLocaleMatcherRegisterEnum();
   ecmaIntlNumberingSystemRegisterEnum();
   ecmaIntlRegisterExceptionClasses();
   ecmaIntlRegisterClass();

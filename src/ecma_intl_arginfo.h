@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: f61bd29454a9ffb9d2b059997d11890216706e2d */
+ * Stub hash: 352937d8227438dfdd6664f694e5d3ced4938880 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Ecma_Intl_getCanonicalLocales, 0, 1, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_MASK(0, locales, MAY_BE_ARRAY|MAY_BE_STRING, NULL)
@@ -62,6 +62,11 @@ static const zend_function_entry class_Ecma_Intl_HourCycle_methods[] = {
 
 
 static const zend_function_entry class_Ecma_Intl_IcuException_methods[] = {
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_Ecma_Intl_LocaleMatcher_methods[] = {
 	ZEND_FE_END
 };
 
@@ -410,6 +415,23 @@ static zend_class_entry *register_class_Ecma_Intl_IcuException(zend_class_entry 
 	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl", "IcuException", class_Ecma_Intl_IcuException_methods);
 	class_entry = zend_register_internal_class_ex(&ce, class_entry_RuntimeException);
 	zend_class_implements(class_entry, 1, class_entry_Ecma_Intl_Exception);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_LocaleMatcher(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("Ecma\\Intl\\LocaleMatcher", IS_STRING, class_Ecma_Intl_LocaleMatcher_methods);
+
+	zval enum_case_BestFit_value;
+	zend_string *enum_case_BestFit_value_str = zend_string_init("best fit", sizeof("best fit") - 1, 1);
+	ZVAL_STR(&enum_case_BestFit_value, enum_case_BestFit_value_str);
+	zend_enum_add_case_cstr(class_entry, "BestFit", &enum_case_BestFit_value);
+
+	zval enum_case_Lookup_value;
+	zend_string *enum_case_Lookup_value_str = zend_string_init("lookup", sizeof("lookup") - 1, 1);
+	ZVAL_STR(&enum_case_Lookup_value, enum_case_Lookup_value_str);
+	zend_enum_add_case_cstr(class_entry, "Lookup", &enum_case_Lookup_value);
 
 	return class_entry;
 }
