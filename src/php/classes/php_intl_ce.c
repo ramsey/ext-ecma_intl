@@ -23,8 +23,6 @@
 #include "php_category_ce.h"
 #include "php_exceptions_ce.h"
 #include "src/ecma_intl_arginfo.h"
-#include "src/php/handlers/php_intl_handlers.h"
-#include "src/php/objects/php_intl.h"
 #include "src/unicode/bcp47.h"
 #include "src/unicode/units.h"
 
@@ -73,7 +71,8 @@ PHP_METHOD(Ecma_Intl, getCanonicalLocales) {
 
   ZEND_HASH_FOREACH_VAL(localeArray, localeFromArray)
   if (Z_TYPE_P(localeFromArray) != IS_STRING) {
-    zend_value_error("The $locales argument must be type string or an array of type string");
+    zend_value_error(
+        "The $locales argument must be type string or an array of type string");
     RETURN_THROWS();
   }
   char bcp47LanguageTag[ULOC_FULLNAME_CAPACITY];
@@ -101,7 +100,7 @@ PHP_METHOD(Ecma_Intl, supportedValuesOf) {
   const char *identifier, **units = NULL;
   int identifierLen;
 
-  ZEND_PARSE_PARAMETERS_START(1,1)
+  ZEND_PARSE_PARAMETERS_START(1, 1)
   Z_PARAM_OBJ_OF_CLASS(categoryEnum, ecmaIntlCategoryEnum)
   ZEND_PARSE_PARAMETERS_END();
 
@@ -114,7 +113,8 @@ PHP_METHOD(Ecma_Intl, supportedValuesOf) {
     values = ucol_getKeywordValues("collation", &status);
   } else if (strcasecmp(CATEGORY_CURRENCY, ZSTR_VAL(categoryValue)) == 0) {
     values = ucurr_openISOCurrencies(UCURR_ALL, &status);
-  } else if (strcasecmp(CATEGORY_NUMBERING_SYSTEM, ZSTR_VAL(categoryValue)) == 0) {
+  } else if (strcasecmp(CATEGORY_NUMBERING_SYSTEM, ZSTR_VAL(categoryValue)) ==
+             0) {
     values = unumsys_openAvailableNames(&status);
   } else if (strcasecmp(CATEGORY_TIME_ZONE, ZSTR_VAL(categoryValue)) == 0) {
     values = ucal_openTimeZones(&status);
@@ -144,7 +144,8 @@ PHP_METHOD(Ecma_Intl, supportedValuesOf) {
       add_next_index_string(
           return_value,
           uloc_toUnicodeLocaleType(KEYWORD_ICU_COLLATION, identifier));
-    } else if (strcasecmp(CATEGORY_NUMBERING_SYSTEM, ZSTR_VAL(categoryValue)) == 0) {
+    } else if (strcasecmp(CATEGORY_NUMBERING_SYSTEM, ZSTR_VAL(categoryValue)) ==
+               0) {
       add_next_index_string(
           return_value,
           uloc_toUnicodeLocaleType(KEYWORD_ICU_NUMBERING_SYSTEM, identifier));
@@ -162,9 +163,4 @@ PHP_METHOD(Ecma_Intl, supportedValuesOf) {
   zend_hash_sort(Z_ARRVAL_P(return_value), phpArrayStringCaseCompare, 1);
 }
 
-void ecmaIntlRegisterClass() {
-  ecmaIntlClass = register_class_Ecma_Intl();
-  ecmaIntlClass->create_object = ecmaIntlObjCreate;
-
-  ecmaIntlRegisterHandlers();
-}
+void ecmaIntlRegisterClass() { ecmaIntlClass = register_class_Ecma_Intl(); }
