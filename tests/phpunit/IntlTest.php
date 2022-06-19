@@ -3,11 +3,19 @@
 namespace Ecma\Test\Intl;
 
 use Ecma\Intl;
+use ReflectionClass;
 use stdClass;
 use ValueError;
 
 class IntlTest extends TestCase
 {
+    public function testIsMarkedFinal(): void
+    {
+        $reflect = new ReflectionClass(Intl::class);
+
+        $this->assertTrue($reflect->isFinal());
+    }
+
     /**
      * @param string[] | string $input
      * @param string[] $expected
