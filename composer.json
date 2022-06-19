@@ -68,7 +68,7 @@
         ],
         "dev:test:memcheck": "USE_ZEND_ALLOC=0 ZEND_DONT_UNLOAD_MODULES=1 php run-tests.php -q -m --show-diff --show-mem --color -n -d extension=\"$PWD/modules/ecma_intl.so\"",
         "dev:test:phpt": "php run-tests.php -q --show-diff --color -n -d extension=\"$PWD/modules/ecma_intl.so\"",
-        "dev:test:phpunit": "php -n -d extension=\"$PWD/modules/ecma_intl.so\" vendor/bin/phpunit",
+        "dev:test:phpunit": "php -n -d extension=\"$PWD/modules/ecma_intl.so\" vendor/bin/phpunit --testdox --colors=always",
         "test": "@dev:test"
     },
     "scripts-descriptions": {

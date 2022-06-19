@@ -64,7 +64,7 @@ namespace Ecma
 namespace Ecma\Intl
 {
     /**
-     * Calendars
+     * Values for calendar (ca) options
      *
      * @link https://github.com/unicode-org/cldr/blob/main/common/bcp47/calendar.xml Unicode CLDR calendar values
      */
@@ -106,7 +106,7 @@ namespace Ecma\Intl
     }
 
     /**
-     * Values for caseFirst options
+     * Values for case first (kf) options
      *
      * When used with the caseFirst option (or the "kf" language tag parameter),
      * these values determine whether to sort by upper case or lower case first.
@@ -126,6 +126,19 @@ namespace Ecma\Intl
      */
     interface Exception
     {
+    }
+
+    /**
+     * Values for hour cycle (hc) options
+     *
+     * @link https://www.unicode.org/reports/tr35/#UnicodeHourCycleIdentifier Unicode Hour Cycle Identifier
+     */
+    enum HourCycle: string
+    {
+        case H11 = 'h11';
+        case H12 = 'h12';
+        case H23 = 'h23';
+        case H24 = 'h24';
     }
 
     /**
