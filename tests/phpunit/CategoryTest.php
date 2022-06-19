@@ -4,8 +4,6 @@ namespace Ecma\Test\Intl;
 
 use Ecma\Intl\Category;
 
-use function json_encode;
-
 class CategoryTest extends TestCase
 {
     /**

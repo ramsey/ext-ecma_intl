@@ -4,8 +4,6 @@ namespace Ecma\Test\Intl;
 
 use Ecma\Intl\Calendar;
 
-use function json_encode;
-
 class CalendarTest extends TestCase
 {
     /**
