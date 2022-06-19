@@ -29,6 +29,7 @@ if test "$PHP_ECMA_INTL" != "no"; then
     src/php/classes/php_exceptions_ce.c                                        \
     src/php/classes/php_hour_cycle_ce.c                                        \
     src/php/classes/php_intl_ce.c                                              \
+    src/php/classes/php_numbering_system_ce.c                                  \
     src/php/handlers/php_intl_handlers.c                                       \
     src/php/objects/php_intl.c                                                 \
     src/unicode/bcp47.c                                                        \

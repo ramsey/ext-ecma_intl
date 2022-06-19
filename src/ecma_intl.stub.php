@@ -178,6 +178,106 @@ namespace Ecma\Intl
     }
 
     /**
+     * Values for numbering system (nu) options
+     *
+     * @link https://github.com/unicode-org/cldr/blob/main/common/bcp47/number.xml Unicode CLDR numbering system values
+     */
+    enum NumberingSystem: string
+    {
+        case Adlm = 'adlm';
+        case Ahom = 'ahom';
+        case Arab = 'arab';
+        case Arabext = 'arabext';
+        case Armn = 'armn';
+        case Armnlow = 'armnlow';
+        case Bali = 'bali';
+        case Beng = 'beng';
+        case Bhks = 'bhks';
+        case Brah = 'brah';
+        case Cakm = 'cakm';
+        case Cham = 'cham';
+        case Cyrl = 'cyrl';
+        case Deva = 'deva';
+        case Diak = 'diak';
+        case Ethi = 'ethi';
+        case Finance = 'finance';
+        case Fullwide = 'fullwide';
+        case Geor = 'geor';
+        case Gong = 'gong';
+        case Gonm = 'gonm';
+        case Grek = 'grek';
+        case Greklow = 'greklow';
+        case Gujr = 'gujr';
+        case Guru = 'guru';
+        case Hanidays = 'hanidays';
+        case Hanidec = 'hanidec';
+        case Hans = 'hans';
+        case Hansfin = 'hansfin';
+        case Hant = 'hant';
+        case Hantfin = 'hantfin';
+        case Hebr = 'hebr';
+        case Hmng = 'hmng';
+        case Hmnp = 'hmnp';
+        case Java = 'java';
+        case Jpan = 'jpan';
+        case Jpanfin = 'jpanfin';
+        case Jpanyear = 'jpanyear';
+        case Kali = 'kali';
+        case Kawi = 'kawi';
+        case Khmr = 'khmr';
+        case Knda = 'knda';
+        case Lana = 'lana';
+        case Lanatham = 'lanatham';
+        case Laoo = 'laoo';
+        case Latn = 'latn';
+        case Lepc = 'lepc';
+        case Limb = 'limb';
+        case Mathbold = 'mathbold';
+        case Mathdbl = 'mathdbl';
+        case Mathmono = 'mathmono';
+        case Mathsanb = 'mathsanb';
+        case Mathsans = 'mathsans';
+        case Mlym = 'mlym';
+        case Modi = 'modi';
+        case Mong = 'mong';
+        case Mroo = 'mroo';
+        case Mtei = 'mtei';
+        case Mymr = 'mymr';
+        case Mymrshan = 'mymrshan';
+        case Mymrtlng = 'mymrtlng';
+        case Nagm = 'nagm';
+        case Native = 'native';
+        case Newa = 'newa';
+        case Nkoo = 'nkoo';
+        case Olck = 'olck';
+        case Orya = 'orya';
+        case Osma = 'osma';
+        case Rohg = 'rohg';
+        case Roman = 'roman';
+        case Romanlow = 'romanlow';
+        case Saur = 'saur';
+        case Segment = 'segment';
+        case Shrd = 'shrd';
+        case Sind = 'sind';
+        case Sinh = 'sinh';
+        case Sora = 'sora';
+        case Sund = 'sund';
+        case Takr = 'takr';
+        case Talu = 'talu';
+        case Taml = 'taml';
+        case Tamldec = 'tamldec';
+        case Telu = 'telu';
+        case Thai = 'thai';
+        case Tibt = 'tibt';
+        case Tirh = 'tirh';
+        case Tnsa = 'tnsa';
+        case Traditio = 'traditio';
+        case Vaii = 'vaii';
+        case Wara = 'wara';
+        case Wcho = 'wcho';
+    }
+
+    /**
      * RangeError indicates a value is not within the set or range of allowed
      * values
      *

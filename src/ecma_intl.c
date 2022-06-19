@@ -37,6 +37,7 @@
 #include "src/php/classes/php_exceptions_ce.h"
 #include "src/php/classes/php_hour_cycle_ce.h"
 #include "src/php/classes/php_intl_ce.h"
+#include "src/php/classes/php_numbering_system_ce.h"
 
 #include <ext/standard/info.h>
 
@@ -64,6 +65,7 @@ PHP_MINIT_FUNCTION(ecma_intl) {
   ecmaIntlCategoryRegisterEnum();
   ecmaIntlCollationRegisterEnum();
   ecmaIntlHourCycleRegisterEnum();
+  ecmaIntlNumberingSystemRegisterEnum();
   ecmaIntlRegisterExceptionClasses();
   ecmaIntlRegisterClass();
 
