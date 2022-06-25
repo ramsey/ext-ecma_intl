@@ -20,3 +20,6 @@ indent_size = 2
 
 [*.phpt]
 trim_trailing_whitespace = false
+
+[Makefile.frag]
+indent_style = tab
