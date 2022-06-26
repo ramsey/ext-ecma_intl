@@ -18,19 +18,18 @@
    +----------------------------------------------------------------------+
 */
 
+#include "bcp47.h"
 #include "src/common.h"
 
-#include "bcp47.h"
-#include "src/php/classes/php_exceptions_ce.h"
-
+#include <string.h>
 #include <unicode/uloc.h>
 
 /**
  * Converts an ICU language tag to its BCP 47 equivalent.
  *
- * The icuLanguageTag may be either an ICU language tag or a BCP 47 language tag.
- * In either case, languageTag will receive a well-formed BCP 47 language tag.
- * If we encounter an error, we will raise a PHP exception and return 0.
+ * The icuLanguageTag may be either an ICU language tag or a BCP 47 language
+ * tag. In either case, languageTag will receive a well-formed BCP 47 language
+ * tag. If we encounter an error, we will raise a PHP exception and return 0.
  *
  * @param icuLanguageTag The language tag to convert to a well-formed BCP 47 tag
  * @param bcp47LanguageTag A buffer in which to store the BCP 47 language tag
@@ -41,12 +40,10 @@ int icuToBcp47LanguageTag(const char *icuLanguageTag, char *bcp47LanguageTag) {
   UErrorCode status = U_ZERO_ERROR;
 
   languageTagLen = uloc_toLanguageTag(icuLanguageTag, bcp47LanguageTag,
-                                      ULOC_FULLNAME_CAPACITY, true, &status);
+                                      ULOC_FULLNAME_CAPACITY, 1, &status);
 
   if (strcmp(icuLanguageTag, "") == 0 || U_FAILURE(status)) {
-    zend_throw_error(ecmaIntlRangeErrorClass, "invalid language tag: %s",
-                     icuLanguageTag);
-    return 0;
+    return ECMA_INTL_FAILURE;
   }
 
   return languageTagLen;

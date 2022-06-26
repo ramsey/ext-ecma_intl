@@ -21,7 +21,7 @@
 #ifndef ECMA_INTL_PHP_INTL_CE_H
 #define ECMA_INTL_PHP_INTL_CE_H
 
-#include "src/common.h"
+#include "src/php/php_common.h"
 
 extern zend_class_entry *ecmaIntlClass;
 

@@ -36,7 +36,7 @@
             "Ecma\\Test\\Intl\\": "tests/phpunit/"
         },
         "classmap": [
-            "src/ecma_intl.stub.php"
+            "src/php/ecma_intl.stub.php"
         ]
     },
     "config": {
@@ -57,10 +57,7 @@
     },
     "scripts": {
         "dev:build": "make all",
-        "dev:clean": [
-            "echo $(make distclean 2> /dev/null) 2> /dev/null",
-            "git clean -fXd --exclude '!.idea' --exclude '!.idea/**' --exclude '!vendor' --exclude '!vendor/**' --exclude '!composer.lock'"
-        ],
+        "dev:clean": "make deepclean",
         "dev:test": [
             "@dev:build",
             "@dev:test:phpt",

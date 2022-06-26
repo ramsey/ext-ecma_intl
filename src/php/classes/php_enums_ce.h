@@ -18,13 +18,20 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_PHP_FORMATTING_CE_H
-#define ECMA_INTL_PHP_FORMATTING_CE_H
+#ifndef ECMA_INTL_PHP_ENUMS_CE_H
+#define ECMA_INTL_PHP_ENUMS_CE_H
 
-#include "src/common.h"
+#include "src/php/php_common.h"
 
+extern zend_class_entry *ecmaIntlCalendarEnum;
+extern zend_class_entry *ecmaIntlCaseFirstEnum;
+extern zend_class_entry *ecmaIntlCategoryEnum;
+extern zend_class_entry *ecmaIntlCollationEnum;
 extern zend_class_entry *ecmaIntlFormattingEnum;
+extern zend_class_entry *ecmaIntlHourCycleEnum;
+extern zend_class_entry *ecmaIntlLocaleMatcherEnum;
+extern zend_class_entry *ecmaIntlNumberingSystemEnum;
 
-void ecmaIntlFormattingRegisterEnum(void);
+void ecmaIntlRegisterEnums(void);
 
-#endif /* ECMA_INTL_PHP_FORMATTING_CE_H */
+#endif /* ECMA_INTL_PHP_ENUMS_CE_H */

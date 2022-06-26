@@ -20,17 +20,10 @@ if test "$PHP_ECMA_INTL" != "no"; then
   ECMA_INTL_COMMON_FLAGS="$ICU_CFLAGS"
 
   PHP_ECMA_INTL_C_SOURCES="                                                    \
-    src/ecma_intl.c                                                            \
-    src/php/classes/php_calendar_ce.c                                          \
-    src/php/classes/php_case_first_ce.c                                        \
-    src/php/classes/php_category_ce.c                                          \
-    src/php/classes/php_collation_ce.c                                         \
+    src/php/classes/php_enums_ce.c                                             \
     src/php/classes/php_exceptions_ce.c                                        \
-    src/php/classes/php_formatting_ce.c                                        \
-    src/php/classes/php_hour_cycle_ce.c                                        \
     src/php/classes/php_intl_ce.c                                              \
-    src/php/classes/php_locale_matcher_ce.c                                    \
-    src/php/classes/php_numbering_system_ce.c                                  \
+    src/php/ecma_intl.c                                                        \
     src/unicode/bcp47.c                                                        \
     "
 
@@ -70,12 +63,6 @@ if test "$PHP_ECMA_INTL" != "no"; then
       yes
     )
   fi
-
-  PHP_ADD_BUILD_DIR([$ext_srcdir])
-  PHP_ADD_BUILD_DIR([$ext_srcdir/src])
-  PHP_ADD_BUILD_DIR([$ext_srcdir/src/php])
-  PHP_ADD_BUILD_DIR([$ext_srcdir/src/php/classes])
-  PHP_ADD_BUILD_DIR([$ext_srcdir/src/unicode])
 
   PHP_ADD_EXTENSION_DEP(ecma_intl, spl)
 
