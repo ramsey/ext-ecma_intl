@@ -24,11 +24,6 @@
 #include <unicode/measunit.h>
 #include <unicode/putil.h>
 #include <unicode/strenum.h>
-#include <vector>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 UEnumeration *icuGetMeasurementUnits(const char **units,
                                      const UErrorCode *errorCode) {
@@ -84,7 +79,3 @@ UEnumeration *icuGetMeasurementUnits(const char **units,
 
   return enumeratedUnits;
 }
-
-#ifdef __cplusplus
-}
-#endif

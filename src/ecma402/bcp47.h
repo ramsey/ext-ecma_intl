@@ -21,6 +21,14 @@
 #ifndef ECMA_INTL_ECMA402_BCP47_H
 #define ECMA_INTL_ECMA402_BCP47_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int icuToBcp47LanguageTag(const char *icuLanguageTag, char *bcp47LanguageTag);
+
+#ifdef __cplusplus
+} /* extern "C" */
+#endif
 
 #endif /* ECMA_INTL_ECMA402_BCP47_H */
