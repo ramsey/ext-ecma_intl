@@ -24,11 +24,11 @@ if test "$PHP_ECMA_INTL" != "no"; then
     src/php/classes/php_exceptions_ce.c                                        \
     src/php/classes/php_intl_ce.c                                              \
     src/php/ecma_intl.c                                                        \
-    src/unicode/bcp47.c                                                        \
+    src/ecma402/bcp47.c                                                        \
     "
 
   PHP_ECMA_INTL_CXX_SOURCES="                                                  \
-    src/unicode/units.cpp                                                      \
+    src/ecma402/units.cpp                                                      \
     "
 
   PHP_NEW_EXTENSION(
