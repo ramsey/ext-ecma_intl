@@ -19,8 +19,7 @@ if test "$PHP_ECMA_INTL" != "no"; then
 
   ECMA_INTL_COMMON_FLAGS="$ICU_CFLAGS"
 
-  PHP_NEW_EXTENSION(ecma_intl,                                                 \
-                                                                               \
+  PHP_ECMA_INTL_C_SOURCES="                                                    \
     src/ecma_intl.c                                                            \
     src/php/classes/php_calendar_ce.c                                          \
     src/php/classes/php_case_first_ce.c                                        \
@@ -33,12 +32,20 @@ if test "$PHP_ECMA_INTL" != "no"; then
     src/php/classes/php_locale_matcher_ce.c                                    \
     src/php/classes/php_numbering_system_ce.c                                  \
     src/unicode/bcp47.c                                                        \
-                                                                               \
-    , $ext_shared, , $ECMA_INTL_COMMON_FLAGS, cxx)
+    "
 
   PHP_ECMA_INTL_CXX_SOURCES="                                                  \
     src/unicode/units.cpp                                                      \
     "
+
+  PHP_NEW_EXTENSION(
+    ecma_intl,
+    $PHP_ECMA_INTL_C_SOURCES,
+    $ext_shared,
+    ,
+    $ECMA_INTL_COMMON_FLAGS,
+    cxx
+  )
 
   PHP_REQUIRE_CXX()
   PHP_CXX_COMPILE_STDCXX(11, mandatory, PHP_ECMA_INTL_STDCXX)
@@ -64,5 +71,13 @@ if test "$PHP_ECMA_INTL" != "no"; then
     )
   fi
 
+  PHP_ADD_BUILD_DIR([$ext_srcdir])
+  PHP_ADD_BUILD_DIR([$ext_srcdir/src])
+  PHP_ADD_BUILD_DIR([$ext_srcdir/src/php])
+  PHP_ADD_BUILD_DIR([$ext_srcdir/src/php/classes])
+  PHP_ADD_BUILD_DIR([$ext_srcdir/src/unicode])
+
   PHP_ADD_EXTENSION_DEP(ecma_intl, spl)
+
+  PHP_ADD_MAKEFILE_FRAGMENT
 fi

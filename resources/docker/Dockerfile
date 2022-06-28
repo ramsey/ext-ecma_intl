@@ -85,7 +85,9 @@ RUN ln -fs /tmp/ext-ecma_intl/modules/ecma_intl.so "$(php-config --extension-dir
 # Add additional tools
 COPY composer-install.sh /usr/bin
 RUN apt-get update \
-    && apt-get install -y valgrind \
+    && apt-get install -y \
+        git \
+        valgrind \
     && /usr/bin/composer-install.sh \
     && mv composer.phar /usr/bin/composer \
     && rm /usr/bin/composer-install.sh
