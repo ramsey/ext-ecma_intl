@@ -23,7 +23,7 @@
 #include <Zend/zend_exceptions.h>
 #include <ext/spl/spl_exceptions.h>
 
-#include "src/ecma_intl_arginfo.h"
+#include "src/php/ecma_intl_arginfo.h"
 
 zend_class_entry *ecmaIntlIcuExceptionClass = NULL;
 zend_class_entry *ecmaIntlRangeErrorClass = NULL;

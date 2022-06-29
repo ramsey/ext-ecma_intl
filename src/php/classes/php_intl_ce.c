@@ -20,9 +20,9 @@
 
 #include "php_intl_ce.h"
 
-#include "php_category_ce.h"
+#include "php_enums_ce.h"
 #include "php_exceptions_ce.h"
-#include "src/ecma_intl_arginfo.h"
+#include "src/php/ecma_intl_arginfo.h"
 #include "src/unicode/bcp47.h"
 #include "src/unicode/units.h"
 
@@ -76,7 +76,11 @@ PHP_METHOD(Ecma_Intl, getCanonicalLocales) {
     RETURN_THROWS();
   }
   char bcp47LanguageTag[ULOC_FULLNAME_CAPACITY];
-  if (icuToBcp47LanguageTag(Z_STRVAL_P(localeFromArray), bcp47LanguageTag)) {
+  if (icuToBcp47LanguageTag(Z_STRVAL_P(localeFromArray), bcp47LanguageTag) ==
+      ECMA_INTL_FAILURE) {
+    zend_throw_error(ecmaIntlRangeErrorClass, "invalid language tag: %s",
+                     Z_STRVAL_P(localeFromArray));
+  } else {
     add_next_index_string(return_value, bcp47LanguageTag);
   }
   ZEND_HASH_FOREACH_END();

@@ -21,9 +21,6 @@
 #ifndef ECMA_INTL_COMMON_H
 #define ECMA_INTL_COMMON_H
 
-#include <php.h>
-#include <zend_enum.h>
-
 #define CATEGORY_CALENDAR "calendar"
 #define CATEGORY_COLLATION "collation"
 #define CATEGORY_CURRENCY "currency"
@@ -37,5 +34,10 @@
 #define KEYWORD_ICU_HOUR_CYCLE "hours"
 #define KEYWORD_ICU_NUMBERING_SYSTEM "numbers"
 #define KEYWORD_ICU_NUMERIC "colnumeric"
+
+typedef enum {
+  ECMA_INTL_SUCCESS = 0,
+  ECMA_INTL_FAILURE = -1,
+} ECMA_INTL_RESULT_CODE;
 
 #endif /* ECMA_INTL_COMMON_H */

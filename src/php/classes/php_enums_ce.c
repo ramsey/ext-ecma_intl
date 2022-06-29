@@ -18,13 +18,25 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_PHP_CASE_FIRST_CE_H
-#define ECMA_INTL_PHP_CASE_FIRST_CE_H
+#include "php_enums_ce.h"
+#include "src/php/ecma_intl_arginfo.h"
 
-#include "src/common.h"
+zend_class_entry *ecmaIntlCalendarEnum = NULL;
+zend_class_entry *ecmaIntlCaseFirstEnum = NULL;
+zend_class_entry *ecmaIntlCategoryEnum = NULL;
+zend_class_entry *ecmaIntlCollationEnum = NULL;
+zend_class_entry *ecmaIntlFormattingEnum = NULL;
+zend_class_entry *ecmaIntlHourCycleEnum = NULL;
+zend_class_entry *ecmaIntlLocaleMatcherEnum = NULL;
+zend_class_entry *ecmaIntlNumberingSystemEnum = NULL;
 
-extern zend_class_entry *ecmaIntlCaseFirstEnum;
-
-void ecmaIntlCaseFirstRegisterEnum(void);
-
-#endif /* ECMA_INTL_PHP_CASE_FIRST_CE_H */
+void ecmaIntlRegisterEnums() {
+  ecmaIntlCalendarEnum = register_class_Ecma_Intl_Calendar();
+  ecmaIntlCaseFirstEnum = register_class_Ecma_Intl_CaseFirst();
+  ecmaIntlCategoryEnum = register_class_Ecma_Intl_Category();
+  ecmaIntlCollationEnum = register_class_Ecma_Intl_Collation();
+  ecmaIntlFormattingEnum = register_class_Ecma_Intl_Formatting();
+  ecmaIntlHourCycleEnum = register_class_Ecma_Intl_HourCycle();
+  ecmaIntlLocaleMatcherEnum = register_class_Ecma_Intl_LocaleMatcher();
+  ecmaIntlNumberingSystemEnum = register_class_Ecma_Intl_NumberingSystem();
+}
