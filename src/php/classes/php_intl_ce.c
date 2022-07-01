@@ -23,8 +23,8 @@
 #include "php_enums_ce.h"
 #include "php_exceptions_ce.h"
 #include "src/php/ecma_intl_arginfo.h"
-#include "src/unicode/bcp47.h"
-#include "src/unicode/units.h"
+#include "src/ecma402/bcp47.h"
+#include "src/ecma402/units.h"
 
 #include <unicode/ucal.h>
 #include <unicode/ucol.h>

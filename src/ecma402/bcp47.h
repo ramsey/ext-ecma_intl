@@ -18,9 +18,9 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_BCP47_H
-#define ECMA_INTL_BCP47_H
+#ifndef ECMA_INTL_ECMA402_BCP47_H
+#define ECMA_INTL_ECMA402_BCP47_H
 
 int icuToBcp47LanguageTag(const char *icuLanguageTag, char *bcp47LanguageTag);
 
-#endif /* ECMA_INTL_BCP47_H */
+#endif /* ECMA_INTL_ECMA402_BCP47_H */

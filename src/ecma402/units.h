@@ -18,8 +18,8 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_UNITS_H
-#define ECMA_INTL_UNITS_H
+#ifndef ECMA_INTL_ECMA402_UNITS_H
+#define ECMA_INTL_ECMA402_UNITS_H
 
 #include <unicode/errorcode.h>
 #include <unicode/uenum.h>
@@ -35,4 +35,4 @@ UEnumeration *icuGetMeasurementUnits(const char **units,
 }
 #endif
 
-#endif /* ECMA_INTL_UNITS_H */
+#endif /* ECMA_INTL_ECMA402_UNITS_H */
