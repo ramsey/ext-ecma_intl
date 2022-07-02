@@ -26,10 +26,6 @@
 #include <unicode/strenum.h>
 #include <vector>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 UEnumeration *icuGetMeasurementUnits(const char **units,
                                      const UErrorCode *errorCode) {
   static constexpr int unitsCapacity = 40;
@@ -84,7 +80,3 @@ UEnumeration *icuGetMeasurementUnits(const char **units,
 
   return enumeratedUnits;
 }
-
-#ifdef __cplusplus
-}
-#endif

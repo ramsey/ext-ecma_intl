@@ -1,26 +1,13 @@
-EXTRA_INCLUDES := -I. -I$(srcdir) -I/usr/local/include
+tests/cpputest/run_tests: $(cpputest_objects)
+	@if test "$(cpputest_objects)"; then \
+		$(CXX) $(cpputest_objects) -o tests/cpputest/run_tests $(ECMA_INTL_SHARED_LIBADD) $(CPPUTEST_LIBS); \
+	else \
+		echo "[ERROR] Configure ecma_intl with --enable-cpputest to run Cpputest tests"; \
+		exit 1; \
+	fi
 
--include src/ecma402/bcp47.d
-src/ecma402/bcp47.o: src/ecma402/bcp47.c
-	$(CC) $(EXTRA_INCLUDES) $(COMMON_FLAGS) -MMD -MP -c src/ecma402/bcp47.c -o src/ecma402/bcp47.o
-
--include src/ecma402/units.d
-src/ecma402/units.o: src/ecma402/units.cpp
-	$(CXX) $(EXTRA_INCLUDES) $(COMMON_FLAGS) $(CXXFLAGS) -std=c++11 -MMD -MP -c src/ecma402/units.cpp -o src/ecma402/units.o
-
--include tests/cpputest/ecma402/bcp47_test.d
-tests/cpputest/ecma402/bcp47_test.o: tests/cpputest/ecma402/bcp47_test.cpp
-	$(CXX) $(EXTRA_INCLUDES) $(COMMON_FLAGS) $(CXXFLAGS) -std=c++11 -MMD -MP -c tests/cpputest/ecma402/bcp47_test.cpp -o tests/cpputest/ecma402/bcp47_test.o
-
--include tests/cpputest/run_tests.d
-tests/cpputest/run_tests.o: tests/cpputest/run_tests.cpp
-	$(CXX) $(EXTRA_INCLUDES) $(COMMON_FLAGS) $(CXXFLAGS) -std=c++11 -MMD -MP -c tests/cpputest/run_tests.cpp -o tests/cpputest/run_tests.o
-
-tests/cpputest/cpputest: src/ecma402/bcp47.o src/ecma402/units.o tests/cpputest/run_tests.o tests/cpputest/ecma402/bcp47_test.o
-	$(CXX) tests/cpputest/run_tests.o src/ecma402/bcp47.o src/ecma402/units.o tests/cpputest/ecma402/bcp47_test.o -o tests/cpputest/cpputest $(ECMA_INTL_SHARED_LIBADD) -lCppUTest -lCppUTestExt
-
-cpputest: tests/cpputest/cpputest
-	@./tests/cpputest/cpputest -c
+cpputest: tests/cpputest/run_tests
+	@./tests/cpputest/run_tests -c
 
 deepclean: distclean
 	git clean -fXd \
