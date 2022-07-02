@@ -24,7 +24,6 @@
 #include <unicode/measunit.h>
 #include <unicode/putil.h>
 #include <unicode/strenum.h>
-#include <vector>
 
 UEnumeration *icuGetMeasurementUnits(const char **units,
                                      const UErrorCode *errorCode) {

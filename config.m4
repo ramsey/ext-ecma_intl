@@ -33,11 +33,11 @@ if test "$PHP_ECMA_INTL" != "no"; then
   ECMA_INTL_COMMON_FLAGS="$ICU_CFLAGS"
 
   PHP_ECMA_INTL_C_SOURCES="                                                    \
+    src/ecma402/bcp47.c                                                        \
     src/php/classes/php_enums_ce.c                                             \
     src/php/classes/php_exceptions_ce.c                                        \
     src/php/classes/php_intl_ce.c                                              \
     src/php/ecma_intl.c                                                        \
-    src/ecma402/bcp47.c                                                        \
     "
 
   PHP_ECMA_INTL_CXX_SOURCES="                                                  \

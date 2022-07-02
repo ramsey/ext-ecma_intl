@@ -7,7 +7,7 @@ tests/cpputest/run_tests: $(cpputest_objects)
 	fi
 
 cpputest: tests/cpputest/run_tests
-	@./tests/cpputest/run_tests -c
+	@./tests/cpputest/run_tests -c -v
 
 deepclean: distclean
 	git clean -fXd \
