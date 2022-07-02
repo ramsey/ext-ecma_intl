@@ -1,10 +1,8 @@
-*.a
 *.d
 *.dep
 *.la
 *.lo
 *.o
-*.so
 .libs
 .phpunit.result.cache
 acinclude.m4
