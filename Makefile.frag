@@ -19,8 +19,8 @@ tests/cpputest/ecma402/bcp47_test.o: tests/cpputest/ecma402/bcp47_test.cpp
 tests/cpputest/run_tests.o: tests/cpputest/run_tests.cpp
 	$(CXX) $(EXTRA_INCLUDES) $(COMMON_FLAGS) $(CXXFLAGS) -std=c++11 -MMD -MP -c tests/cpputest/run_tests.cpp -o tests/cpputest/run_tests.o
 
-tests/cpputest/cpputest: libecma402.so tests/cpputest/run_tests.o tests/cpputest/ecma402/bcp47_test.o
-	$(CXX) tests/cpputest/run_tests.o tests/cpputest/ecma402/bcp47_test.o -o tests/cpputest/cpputest $(ECMA_INTL_SHARED_LIBADD) -lCppUTest -lCppUTestExt -L$(srcdir) -lecma402
+tests/cpputest/cpputest: src/ecma402/bcp47.o src/ecma402/units.o tests/cpputest/run_tests.o tests/cpputest/ecma402/bcp47_test.o
+	$(CXX) tests/cpputest/run_tests.o src/ecma402/bcp47.o src/ecma402/units.o tests/cpputest/ecma402/bcp47_test.o -o tests/cpputest/cpputest $(ECMA_INTL_SHARED_LIBADD) -lCppUTest -lCppUTestExt
 
 cpputest: tests/cpputest/cpputest
 	@./tests/cpputest/cpputest -c
