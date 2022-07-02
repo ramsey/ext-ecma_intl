@@ -8,9 +8,6 @@ src/ecma402/bcp47.o: src/ecma402/bcp47.c
 src/ecma402/units.o: src/ecma402/units.cpp
 	$(CXX) $(EXTRA_INCLUDES) $(COMMON_FLAGS) $(CXXFLAGS) -std=c++11 -MMD -MP -c src/ecma402/units.cpp -o src/ecma402/units.o
 
-libecma402.so: src/ecma402/bcp47.o src/ecma402/units.o
-	$(CXX) src/ecma402/bcp47.o src/ecma402/units.o -shared -o libecma402.so $(ECMA_INTL_SHARED_LIBADD)
-
 -include tests/cpputest/ecma402/bcp47_test.d
 tests/cpputest/ecma402/bcp47_test.o: tests/cpputest/ecma402/bcp47_test.cpp
 	$(CXX) $(EXTRA_INCLUDES) $(COMMON_FLAGS) $(CXXFLAGS) -std=c++11 -MMD -MP -c tests/cpputest/ecma402/bcp47_test.cpp -o tests/cpputest/ecma402/bcp47_test.o
