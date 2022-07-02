@@ -111,4 +111,4 @@ jobs:
         run: "php run-tests.php -q --show-diff --color"
 
       - name: "Run tests (phpunit)"
-        run: "php vendor/bin/phpunit"
+        run: "php vendor/bin/phpunit --testdox"
