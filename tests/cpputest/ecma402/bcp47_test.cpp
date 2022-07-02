@@ -1,6 +1,7 @@
 #include "CppUTest/TestHarness.h"
 #include "src/ecma402/bcp47.h"
 #include "src/common.h"
+#include <cstring>
 
 #define TAG_TEST(group, name, input, expected)                                 \
   TEST(group, name) {                                                          \
