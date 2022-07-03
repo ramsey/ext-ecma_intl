@@ -1,10 +1,6 @@
-#include "src/common.h"
 #include "src/ecma402/bcp47.h"
+#include "tests/criterion/test.h"
 
-#include <criterion/parameterized.h>
-
-#include <criterion/new/assert.h>
-#include <string.h>
 #include <unicode/uloc.h>
 
 typedef struct tagParam {
@@ -12,15 +8,7 @@ typedef struct tagParam {
   char *expected;
 } tagParam;
 
-void cr_freeStrings(struct criterion_test_params *crp) {
-  char **strings = (char **)crp->params;
-  for (size_t i = 0; i < crp->length; ++i) {
-    cr_free(strings[i]);
-  }
-  cr_free(strings);
-}
-
-void cr_freeTagParams(struct criterion_test_params *crp) {
+void freeTagParams(struct criterion_test_params *crp) {
   struct tagParam **params = (struct tagParam **)crp->params;
   for (size_t i = 0; i < crp->length; ++i) {
     cr_free(params[i]->expected);
@@ -29,18 +17,10 @@ void cr_freeTagParams(struct criterion_test_params *crp) {
   cr_free(params);
 }
 
-char *cr_strdup(const char *str) {
-  char *ptr = cr_malloc(strlen(str) + 1);
-  if (ptr) {
-    strcpy(ptr, str);
-  }
-  return ptr;
-}
-
 int addTest(struct tagParam *tests, int index, const char *input,
             const char *expected) {
-  tests[index].input = cr_strdup(input);
-  tests[index].expected = cr_strdup(expected);
+  tests[index].input = test_strdup(input);
+  tests[index].expected = test_strdup(expected);
 
   return ++index;
 }
@@ -79,28 +59,29 @@ ParameterizedTestParameters(ecma402Bcp47, successfulLanguageTagConversion) {
                   "cmn-Hans-CN-boont-u-ca-buddhist-co-trad-hc-h24-kf-lower-kn-"
                   "false-nu-latn");
 
-  return cr_make_param_array(struct tagParam, tests, index, cr_freeTagParams);
+  return cr_make_param_array(struct tagParam, tests, index, freeTagParams);
 }
 
 ParameterizedTestParameters(ecma402Bcp47, failedLanguageTagConversion) {
   char **tests = cr_malloc(sizeof(*tests) * 3);
-  tests[0] = cr_strdup("");
-  tests[1] = cr_strdup("1234");
-  tests[2] = cr_strdup("en-latn-us-co-foo");
+  tests[0] = test_strdup("");
+  tests[1] = test_strdup("1234");
+  tests[2] = test_strdup("en-latn-us-co-foo");
 
-  return cr_make_param_array(const char *, tests, 3, cr_freeStrings);
+  return cr_make_param_array(const char *, tests, 3, test_freeStrings);
 }
 
 ParameterizedTest(struct tagParam *test, ecma402Bcp47,
                   successfulLanguageTagConversion) {
   char *bcp47LanguageTag = NULL;
-  int bcp47LanguageTagLen;
 
   bcp47LanguageTag = (char *)malloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
-  bcp47LanguageTagLen = icuToBcp47LanguageTag(test->input, bcp47LanguageTag);
+  ecma402_icuToBcp47LanguageTag(test->input, bcp47LanguageTag);
 
-  cr_assert(eq(str, bcp47LanguageTag, test->expected));
-  cr_assert(eq(int, bcp47LanguageTagLen, strlen(test->expected)));
+  cr_assert(
+      eq(str, bcp47LanguageTag, test->expected),
+      "Expected language tag \"%s\" to convert to \"%s\"; got \"%s\" instead",
+      test->input, test->expected, bcp47LanguageTag);
 
   free(bcp47LanguageTag);
 }
@@ -110,9 +91,10 @@ ParameterizedTest(char **input, ecma402Bcp47, failedLanguageTagConversion) {
   int bcp47LanguageTagLen;
 
   bcp47LanguageTag = (char *)malloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
-  bcp47LanguageTagLen = icuToBcp47LanguageTag(*input, bcp47LanguageTag);
+  bcp47LanguageTagLen = ecma402_icuToBcp47LanguageTag(*input, bcp47LanguageTag);
 
-  cr_assert(eq(int, bcp47LanguageTagLen, ECMA_INTL_FAILURE));
+  cr_assert(eq(int, bcp47LanguageTagLen, ECMA_INTL_FAILURE),
+            "Expected language tag \"%s\" to fail", *input);
 
   free(bcp47LanguageTag);
 }

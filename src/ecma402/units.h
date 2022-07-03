@@ -21,6 +21,8 @@
 #ifndef ECMA_INTL_ECMA402_UNITS_H
 #define ECMA_INTL_ECMA402_UNITS_H
 
+#include "src/common.h"
+
 #include <unicode/errorcode.h>
 #include <unicode/uenum.h>
 
@@ -28,8 +30,16 @@
 extern "C" {
 #endif
 
-UEnumeration *icuGetMeasurementUnits(const char **units,
-                                     const UErrorCode *errorCode);
+/**
+ * Returns a pointer to a char array of all measurement units known to the ICU
+ * library. The char array is allocated on the stack, so it must be freed with
+ * free().
+ *
+ * @param unitsCount An integer pointer that will have the total count of the
+ * measurement units array.
+ * @return A pointer to a char array of all measurement units.
+ */
+const char **ecma402_getAllMeasurementUnits(int *unitsCount);
 
 #ifdef __cplusplus
 }

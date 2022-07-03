@@ -1,38 +1,353 @@
-#include "src/common.h"
 #include "src/ecma402/units.h"
+#include "tests/criterion/test.h"
 
-#include <criterion/criterion.h>
-
-#include <criterion/new/assert.h>
 #include <unicode/errorcode.h>
-#include <unicode/uenum.h>
 
-Test(ecma402Units, units1) {
-  UEnumeration *values = NULL;
-  UErrorCode status = U_ZERO_ERROR;
-  const char **units = NULL;
-  char *identifier;
-  int identifierLen, counter = 0;
+Test(ecma402Units, getAllMeasurementUnits) {
+  const char **units;
+  int i = 0;
+  int unitsCount;
 
-  units = (const char **)malloc(sizeof(char *) * 200);
-  values = icuGetMeasurementUnits(units, &status);
+  units = ecma402_getAllMeasurementUnits(&unitsCount);
 
-  int count = uenum_count(values, &status);
-  uenum_reset(values, &status);
-
-  for (int i = 0; i < count; i++) {
-    identifier = (char *)uenum_next(values, &identifierLen, &status);
-    counter++;
+  while (units[i]) {
+    i++;
   }
 
-  uenum_close(values);
+  free(units);
 
-  if (units) {
-    free(units);
+  /* We don't care about the values enumerated over, since we aren't testing
+   * what the ICU library returns. Rather, we only care that we looped over more
+   * than zero values. */
+  cr_assert(gt(int, i, 1));
+  cr_assert(eq(int, unitsCount, i));
+}
+
+ParameterizedTestParameters(ecma402Units,
+                            measurementUnitsDoNotIncludeAnyCurrencyCodes) {
+  char **tests = cr_malloc(sizeof(*tests) * 305);
+
+  tests[0] = test_strdup("ADP");
+  tests[1] = test_strdup("AED");
+  tests[2] = test_strdup("AFA");
+  tests[3] = test_strdup("AFN");
+  tests[4] = test_strdup("ALK");
+  tests[5] = test_strdup("ALL");
+  tests[6] = test_strdup("AMD");
+  tests[7] = test_strdup("ANG");
+  tests[8] = test_strdup("AOA");
+  tests[9] = test_strdup("AOK");
+  tests[10] = test_strdup("AON");
+  tests[11] = test_strdup("AOR");
+  tests[12] = test_strdup("ARA");
+  tests[13] = test_strdup("ARL");
+  tests[14] = test_strdup("ARM");
+  tests[15] = test_strdup("ARP");
+  tests[16] = test_strdup("ARS");
+  tests[17] = test_strdup("ATS");
+  tests[18] = test_strdup("AUD");
+  tests[19] = test_strdup("AWG");
+  tests[20] = test_strdup("AZM");
+  tests[21] = test_strdup("AZN");
+  tests[22] = test_strdup("BAD");
+  tests[23] = test_strdup("BAM");
+  tests[24] = test_strdup("BAN");
+  tests[25] = test_strdup("BBD");
+  tests[26] = test_strdup("BDT");
+  tests[27] = test_strdup("BEC");
+  tests[28] = test_strdup("BEF");
+  tests[29] = test_strdup("BEL");
+  tests[30] = test_strdup("BGL");
+  tests[31] = test_strdup("BGM");
+  tests[32] = test_strdup("BGN");
+  tests[33] = test_strdup("BGO");
+  tests[34] = test_strdup("BHD");
+  tests[35] = test_strdup("BIF");
+  tests[36] = test_strdup("BMD");
+  tests[37] = test_strdup("BND");
+  tests[38] = test_strdup("BOB");
+  tests[39] = test_strdup("BOL");
+  tests[40] = test_strdup("BOP");
+  tests[41] = test_strdup("BOV");
+  tests[42] = test_strdup("BRB");
+  tests[43] = test_strdup("BRC");
+  tests[44] = test_strdup("BRE");
+  tests[45] = test_strdup("BRL");
+  tests[46] = test_strdup("BRN");
+  tests[47] = test_strdup("BRR");
+  tests[48] = test_strdup("BRZ");
+  tests[49] = test_strdup("BSD");
+  tests[50] = test_strdup("BTN");
+  tests[51] = test_strdup("BUK");
+  tests[52] = test_strdup("BWP");
+  tests[53] = test_strdup("BYB");
+  tests[54] = test_strdup("BYN");
+  tests[55] = test_strdup("BYR");
+  tests[56] = test_strdup("BZD");
+  tests[57] = test_strdup("CAD");
+  tests[58] = test_strdup("CDF");
+  tests[59] = test_strdup("CHE");
+  tests[60] = test_strdup("CHF");
+  tests[61] = test_strdup("CHW");
+  tests[62] = test_strdup("CLE");
+  tests[63] = test_strdup("CLF");
+  tests[64] = test_strdup("CLP");
+  tests[65] = test_strdup("CNH");
+  tests[66] = test_strdup("CNX");
+  tests[67] = test_strdup("CNY");
+  tests[68] = test_strdup("COP");
+  tests[69] = test_strdup("COU");
+  tests[70] = test_strdup("CRC");
+  tests[71] = test_strdup("CSD");
+  tests[72] = test_strdup("CSK");
+  tests[73] = test_strdup("CUC");
+  tests[74] = test_strdup("CUP");
+  tests[75] = test_strdup("CVE");
+  tests[76] = test_strdup("CYP");
+  tests[77] = test_strdup("CZK");
+  tests[78] = test_strdup("DDM");
+  tests[79] = test_strdup("DEM");
+  tests[80] = test_strdup("DJF");
+  tests[81] = test_strdup("DKK");
+  tests[82] = test_strdup("DOP");
+  tests[83] = test_strdup("DZD");
+  tests[84] = test_strdup("ECS");
+  tests[85] = test_strdup("ECV");
+  tests[86] = test_strdup("EEK");
+  tests[87] = test_strdup("EGP");
+  tests[88] = test_strdup("ERN");
+  tests[89] = test_strdup("ESA");
+  tests[90] = test_strdup("ESB");
+  tests[91] = test_strdup("ESP");
+  tests[92] = test_strdup("ETB");
+  tests[93] = test_strdup("EUR");
+  tests[94] = test_strdup("FIM");
+  tests[95] = test_strdup("FJD");
+  tests[96] = test_strdup("FKP");
+  tests[97] = test_strdup("FRF");
+  tests[98] = test_strdup("GBP");
+  tests[99] = test_strdup("GEK");
+  tests[100] = test_strdup("GEL");
+  tests[101] = test_strdup("GHC");
+  tests[102] = test_strdup("GHS");
+  tests[103] = test_strdup("GIP");
+  tests[104] = test_strdup("GMD");
+  tests[105] = test_strdup("GNF");
+  tests[106] = test_strdup("GNS");
+  tests[107] = test_strdup("GQE");
+  tests[108] = test_strdup("GRD");
+  tests[109] = test_strdup("GTQ");
+  tests[110] = test_strdup("GWE");
+  tests[111] = test_strdup("GWP");
+  tests[112] = test_strdup("GYD");
+  tests[113] = test_strdup("HKD");
+  tests[114] = test_strdup("HNL");
+  tests[115] = test_strdup("HRD");
+  tests[116] = test_strdup("HRK");
+  tests[117] = test_strdup("HTG");
+  tests[118] = test_strdup("HUF");
+  tests[119] = test_strdup("IDR");
+  tests[120] = test_strdup("IEP");
+  tests[121] = test_strdup("ILP");
+  tests[122] = test_strdup("ILR");
+  tests[123] = test_strdup("ILS");
+  tests[124] = test_strdup("INR");
+  tests[125] = test_strdup("IQD");
+  tests[126] = test_strdup("IRR");
+  tests[127] = test_strdup("ISJ");
+  tests[128] = test_strdup("ISK");
+  tests[129] = test_strdup("ITL");
+  tests[130] = test_strdup("JMD");
+  tests[131] = test_strdup("JOD");
+  tests[132] = test_strdup("JPY");
+  tests[133] = test_strdup("KES");
+  tests[134] = test_strdup("KGS");
+  tests[135] = test_strdup("KHR");
+  tests[136] = test_strdup("KMF");
+  tests[137] = test_strdup("KPW");
+  tests[138] = test_strdup("KRH");
+  tests[139] = test_strdup("KRO");
+  tests[140] = test_strdup("KRW");
+  tests[141] = test_strdup("KWD");
+  tests[142] = test_strdup("KYD");
+  tests[143] = test_strdup("KZT");
+  tests[144] = test_strdup("LAK");
+  tests[145] = test_strdup("LBP");
+  tests[146] = test_strdup("LKR");
+  tests[147] = test_strdup("LRD");
+  tests[148] = test_strdup("LSL");
+  tests[149] = test_strdup("LTL");
+  tests[150] = test_strdup("LTT");
+  tests[151] = test_strdup("LUC");
+  tests[152] = test_strdup("LUF");
+  tests[153] = test_strdup("LUL");
+  tests[154] = test_strdup("LVL");
+  tests[155] = test_strdup("LVR");
+  tests[156] = test_strdup("LYD");
+  tests[157] = test_strdup("MAD");
+  tests[158] = test_strdup("MAF");
+  tests[159] = test_strdup("MCF");
+  tests[160] = test_strdup("MDC");
+  tests[161] = test_strdup("MDL");
+  tests[162] = test_strdup("MGA");
+  tests[163] = test_strdup("MGF");
+  tests[164] = test_strdup("MKD");
+  tests[165] = test_strdup("MKN");
+  tests[166] = test_strdup("MLF");
+  tests[167] = test_strdup("MMK");
+  tests[168] = test_strdup("MNT");
+  tests[169] = test_strdup("MOP");
+  tests[170] = test_strdup("MRO");
+  tests[171] = test_strdup("MRU");
+  tests[172] = test_strdup("MTL");
+  tests[173] = test_strdup("MTP");
+  tests[174] = test_strdup("MUR");
+  tests[175] = test_strdup("MVP");
+  tests[176] = test_strdup("MVR");
+  tests[177] = test_strdup("MWK");
+  tests[178] = test_strdup("MXN");
+  tests[179] = test_strdup("MXP");
+  tests[180] = test_strdup("MXV");
+  tests[181] = test_strdup("MYR");
+  tests[182] = test_strdup("MZE");
+  tests[183] = test_strdup("MZM");
+  tests[184] = test_strdup("MZN");
+  tests[185] = test_strdup("NAD");
+  tests[186] = test_strdup("NGN");
+  tests[187] = test_strdup("NIC");
+  tests[188] = test_strdup("NIO");
+  tests[189] = test_strdup("NLG");
+  tests[190] = test_strdup("NOK");
+  tests[191] = test_strdup("NPR");
+  tests[192] = test_strdup("NZD");
+  tests[193] = test_strdup("OMR");
+  tests[194] = test_strdup("PAB");
+  tests[195] = test_strdup("PEI");
+  tests[196] = test_strdup("PEN");
+  tests[197] = test_strdup("PES");
+  tests[198] = test_strdup("PGK");
+  tests[199] = test_strdup("PHP");
+  tests[200] = test_strdup("PKR");
+  tests[201] = test_strdup("PLN");
+  tests[202] = test_strdup("PLZ");
+  tests[203] = test_strdup("PTE");
+  tests[204] = test_strdup("PYG");
+  tests[205] = test_strdup("QAR");
+  tests[206] = test_strdup("RHD");
+  tests[207] = test_strdup("ROL");
+  tests[208] = test_strdup("RON");
+  tests[209] = test_strdup("RSD");
+  tests[210] = test_strdup("RUB");
+  tests[211] = test_strdup("RUR");
+  tests[212] = test_strdup("RWF");
+  tests[213] = test_strdup("SAR");
+  tests[214] = test_strdup("SBD");
+  tests[215] = test_strdup("SCR");
+  tests[216] = test_strdup("SDD");
+  tests[217] = test_strdup("SDG");
+  tests[218] = test_strdup("SDP");
+  tests[219] = test_strdup("SEK");
+  tests[220] = test_strdup("SGD");
+  tests[221] = test_strdup("SHP");
+  tests[222] = test_strdup("SIT");
+  tests[223] = test_strdup("SKK");
+  tests[224] = test_strdup("SLE");
+  tests[225] = test_strdup("SLL");
+  tests[226] = test_strdup("SOS");
+  tests[227] = test_strdup("SRD");
+  tests[228] = test_strdup("SRG");
+  tests[229] = test_strdup("SSP");
+  tests[230] = test_strdup("STD");
+  tests[231] = test_strdup("STN");
+  tests[232] = test_strdup("SUR");
+  tests[233] = test_strdup("SVC");
+  tests[234] = test_strdup("SYP");
+  tests[235] = test_strdup("SZL");
+  tests[236] = test_strdup("THB");
+  tests[237] = test_strdup("TJR");
+  tests[238] = test_strdup("TJS");
+  tests[239] = test_strdup("TMM");
+  tests[240] = test_strdup("TMT");
+  tests[241] = test_strdup("TND");
+  tests[242] = test_strdup("TOP");
+  tests[243] = test_strdup("TPE");
+  tests[244] = test_strdup("TRL");
+  tests[245] = test_strdup("TRY");
+  tests[246] = test_strdup("TTD");
+  tests[247] = test_strdup("TWD");
+  tests[248] = test_strdup("TZS");
+  tests[249] = test_strdup("UAH");
+  tests[250] = test_strdup("UAK");
+  tests[251] = test_strdup("UGS");
+  tests[252] = test_strdup("UGX");
+  tests[253] = test_strdup("USD");
+  tests[254] = test_strdup("USN");
+  tests[255] = test_strdup("USS");
+  tests[256] = test_strdup("UYI");
+  tests[257] = test_strdup("UYP");
+  tests[258] = test_strdup("UYU");
+  tests[259] = test_strdup("UYW");
+  tests[260] = test_strdup("UZS");
+  tests[261] = test_strdup("VEB");
+  tests[262] = test_strdup("VEF");
+  tests[263] = test_strdup("VES");
+  tests[264] = test_strdup("VED");
+  tests[265] = test_strdup("VND");
+  tests[266] = test_strdup("VNN");
+  tests[267] = test_strdup("VUV");
+  tests[268] = test_strdup("WST");
+  tests[269] = test_strdup("XAF");
+  tests[270] = test_strdup("XAG");
+  tests[271] = test_strdup("XAU");
+  tests[272] = test_strdup("XBA");
+  tests[273] = test_strdup("XBB");
+  tests[274] = test_strdup("XBC");
+  tests[275] = test_strdup("XBD");
+  tests[276] = test_strdup("XCD");
+  tests[277] = test_strdup("XDR");
+  tests[278] = test_strdup("XEU");
+  tests[279] = test_strdup("XFO");
+  tests[280] = test_strdup("XFU");
+  tests[281] = test_strdup("XOF");
+  tests[282] = test_strdup("XPD");
+  tests[283] = test_strdup("XPF");
+  tests[284] = test_strdup("XPT");
+  tests[285] = test_strdup("XRE");
+  tests[286] = test_strdup("XSU");
+  tests[287] = test_strdup("XTS");
+  tests[288] = test_strdup("XUA");
+  tests[289] = test_strdup("XXX");
+  tests[290] = test_strdup("YDD");
+  tests[291] = test_strdup("YER");
+  tests[292] = test_strdup("YUD");
+  tests[293] = test_strdup("YUM");
+  tests[294] = test_strdup("YUN");
+  tests[295] = test_strdup("YUR");
+  tests[296] = test_strdup("ZAL");
+  tests[297] = test_strdup("ZAR");
+  tests[298] = test_strdup("ZMK");
+  tests[299] = test_strdup("ZMW");
+  tests[300] = test_strdup("ZRN");
+  tests[301] = test_strdup("ZRZ");
+  tests[302] = test_strdup("ZWD");
+  tests[303] = test_strdup("ZWL");
+  tests[304] = test_strdup("ZWR");
+
+  return cr_make_param_array(const char *, tests, 305, test_freeStrings);
+}
+
+ParameterizedTest(char **input, ecma402Units,
+                  measurementUnitsDoNotIncludeAnyCurrencyCodes) {
+  const char **units;
+  int unitsCount = 0;
+
+  units = ecma402_getAllMeasurementUnits(&unitsCount);
+
+  for (int i = 0; i < unitsCount; i++) {
+    cr_expect(ne(str, (char *)units[i], *input),
+              "Currency code \"%s\" should not be in measurement units",
+              *input);
   }
 
-  // We don't care about the values enumerated over, since we aren't testing
-  // what the ICU library returns. Rather, we only care that looped over more
-  // than zero values.
-  cr_assert(gt(int, counter, 0));
-};
+  free(units);
+}

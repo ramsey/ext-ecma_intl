@@ -19,23 +19,12 @@
 */
 
 #include "bcp47.h"
-#include "src/common.h"
 
 #include <string.h>
 #include <unicode/uloc.h>
 
-/**
- * Converts an ICU language tag to its BCP 47 equivalent.
- *
- * The icuLanguageTag may be either an ICU language tag or a BCP 47 language
- * tag. In either case, languageTag will receive a well-formed BCP 47 language
- * tag. If we encounter an error, we will raise a PHP exception and return 0.
- *
- * @param icuLanguageTag The language tag to convert to a well-formed BCP 47 tag
- * @param bcp47LanguageTag A buffer in which to store the BCP 47 language tag
- * @return The length of the BCP 47 language tag stored to bcp47LanguageTag
- */
-int icuToBcp47LanguageTag(const char *icuLanguageTag, char *bcp47LanguageTag) {
+int ecma402_icuToBcp47LanguageTag(const char *icuLanguageTag,
+                                  char *bcp47LanguageTag) {
   int languageTagLen;
   UErrorCode status = U_ZERO_ERROR;
 

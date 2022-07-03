@@ -93,6 +93,7 @@ if test "$PHP_ECMA_INTL" != "no"; then
       src/ecma402/units.cpp                                                    \
       tests/criterion/ecma402/bcp47_test.c                                     \
       tests/criterion/ecma402/units_test.c                                     \
+      tests/criterion/test.c                                                   \
       "
 
     TEST_ADD_SOURCES(

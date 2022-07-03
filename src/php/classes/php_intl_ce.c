@@ -22,9 +22,9 @@
 
 #include "php_enums_ce.h"
 #include "php_exceptions_ce.h"
-#include "src/php/ecma_intl_arginfo.h"
 #include "src/ecma402/bcp47.h"
 #include "src/ecma402/units.h"
+#include "src/php/ecma_intl_arginfo.h"
 
 #include <unicode/ucal.h>
 #include <unicode/ucol.h>
@@ -32,8 +32,6 @@
 #include <unicode/uloc.h>
 #include <unicode/unumsys.h>
 #include <zend_exceptions.h>
-
-#define UNIT_TOTAL_CAPACITY 200
 
 zend_class_entry *ecmaIntlClass = NULL;
 
@@ -76,8 +74,8 @@ PHP_METHOD(Ecma_Intl, getCanonicalLocales) {
     RETURN_THROWS();
   }
   char bcp47LanguageTag[ULOC_FULLNAME_CAPACITY];
-  if (icuToBcp47LanguageTag(Z_STRVAL_P(localeFromArray), bcp47LanguageTag) ==
-      ECMA_INTL_FAILURE) {
+  if (ecma402_icuToBcp47LanguageTag(Z_STRVAL_P(localeFromArray),
+                                    bcp47LanguageTag) == ECMA_INTL_FAILURE) {
     zend_throw_error(ecmaIntlRangeErrorClass, "invalid language tag: %s",
                      Z_STRVAL_P(localeFromArray));
   } else {
@@ -123,8 +121,9 @@ PHP_METHOD(Ecma_Intl, supportedValuesOf) {
   } else if (strcasecmp(CATEGORY_TIME_ZONE, ZSTR_VAL(categoryValue)) == 0) {
     values = ucal_openTimeZones(&status);
   } else if (strcasecmp(CATEGORY_UNIT, ZSTR_VAL(categoryValue)) == 0) {
-    units = (const char **)emalloc(sizeof(char *) * UNIT_TOTAL_CAPACITY);
-    values = icuGetMeasurementUnits(units, &status);
+    int unitsCount;
+    units = ecma402_getAllMeasurementUnits(&unitsCount);
+    values = uenum_openCharStringsEnumeration(units, unitsCount, &status);
   }
 
   if (U_FAILURE(status)) {
@@ -161,7 +160,7 @@ PHP_METHOD(Ecma_Intl, supportedValuesOf) {
   uenum_close(values);
 
   if (units) {
-    efree(units);
+    free(units);
   }
 
   zend_hash_sort(Z_ARRVAL_P(return_value), phpArrayStringCaseCompare, 1);

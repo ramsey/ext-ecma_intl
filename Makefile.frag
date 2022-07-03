@@ -8,6 +8,16 @@ tests/criterion/runner: $(criterion_objects)
 		exit 1; \
 	fi
 
+#
+# In CLion, set the "Build target" to "clion" in the Makefile project settings,
+# and CLion will provide proper source code insight for code in both the src/
+# and tests/ directories, since we're including "all" and
+# "tests/criterion/runner" in this target.
+#
+# See: https://www.jetbrains.com/help/clion/makefiles-support.html#makefile-settings
+#
+clion: all tests/criterion/runner
+
 criterion: tests/criterion/runner
 	@./tests/criterion/runner --color=always
 

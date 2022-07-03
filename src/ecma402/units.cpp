@@ -25,25 +25,24 @@
 #include <unicode/putil.h>
 #include <unicode/strenum.h>
 
-UEnumeration *icuGetMeasurementUnits(const char **units,
-                                     const UErrorCode *errorCode) {
-  static constexpr int unitsCapacity = 40;
+#define UNITS_TOTAL_CAPACITY 200
+#define UNITS_TYPE_CAPACITY 40
 
+const char **ecma402_getAllMeasurementUnits(int *unitsCount) {
   icu::StringEnumeration *availableTypes;
-  icu::MeasureUnit measureUnits[unitsCapacity];
+  icu::MeasureUnit measureUnits[UNITS_TYPE_CAPACITY];
+  UErrorCode status = U_ZERO_ERROR;
+  int typesCount, numUnits, totalCounter = 0;
+  const char *type, **units;
 
-  UEnumeration *enumeratedUnits = nullptr;
-  UErrorCode localStatus = U_ZERO_ERROR;
+  units = (const char **)malloc(sizeof(char *) * UNITS_TOTAL_CAPACITY);
 
-  int typesCount, numUnits, unitsCount = 0, resultLength = 40;
-  const char *type, *identifier;
-
-  availableTypes = icu::MeasureUnit::getAvailableTypes(localStatus);
-  typesCount = availableTypes->count(localStatus);
-  availableTypes->reset(localStatus);
+  availableTypes = icu::MeasureUnit::getAvailableTypes(status);
+  typesCount = availableTypes->count(status);
+  availableTypes->reset(status);
 
   for (int i = 0; i < typesCount; i++) {
-    type = availableTypes->next(&resultLength, localStatus);
+    type = availableTypes->next(nullptr, status);
 
     /* Skip currency; we do not want to return currency identifiers as
      * measurement units. */
@@ -51,31 +50,17 @@ UEnumeration *icuGetMeasurementUnits(const char **units,
       continue;
     }
 
-    numUnits = icu::MeasureUnit::getAvailable(type, measureUnits, unitsCapacity,
-                                              localStatus);
-
-    if (numUnits == 0) {
-      continue;
-    }
+    numUnits = icu::MeasureUnit::getAvailable(type, measureUnits,
+                                              UNITS_TYPE_CAPACITY, status);
 
     for (int j = 0; j < numUnits; j++) {
-      identifier = measureUnits[j].getIdentifier();
-
-      if (strcmp(identifier, "") == 0) {
-        continue;
-      }
-
-      units[unitsCount++] = identifier;
+      units[totalCounter++] = measureUnits[j].getIdentifier();
     }
   }
 
   delete availableTypes;
-  enumeratedUnits =
-      uenum_openCharStringsEnumeration(units, unitsCount, &localStatus);
 
-  if (U_FAILURE(localStatus)) {
-    errorCode = &localStatus;
-  }
+  *unitsCount = totalCounter;
 
-  return enumeratedUnits;
+  return units;
 }
