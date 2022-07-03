@@ -86,10 +86,12 @@ jobs:
           extensions: "intl-${{ matrix.icu-version }}"
           coverage: "none"
 
-      - name: "Install Cpputest"
+      - name: "Install Criterion"
         run: |
-          sudo apt-get update
-          sudo apt-get install -y cpputest
+          curl -LOs https://github.com/Snaipe/Criterion/releases/download/v2.4.1/criterion-2.4.1-linux-x86_64.tar.xz
+          tar Jxf criterion-2.4.1-linux-x86_64.tar.xz
+          sudo rsync -a criterion-2.4.1/* /usr/.
+          rm -rf criterion-2.4.1-linux-x86_64.tar.xz criterion-2.4.1/
 
       - name: "Install dependencies (Composer)"
         uses: "ramsey/composer-install@2.1.0"
@@ -97,15 +99,15 @@ jobs:
       - name: "Build and install ecma_intl"
         run: |
           phpize
-          ./configure --enable-ecma_intl --enable-cpputest
+          ./configure --enable-ecma_intl --enable-criterion
           make -j$(nproc)
           sudo make install
           sudo mkdir -p "$(php-config --ini-dir)"
           sudo su -c "echo 'extension=ecma_intl.so' > '$(php-config --ini-dir)/99-ecma_intl.ini'"
           php --ri ecma_intl
 
-      - name: "Run tests (cpputest)"
-        run: "make cpputest"
+      - name: "Run tests (criterion)"
+        run: "make criterion"
 
       - name: "Run tests (phpt)"
         run: "php run-tests.php -q --show-diff --color"

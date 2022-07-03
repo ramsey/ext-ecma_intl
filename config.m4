@@ -11,11 +11,11 @@ PHP_ARG_ENABLE(
 )
 
 PHP_ARG_ENABLE(
-  [cpputest],
-  [whether to enable support for Cpputest tests],
+  [criterion],
+  [whether to enable support for Criterion tests],
   [AS_HELP_STRING(
-    [--enable-cpputest],
-    [Enable support for running Cpputest tests (development only)])
+    [--enable-criterion],
+    [Enable support for running Criterion tests (development only)])
   ],
   [no],
   [no]
@@ -79,29 +79,29 @@ if test "$PHP_ECMA_INTL" != "no"; then
 
   PHP_ADD_MAKEFILE_FRAGMENT
 
-  if test "$PHP_CPPUTEST" != "no"; then
-    PKG_CHECK_MODULES([CPPUTEST], [cpputest])
+  if test "$PHP_CRITERION" != "no"; then
+    PKG_CHECK_MODULES([CRITERION], [criterion])
 
-    PHP_EVAL_INCLINE($CPPUTEST_CFLAGS)
-    PHP_EVAL_LIBLINE($CPPUTEST_LIBS, CPPUTEST_LIBS)
+    PHP_EVAL_INCLINE($CRITERION_CFLAGS)
+    PHP_EVAL_LIBLINE($CRITERION_LIBS, CRITERION_LIBS)
 
-    PHP_SUBST(CPPUTEST_LIBS)
-    AC_DEFINE(HAVE_CPPUTEST, 1, [ Have Cpputest support ])
+    PHP_SUBST(CRITERION_LIBS)
+    AC_DEFINE(HAVE_CRITERION, 1, [ Have Criterion support ])
 
     TEST_SOURCES="                                                             \
       src/ecma402/bcp47.c                                                      \
       src/ecma402/units.cpp                                                    \
-      tests/cpputest/ecma402/bcp47_test.cpp                                    \
-      tests/cpputest/run_tests.cpp                                             \
+      tests/criterion/ecma402/bcp47_test.c                                     \
+      tests/criterion/ecma402/units_test.c                                     \
       "
 
     TEST_ADD_SOURCES(
       PHP_EXT_DIR(ecma_intl),
       $TEST_SOURCES,
       $ICU_CFLAGS,
-      cpputest_objects,
+      criterion_objects,
     )
 
-    PHP_SUBST(cpputest_objects)
+    PHP_SUBST(criterion_objects)
   fi
 fi

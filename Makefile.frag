@@ -1,13 +1,15 @@
-tests/cpputest/run_tests: $(cpputest_objects)
-	@if test "$(cpputest_objects)"; then \
-		$(CXX) $(cpputest_objects) -o tests/cpputest/run_tests $(ECMA_INTL_SHARED_LIBADD) $(CPPUTEST_LIBS); \
+tests/criterion/runner: $(criterion_objects)
+	@if test "$(criterion_objects)"; then \
+		$(CXX) $(criterion_objects) -o tests/criterion/runner $(ECMA_INTL_SHARED_LIBADD) $(CRITERION_LIBS); \
 	else \
-		echo "[ERROR] Configure ecma_intl with --enable-cpputest to run Cpputest tests"; \
+		echo "[ERROR] Configure ecma_intl with --enable-criterion to run Criterion tests"; \
+		echo "        To install Criterion, see https://github.com/Snaipe/Criterion"; \
+		echo ""; \
 		exit 1; \
 	fi
 
-cpputest: tests/cpputest/run_tests
-	@./tests/cpputest/run_tests -c -v
+criterion: tests/criterion/runner
+	@./tests/criterion/runner --color=always
 
 deepclean: distclean
 	git clean -fXd \
@@ -17,4 +19,4 @@ deepclean: distclean
 		--exclude '!vendor/**' \
 		--exclude '!composer.lock'
 
-.PHONY: cpputest deepclean
+.PHONY: criterion deepclean
