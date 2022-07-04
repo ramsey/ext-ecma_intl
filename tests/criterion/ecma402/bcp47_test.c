@@ -8,17 +8,17 @@ typedef struct tagParam {
   char *expected;
 } tagParam;
 
-void freeTagParams(struct criterion_test_params *crp) {
-  struct tagParam **params = (struct tagParam **)crp->params;
+static void freeTagParams(struct criterion_test_params *crp) {
+  struct tagParam *params = (struct tagParam *)crp->params;
   for (size_t i = 0; i < crp->length; ++i) {
-    cr_free(params[i]->expected);
-    cr_free(params[i]->input);
+    cr_free(params[i].expected);
+    cr_free(params[i].input);
   }
   cr_free(params);
 }
 
-int addTest(struct tagParam *tests, int index, const char *input,
-            const char *expected) {
+static int addTest(struct tagParam *tests, int index, const char *input,
+                   const char *expected) {
   tests[index].input = test_strdup(input);
   tests[index].expected = test_strdup(expected);
 
@@ -29,7 +29,7 @@ ParameterizedTestParameters(ecma402Bcp47, successfulLanguageTagConversion) {
   struct tagParam *tests;
   int index = 0;
 
-  tests = malloc(100 * sizeof(tagParam));
+  tests = cr_malloc(18 * sizeof(tagParam));
   index = addTest(tests, index, "en-US", "en-US");
   index = addTest(tests, index, "en_US", "en-US");
   index = addTest(tests, index, "de-DE", "de-DE");

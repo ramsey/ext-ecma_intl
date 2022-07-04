@@ -18,27 +18,42 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_COMMON_H
-#define ECMA_INTL_COMMON_H
+#ifndef ECMA_INTL_ECMA402_CALENDAR_H
+#define ECMA_INTL_ECMA402_CALENDAR_H
 
-#define CATEGORY_CALENDAR "calendar"
-#define CATEGORY_COLLATION "collation"
-#define CATEGORY_CURRENCY "currency"
-#define CATEGORY_NUMBERING_SYSTEM "numberingSystem"
-#define CATEGORY_TIME_ZONE "timeZone"
-#define CATEGORY_UNIT "unit"
+#include "src/common.h"
 
-#define KEYWORD_ICU_CALENDAR "calendar"
-#define KEYWORD_ICU_CASE_FIRST "colcasefirst"
-#define KEYWORD_ICU_COLLATION "collation"
-#define KEYWORD_ICU_HOUR_CYCLE "hours"
-#define KEYWORD_ICU_NUMBERING_SYSTEM "numbers"
-#define KEYWORD_ICU_NUMERIC "colnumeric"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-enum ecmaIntlResultCode {
-  ECMA_INTL_SUCCESS = 0,
-  ECMA_INTL_FAILURE = -1,
+enum ecma402_weekdayType { ECMA402_WEEKDAY, ECMA402_WEEKEND };
+typedef enum ecma402_weekdayType ecma402_weekdayType;
+
+enum ecma402_dayOfWeek {
+  ECMA402_MONDAY = 1,
+  ECMA402_TUESDAY,
+  ECMA402_WEDNESDAY,
+  ECMA402_THURSDAY,
+  ECMA402_FRIDAY,
+  ECMA402_SATURDAY,
+  ECMA402_SUNDAY,
 };
-typedef enum ecmaIntlResultCode ecmaIntlResultCode;
+typedef enum ecma402_dayOfWeek ecma402_dayOfWeek;
 
-#endif /* ECMA_INTL_COMMON_H */
+/**
+ * Returns the weekday type (i.e., weekday or weekend) for the given day of the
+ * week in the given locale.
+ *
+ * @param localeId The locale to check.
+ * @param day The day of the week ot check.
+ * @return The weekday type for the day (i.e., weekday or weekend).
+ */
+ecma402_weekdayType ecma402_getDayOfWeekType(char *localeId,
+                                             enum ecma402_dayOfWeek day);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* ECMA_INTL_ECMA402_CALENDAR_H */
