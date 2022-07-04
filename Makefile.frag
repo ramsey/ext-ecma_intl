@@ -1,12 +1,13 @@
-tests/criterion/runner: $(criterion_objects)
-	@if test "$(criterion_objects)"; then \
-		$(CXX) $(criterion_objects) -o tests/criterion/runner $(ECMA_INTL_SHARED_LIBADD) $(CRITERION_LIBS); \
-	else \
+check-criterion:
+	@if ! test "$(criterion_objects)"; then \
 		echo "[ERROR] Configure ecma_intl with --enable-criterion to run Criterion tests"; \
 		echo "        To install Criterion, see https://github.com/Snaipe/Criterion"; \
 		echo ""; \
 		exit 1; \
 	fi
+
+tests/criterion/runner: check-criterion $(criterion_objects)
+	$(CXX) $(COMMON_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(criterion_objects) -o tests/criterion/runner $(ECMA_INTL_SHARED_LIBADD) $(CRITERION_LIBS); \
 
 #
 # In CLion, set the "Build target" to "clion" in the Makefile project settings,
@@ -19,7 +20,12 @@ tests/criterion/runner: $(criterion_objects)
 clion: all tests/criterion/runner
 
 criterion: tests/criterion/runner
-	@./tests/criterion/runner --color=always
+	./tests/criterion/runner --color=always
+
+test-clean:
+	find . -name \*.d | xargs rm -f
+
+clean: test-clean
 
 deepclean: distclean
 	git clean -fXd \
@@ -29,4 +35,4 @@ deepclean: distclean
 		--exclude '!vendor/**' \
 		--exclude '!composer.lock'
 
-.PHONY: criterion deepclean
+.PHONY: check-criterion criterion deepclean test-clean
