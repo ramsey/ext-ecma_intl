@@ -40,6 +40,7 @@ typedef struct ecma402_locale {
    * Length of the locale identifier.
    */
   unsigned long length;
+
 } ecma402_locale;
 
 /**

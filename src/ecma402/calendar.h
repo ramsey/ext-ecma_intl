@@ -27,19 +27,66 @@
 extern "C" {
 #endif
 
-enum ecma402_weekdayType { ECMA402_WEEKDAY, ECMA402_WEEKEND };
-typedef enum ecma402_weekdayType ecma402_weekdayType;
+/**
+ * Type of the day of the week, i.e., weekday or weekend.
+ */
+typedef enum ecma402_weekdayType {
+  /**
+   * The day of the week is considered a weekday.
+   */
+  ECMA402_WEEKDAY,
 
-enum ecma402_dayOfWeek {
+  /**
+   * The day of the week is considered a weekend.
+   */
+  ECMA402_WEEKEND
+
+} ecma402_weekdayType;
+
+/**
+ * The day of the week. The days of the week in this enum are ordered and
+ * numbered according to the definition for WeekInfoOfLocale in the TC39 Intl
+ * Locale Info Proposal, Stage 3 Draft.
+ *
+ * @link https://tc39.es/proposal-intl-locale-info/#sec-week-info-of-locale
+ */
+typedef enum ecma402_dayOfWeek {
+  /**
+   * Monday
+   */
   ECMA402_MONDAY = 1,
+
+  /**
+   * Tuesday
+   */
   ECMA402_TUESDAY,
+
+  /**
+   * Wednesday
+   */
   ECMA402_WEDNESDAY,
+
+  /**
+   * Thursday
+   */
   ECMA402_THURSDAY,
+
+  /**
+   * Friday
+   */
   ECMA402_FRIDAY,
+
+  /**
+   * Saturday
+   */
   ECMA402_SATURDAY,
+
+  /**
+   * Sunday
+   */
   ECMA402_SUNDAY,
-};
-typedef enum ecma402_dayOfWeek ecma402_dayOfWeek;
+
+} ecma402_dayOfWeek;
 
 /**
  * Returns the weekday type (i.e., weekday or weekend) for the given day of the
