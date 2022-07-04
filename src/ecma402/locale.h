@@ -18,30 +18,49 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_ECMA402_UNITS_H
-#define ECMA_INTL_ECMA402_UNITS_H
+#ifndef ECMA_INTL_ECMA402_ECMA_LOCALE_H
+#define ECMA_INTL_ECMA402_ECMA_LOCALE_H
 
 #include "src/common.h"
-
-#include <unicode/errorcode.h>
-#include <unicode/uenum.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * Returns a pointer to a char array of all measurement units known to the ICU
- * library. The char array is allocated on the stack, so it must be freed.
- *
- * @param unitsCount An integer pointer that will have the total count of the
- * measurement units array.
- * @return A pointer to a char array of all measurement units.
+ * Represents a locale identifier, e.g. "en-US."
  */
-const char **ecma402_getAllMeasurementUnits(int *unitsCount);
+typedef struct ecma402_locale {
+  /**
+   * Locale identifier, e.g., "en-US."
+   */
+  char *id;
+
+  /**
+   * Length of the locale identifier.
+   */
+  unsigned long length;
+} ecma402_locale;
+
+/**
+ * Initializes a locale struct with the given locale identifier. This also
+ * allocates the struct on the stack; free it using ecma402_freeLocale().
+ *
+ * @param localeId The locale identifier, e.g., "en-US."
+ *
+ * @return A locale.
+ */
+ecma402_locale *ecma402_initLocale(const char *localeId);
+
+/**
+ * Frees a locale initialized with ecma402_initLocale().
+ *
+ * @param locale The locale to free.
+ */
+void ecma402_freeLocale(ecma402_locale *locale);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* ECMA_INTL_ECMA402_UNITS_H */
+#endif /* ECMA_INTL_ECMA402_ECMA_LOCALE_H */

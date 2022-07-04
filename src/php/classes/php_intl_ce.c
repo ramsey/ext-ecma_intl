@@ -142,16 +142,16 @@ PHP_METHOD(Ecma_Intl, supportedValuesOf) {
     if (strcasecmp(CATEGORY_CALENDAR, ZSTR_VAL(categoryValue)) == 0) {
       add_next_index_string(
           return_value,
-          uloc_toUnicodeLocaleType(KEYWORD_ICU_CALENDAR, identifier));
+          uloc_toUnicodeLocaleType(ICU_KEYWORD_CALENDAR, identifier));
     } else if (strcasecmp(CATEGORY_COLLATION, ZSTR_VAL(categoryValue)) == 0) {
       add_next_index_string(
           return_value,
-          uloc_toUnicodeLocaleType(KEYWORD_ICU_COLLATION, identifier));
+          uloc_toUnicodeLocaleType(ICU_KEYWORD_COLLATION, identifier));
     } else if (strcasecmp(CATEGORY_NUMBERING_SYSTEM, ZSTR_VAL(categoryValue)) ==
                0) {
       add_next_index_string(
           return_value,
-          uloc_toUnicodeLocaleType(KEYWORD_ICU_NUMBERING_SYSTEM, identifier));
+          uloc_toUnicodeLocaleType(ICU_KEYWORD_NUMBERING_SYSTEM, identifier));
     } else {
       add_next_index_stringl(return_value, identifier, identifierLen);
     }

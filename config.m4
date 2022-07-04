@@ -35,6 +35,7 @@ if test "$PHP_ECMA_INTL" != "no"; then
   PHP_ECMA_INTL_C_SOURCES="                                                    \
     src/ecma402/bcp47.c                                                        \
     src/ecma402/calendar.c                                                     \
+    src/ecma402/locale.c                                                       \
     src/php/classes/php_enums_ce.c                                             \
     src/php/classes/php_exceptions_ce.c                                        \
     src/php/classes/php_intl_ce.c                                              \
@@ -42,6 +43,7 @@ if test "$PHP_ECMA_INTL" != "no"; then
     "
 
   PHP_ECMA_INTL_CXX_SOURCES="                                                  \
+    src/ecma402/localeBuilder.cpp                                              \
     src/ecma402/units.cpp                                                      \
     "
 
@@ -92,9 +94,13 @@ if test "$PHP_ECMA_INTL" != "no"; then
     TEST_SOURCES="                                                             \
       src/ecma402/bcp47.c                                                      \
       src/ecma402/calendar.c                                                   \
+      src/ecma402/locale.c                                                     \
+      src/ecma402/localeBuilder.cpp                                            \
       src/ecma402/units.cpp                                                    \
       tests/criterion/ecma402/bcp47_test.c                                     \
       tests/criterion/ecma402/calendar_test.c                                  \
+      tests/criterion/ecma402/localeBuilder_test.c                             \
+      tests/criterion/ecma402/locale_test.c                                    \
       tests/criterion/ecma402/units_test.c                                     \
       tests/criterion/test.c                                                   \
       "

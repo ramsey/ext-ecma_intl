@@ -18,30 +18,31 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_ECMA402_UNITS_H
-#define ECMA_INTL_ECMA402_UNITS_H
+#include "locale.h"
 
-#include "src/common.h"
+#include <stdlib.h>
+#include <string.h>
 
-#include <unicode/errorcode.h>
-#include <unicode/uenum.h>
+ecma402_locale *ecma402_initLocale(const char *localeId) {
+  ecma402_locale *locale;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+  if (!localeId || strcmp(localeId, "") == 0) {
+    return NULL;
+  }
 
-/**
- * Returns a pointer to a char array of all measurement units known to the ICU
- * library. The char array is allocated on the stack, so it must be freed.
- *
- * @param unitsCount An integer pointer that will have the total count of the
- * measurement units array.
- * @return A pointer to a char array of all measurement units.
- */
-const char **ecma402_getAllMeasurementUnits(int *unitsCount);
+  locale = (ecma402_locale *)(malloc(sizeof(*locale)));
 
-#ifdef __cplusplus
+  if (!locale) {
+    return NULL;
+  }
+
+  locale->id = strdup(localeId);
+  locale->length = strlen(localeId);
+
+  return locale;
 }
-#endif
 
-#endif /* ECMA_INTL_ECMA402_UNITS_H */
+void ecma402_freeLocale(ecma402_locale *locale) {
+  free(locale->id);
+  free(locale);
+}
