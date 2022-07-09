@@ -26,19 +26,27 @@
 #include <unicode/errorcode.h>
 #include <unicode/uenum.h>
 
+#define UNITS_CAPACITY 200
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * Returns a pointer to a char array of all measurement units known to the ICU
- * library. The char array is allocated on the stack, so it must be freed.
+ * Points the provided units char pointer to an array of all measurement units
+ * and returns the total number of measurement units stored in that array.
  *
- * @param unitsCount An integer pointer that will have the total count of the
- * measurement units array.
- * @return A pointer to a char array of all measurement units.
+ * The units parameter should already be allocated on the stack with enough
+ * memory to store all the units. Typically, this should use UNITS_CAPACITY.
+ * For example:
+ *
+ *     (const char **)malloc(sizeof(const char *) * UNITS_CAPACITY)
+ *
+ * @param units A pointer in which to store the resulting char array of units.
+ *
+ * @return The total count of the number of units returned.
  */
-const char **getAllMeasurementUnits(int *unitsCount);
+int getAllMeasurementUnits(const char **units);
 
 #ifdef __cplusplus
 }

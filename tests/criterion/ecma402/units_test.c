@@ -5,13 +5,14 @@
 
 Test(ecma402Units, getAllMeasurementUnits) {
   const char **units;
-  int i = 0;
+  int i, j = 0;
   int unitsCount;
 
-  units = getAllMeasurementUnits(&unitsCount);
+  units = (const char **)malloc(sizeof(const char *) * UNITS_CAPACITY);
+  unitsCount = getAllMeasurementUnits(units);
 
-  while (units[i]) {
-    i++;
+  for (i = 0; i < unitsCount; i++) {
+    j++;
   }
 
   free(units);
@@ -19,8 +20,8 @@ Test(ecma402Units, getAllMeasurementUnits) {
   /* We don't care about the values enumerated over, since we aren't testing
    * what the ICU library returns. Rather, we only care that we looped over more
    * than zero values. */
-  cr_assert(gt(int, i, 1));
-  cr_assert(eq(int, unitsCount, i));
+  cr_assert(gt(int, j, 1));
+  cr_assert(eq(int, unitsCount, j));
 }
 
 ParameterizedTestParameters(ecma402Units,
@@ -339,9 +340,10 @@ ParameterizedTestParameters(ecma402Units,
 ParameterizedTest(char **input, ecma402Units,
                   measurementUnitsDoNotIncludeAnyCurrencyCodes) {
   const char **units;
-  int unitsCount = 0;
+  int unitsCount;
 
-  units = getAllMeasurementUnits(&unitsCount);
+  units = (const char **)malloc(sizeof(const char *) * UNITS_CAPACITY);
+  unitsCount = getAllMeasurementUnits(units);
 
   for (int i = 0; i < unitsCount; i++) {
     cr_expect(ne(str, (char *)units[i], *input),

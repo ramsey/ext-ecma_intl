@@ -25,17 +25,14 @@
 #include <unicode/putil.h>
 #include <unicode/strenum.h>
 
-#define UNITS_TOTAL_CAPACITY 200
 #define UNITS_TYPE_CAPACITY 40
 
-const char **getAllMeasurementUnits(int *unitsCount) {
+int getAllMeasurementUnits(const char **units) {
   icu::StringEnumeration *availableTypes;
   icu::MeasureUnit measureUnits[UNITS_TYPE_CAPACITY];
   UErrorCode status = U_ZERO_ERROR;
-  int typesCount, numUnits, totalCounter = 0;
-  const char *type, **units;
-
-  units = (const char **)malloc(sizeof(char *) * UNITS_TOTAL_CAPACITY);
+  int typesCount, numUnitsInType, unitsCount = 0;
+  const char *type;
 
   availableTypes = icu::MeasureUnit::getAvailableTypes(status);
   typesCount = availableTypes->count(status);
@@ -50,17 +47,15 @@ const char **getAllMeasurementUnits(int *unitsCount) {
       continue;
     }
 
-    numUnits = icu::MeasureUnit::getAvailable(type, measureUnits,
-                                              UNITS_TYPE_CAPACITY, status);
+    numUnitsInType = icu::MeasureUnit::getAvailable(
+        type, measureUnits, UNITS_TYPE_CAPACITY, status);
 
-    for (int j = 0; j < numUnits; j++) {
-      units[totalCounter++] = measureUnits[j].getIdentifier();
+    for (int j = 0; j < numUnitsInType; j++) {
+      units[unitsCount++] = measureUnits[j].getIdentifier();
     }
   }
 
   delete availableTypes;
 
-  *unitsCount = totalCounter;
-
-  return units;
+  return unitsCount;
 }

@@ -123,7 +123,8 @@ PHP_METHOD(Ecma_Intl, supportedValuesOf) {
     values = ucal_openTimeZones(&status);
   } else if (strcasecmp(CATEGORY_UNIT, ZSTR_VAL(categoryValue)) == 0) {
     int unitsCount;
-    units = getAllMeasurementUnits(&unitsCount);
+    units = (const char **)emalloc(sizeof(const char *) * UNITS_CAPACITY);
+    unitsCount = getAllMeasurementUnits(units);
     values = uenum_openCharStringsEnumeration(units, unitsCount, &status);
   }
 
@@ -161,7 +162,7 @@ PHP_METHOD(Ecma_Intl, supportedValuesOf) {
   uenum_close(values);
 
   if (units) {
-    free(units);
+    efree(units);
   }
 
   zend_hash_sort(Z_ARRVAL_P(return_value), phpArrayStringCaseCompare, 1);
