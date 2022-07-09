@@ -31,7 +31,7 @@ static int addTest(struct testParams *tests, int index, const char *localeId,
   return ++index;
 }
 
-ParameterizedTestParameters(ecma402Calendar, foo) {
+ParameterizedTestParameters(ecma402Calendar, getsExpectedDayOfTheWeekType) {
   struct testParams *tests;
   int index = 0;
 
@@ -58,10 +58,34 @@ ParameterizedTestParameters(ecma402Calendar, foo) {
   return cr_make_param_array(struct testParams, tests, index, freeTestParams);
 }
 
-ParameterizedTest(struct testParams *test, ecma402Calendar, foo) {
+ParameterizedTest(struct testParams *test, ecma402Calendar,
+                  getsExpectedDayOfTheWeekType) {
   int weekdayType = ecma402_getDayOfWeekType(test->localeId, test->day);
 
   cr_assert(eq(int, weekdayType, test->expected),
             "Expected %d for day %d in locale \"%s\"; got %d", test->expected,
             test->day, test->localeId, weekdayType);
+}
+
+ParameterizedTestParameters(ecma402Calendar, getsExpectedFirstDayOfTheWeek) {
+  struct testParams *tests;
+  int index = 0;
+
+  tests = cr_malloc(2 * sizeof(testParams));
+
+  // We're setting the day parameter to 0 because it's not used for these tests.
+  index = addTest(tests, index, "en-US", 0, ECMA402_SUNDAY);
+  index = addTest(tests, index, "en-GB", 0, ECMA402_MONDAY);
+  index = addTest(tests, index, "fa-IR", 0, ECMA402_SATURDAY);
+
+  return cr_make_param_array(struct testParams, tests, index, freeTestParams);
+}
+
+ParameterizedTest(struct testParams *test, ecma402Calendar,
+                  getsExpectedFirstDayOfTheWeek) {
+  int dayOfWeek = ecma402_getFirstDayOfWeek(test->localeId);
+
+  cr_assert(eq(int, dayOfWeek, test->expected),
+            "Expected %d for locale \"%s\"; got %d", test->expected,
+            test->localeId, dayOfWeek);
 }

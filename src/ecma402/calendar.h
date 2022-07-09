@@ -99,6 +99,15 @@ typedef enum ecma402_dayOfWeek {
 ecma402_weekdayType ecma402_getDayOfWeekType(char *localeId,
                                              enum ecma402_dayOfWeek day);
 
+/**
+ * Returns the day of the week that is considered the first day of the week for
+ * the given locale.
+ *
+ * @param localeId The locale to check.
+ * @return The day of the week considered the first day.
+ */
+ecma402_dayOfWeek ecma402_getFirstDayOfWeek(char *localeId);
+
 #ifdef __cplusplus
 }
 #endif
