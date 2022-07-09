@@ -51,7 +51,11 @@ int getAllMeasurementUnits(const char **units) {
         type, measureUnits, UNITS_TYPE_CAPACITY, status);
 
     for (int j = 0; j < numUnitsInType; j++) {
-      units[unitsCount++] = measureUnits[j].getIdentifier();
+      units[unitsCount] =
+          (const char *)malloc(strlen(measureUnits[j].getIdentifier()) + 1);
+      memcpy((void *)units[unitsCount], measureUnits[j].getIdentifier(),
+             strlen(measureUnits[j].getIdentifier()) + 1);
+      unitsCount++;
     }
   }
 

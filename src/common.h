@@ -28,13 +28,6 @@
 #define BCP47_KEYWORD_NUMBERING_SYSTEM "nu"
 #define BCP47_KEYWORD_NUMERIC "kn"
 
-#define CATEGORY_CALENDAR "calendar"
-#define CATEGORY_COLLATION "collation"
-#define CATEGORY_CURRENCY "currency"
-#define CATEGORY_NUMBERING_SYSTEM "numberingSystem"
-#define CATEGORY_TIME_ZONE "timeZone"
-#define CATEGORY_UNIT "unit"
-
 #define ICU_KEYWORD_CALENDAR "calendar"
 #define ICU_KEYWORD_CASE_FIRST "colcasefirst"
 #define ICU_KEYWORD_COLLATION "collation"

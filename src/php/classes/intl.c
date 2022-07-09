@@ -21,24 +21,17 @@
 #include "intl.h"
 
 #include "category.h"
-#include "icu_exception.h"
 #include "range_error.h"
 #include "src/ecma402/bcp47.h"
-#include "src/ecma402/units.h"
+#include "src/ecma402/category.h"
 #include "src/php/ecma_intl_arginfo.h"
 
-#include <unicode/ucal.h>
-#include <unicode/ucol.h>
-#include <unicode/ucurr.h>
 #include <unicode/uloc.h>
-#include <unicode/unumsys.h>
 #include <zend_exceptions.h>
 
 zend_class_entry *ecmaIntlClass = NULL;
 
-static zend_always_inline int phpArrayStringCaseCompare(Bucket *f, Bucket *s) {
-  return string_case_compare_function(&f->val, &s->val);
-}
+void registerEcmaIntlClass() { ecmaIntlClass = register_class_Ecma_Intl(); }
 
 PHP_METHOD(Ecma_Intl, __construct) { ZEND_PARSE_PARAMETERS_NONE(); }
 
@@ -97,75 +90,31 @@ PHP_METHOD(Ecma_Intl, getCanonicalLocales) {
 PHP_METHOD(Ecma_Intl, supportedValuesOf) {
   zend_object *categoryEnum;
   zval *category;
-  zend_string *categoryValue;
-  UEnumeration *values = NULL;
-  UErrorCode status = U_ZERO_ERROR;
-  const char *identifier, **units = NULL;
-  int identifierLen;
+  const char **values = NULL;
+  char *categoryValue;
+  int valuesCount;
 
   ZEND_PARSE_PARAMETERS_START(1, 1)
   Z_PARAM_OBJ_OF_CLASS(categoryEnum, ecmaIntlCategoryEnum)
   ZEND_PARSE_PARAMETERS_END();
 
   category = zend_enum_fetch_case_value(categoryEnum);
-  categoryValue = Z_STR_P(category);
+  categoryValue = ZSTR_VAL(Z_STR_P(category));
 
-  if (strcasecmp(CATEGORY_CALENDAR, ZSTR_VAL(categoryValue)) == 0) {
-    values = ucal_getKeywordValuesForLocale("calendar", NULL, 0, &status);
-  } else if (strcasecmp(CATEGORY_COLLATION, ZSTR_VAL(categoryValue)) == 0) {
-    values = ucol_getKeywordValues("collation", &status);
-  } else if (strcasecmp(CATEGORY_CURRENCY, ZSTR_VAL(categoryValue)) == 0) {
-    values = ucurr_openISOCurrencies(UCURR_ALL, &status);
-  } else if (strcasecmp(CATEGORY_NUMBERING_SYSTEM, ZSTR_VAL(categoryValue)) ==
-             0) {
-    values = unumsys_openAvailableNames(&status);
-  } else if (strcasecmp(CATEGORY_TIME_ZONE, ZSTR_VAL(categoryValue)) == 0) {
-    values = ucal_openTimeZones(&status);
-  } else if (strcasecmp(CATEGORY_UNIT, ZSTR_VAL(categoryValue)) == 0) {
-    int unitsCount;
-    units = (const char **)emalloc(sizeof(const char *) * UNITS_CAPACITY);
-    unitsCount = getAllMeasurementUnits(units);
-    values = uenum_openCharStringsEnumeration(units, unitsCount, &status);
+  values = (const char **)emalloc(sizeof(const char *) *
+                                  getCapacityForCategory(categoryValue));
+  valuesCount = getSupportedValuesForCategory(categoryValue, values);
+
+  array_init_size(return_value, valuesCount);
+
+  for (int i = 0; i < valuesCount; i++) {
+    add_next_index_string(return_value, values[i]);
   }
 
-  if (U_FAILURE(status)) {
-    zend_throw_error(ecmaIntlIcuExceptionClass, "%s", u_errorName(status));
-    RETURN_THROWS();
-  }
-
-  int count = uenum_count(values, &status);
-  uenum_reset(values, &status);
-
-  array_init_size(return_value, count);
-
-  for (int i = 0; i < count; i++) {
-    identifier = uenum_next(values, &identifierLen, &status);
-
-    if (strcasecmp(CATEGORY_CALENDAR, ZSTR_VAL(categoryValue)) == 0) {
-      add_next_index_string(
-          return_value,
-          uloc_toUnicodeLocaleType(ICU_KEYWORD_CALENDAR, identifier));
-    } else if (strcasecmp(CATEGORY_COLLATION, ZSTR_VAL(categoryValue)) == 0) {
-      add_next_index_string(
-          return_value,
-          uloc_toUnicodeLocaleType(ICU_KEYWORD_COLLATION, identifier));
-    } else if (strcasecmp(CATEGORY_NUMBERING_SYSTEM, ZSTR_VAL(categoryValue)) ==
-               0) {
-      add_next_index_string(
-          return_value,
-          uloc_toUnicodeLocaleType(ICU_KEYWORD_NUMBERING_SYSTEM, identifier));
-    } else {
-      add_next_index_stringl(return_value, identifier, identifierLen);
+  if (values) {
+    for (int i = 0; i < valuesCount; i++) {
+      free((void *)values[i]);
     }
+    efree(values);
   }
-
-  uenum_close(values);
-
-  if (units) {
-    efree(units);
-  }
-
-  zend_hash_sort(Z_ARRVAL_P(return_value), phpArrayStringCaseCompare, 1);
 }
-
-void registerEcmaIntlClass() { ecmaIntlClass = register_class_Ecma_Intl(); }
