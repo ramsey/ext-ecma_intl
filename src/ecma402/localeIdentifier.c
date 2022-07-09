@@ -18,36 +18,31 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_COMMON_H
-#define ECMA_INTL_COMMON_H
+#include "localeIdentifier.h"
 
-#define BCP47_KEYWORD_CALENDAR "ca"
-#define BCP47_KEYWORD_CASE_FIRST "kf"
-#define BCP47_KEYWORD_COLLATION "co"
-#define BCP47_KEYWORD_HOUR_CYCLE "hc"
-#define BCP47_KEYWORD_NUMBERING_SYSTEM "nu"
-#define BCP47_KEYWORD_NUMERIC "kn"
+#include <stdlib.h>
+#include <string.h>
 
-#define CATEGORY_CALENDAR "calendar"
-#define CATEGORY_COLLATION "collation"
-#define CATEGORY_CURRENCY "currency"
-#define CATEGORY_NUMBERING_SYSTEM "numberingSystem"
-#define CATEGORY_TIME_ZONE "timeZone"
-#define CATEGORY_UNIT "unit"
+localeIdentifier *initLocaleIdentifier(const char *localeId) {
+  localeIdentifier *locale;
 
-#define ICU_KEYWORD_CALENDAR "calendar"
-#define ICU_KEYWORD_CASE_FIRST "colcasefirst"
-#define ICU_KEYWORD_COLLATION "collation"
-#define ICU_KEYWORD_HOUR_CYCLE "hours"
-#define ICU_KEYWORD_NUMBERING_SYSTEM "numbers"
-#define ICU_KEYWORD_NUMERIC "colnumeric"
+  if (!localeId || strcmp(localeId, "") == 0) {
+    return NULL;
+  }
 
-#define UNDETERMINED_LANGUAGE "und"
+  locale = (localeIdentifier *)(malloc(sizeof(*locale)));
 
-typedef enum ecmaIntlResultCode {
-  ECMA_INTL_FAILURE = -1,
-  ECMA_INTL_NOOP = 0,
-  ECMA_INTL_SUCCESS = 1,
-} ecmaIntlResultCode;
+  if (!locale) {
+    return NULL;
+  }
 
-#endif /* ECMA_INTL_COMMON_H */
+  locale->id = strdup(localeId);
+  locale->length = strlen(localeId);
+
+  return locale;
+}
+
+void freeLocaleIdentifier(localeIdentifier *locale) {
+  free(locale->id);
+  free(locale);
+}

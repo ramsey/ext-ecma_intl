@@ -18,13 +18,13 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_PHP_INTL_CE_H
-#define ECMA_INTL_PHP_INTL_CE_H
+#ifndef ECMA_INTL_PHP_CLASSES_EXCEPTION_H
+#define ECMA_INTL_PHP_CLASSES_EXCEPTION_H
 
 #include "src/php/php_common.h"
 
-extern zend_class_entry *ecmaIntlClass;
+extern zend_class_entry *ecmaIntlExceptionInterface;
 
-void ecmaIntlRegisterClass(void);
+void registerEcmaIntlExceptionInterface(void);
 
-#endif /* ECMA_INTL_PHP_INTL_CE_H */
+#endif /* ECMA_INTL_PHP_CLASSES_EXCEPTION_H */

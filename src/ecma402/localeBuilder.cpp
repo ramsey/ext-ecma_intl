@@ -61,13 +61,13 @@
 extern "C" {
 #endif
 
-ecma402_localeBuilderOptions *ecma402_initLocaleBuilderOptions(
-    char *calendar, char *caseFirst, char *collation, char *hourCycle,
-    char *language, char *numberingSystem, const bool *numeric, char *region,
-    char *script) {
+localeBuilderOptions *
+initLocaleBuilderOptions(char *calendar, char *caseFirst, char *collation,
+                         char *hourCycle, char *language, char *numberingSystem,
+                         const bool *numeric, char *region, char *script) {
 
-  ecma402_localeBuilderOptions *options;
-  options = (ecma402_localeBuilderOptions *)(malloc(sizeof(*options)));
+  localeBuilderOptions *options;
+  options = (localeBuilderOptions *)(malloc(sizeof(*options)));
 
   if (options == nullptr) {
     return nullptr;
@@ -92,7 +92,7 @@ ecma402_localeBuilderOptions *ecma402_initLocaleBuilderOptions(
   return options;
 }
 
-void ecma402_freeLocaleBuilderOptions(ecma402_localeBuilderOptions *options) {
+void freeLocaleBuilderOptions(localeBuilderOptions *options) {
   FREE_OPTIONS_PROPERTY(calendar);
   FREE_OPTIONS_PROPERTY(caseFirst);
   FREE_OPTIONS_PROPERTY(collation);
@@ -106,8 +106,8 @@ void ecma402_freeLocaleBuilderOptions(ecma402_localeBuilderOptions *options) {
   free(options);
 }
 
-ecma402_locale *ecma402_buildLocale(const char *localeId,
-                                    ecma402_localeBuilderOptions *options) {
+localeIdentifier *buildLocale(const char *localeId,
+                              localeBuilderOptions *options) {
   icu::Locale icuLocale;
   icu::LocaleBuilder icuLocaleBuilder;
   UErrorCode status = U_ZERO_ERROR;
@@ -142,7 +142,7 @@ ecma402_locale *ecma402_buildLocale(const char *localeId,
 
   std::string builtLocale = icuLocale.toLanguageTag<std::string>(status);
 
-  return ecma402_initLocale(builtLocale.c_str());
+  return initLocaleIdentifier(builtLocale.c_str());
 }
 
 #ifdef __cplusplus

@@ -8,7 +8,7 @@ Test(ecma402Units, getAllMeasurementUnits) {
   int i = 0;
   int unitsCount;
 
-  units = ecma402_getAllMeasurementUnits(&unitsCount);
+  units = getAllMeasurementUnits(&unitsCount);
 
   while (units[i]) {
     i++;
@@ -341,7 +341,7 @@ ParameterizedTest(char **input, ecma402Units,
   const char **units;
   int unitsCount = 0;
 
-  units = ecma402_getAllMeasurementUnits(&unitsCount);
+  units = getAllMeasurementUnits(&unitsCount);
 
   for (int i = 0; i < unitsCount; i++) {
     cr_expect(ne(str, (char *)units[i], *input),

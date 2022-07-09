@@ -18,50 +18,13 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_ECMA402_ECMA_LOCALE_H
-#define ECMA_INTL_ECMA402_ECMA_LOCALE_H
+#ifndef ECMA_INTL_PHP_CLASSES_CASE_FIRST_H
+#define ECMA_INTL_PHP_CLASSES_CASE_FIRST_H
 
-#include "src/common.h"
+#include "src/php/php_common.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+extern zend_class_entry *ecmaIntlCaseFirstEnum;
 
-/**
- * Represents a locale identifier, e.g. "en-US."
- */
-typedef struct ecma402_locale {
-  /**
-   * Locale identifier, e.g., "en-US."
-   */
-  char *id;
+void registerEcmaIntlCaseFirstEnum(void);
 
-  /**
-   * Length of the locale identifier.
-   */
-  unsigned long length;
-
-} ecma402_locale;
-
-/**
- * Initializes a locale struct with the given locale identifier. This also
- * allocates the struct on the stack; free it using ecma402_freeLocale().
- *
- * @param localeId The locale identifier, e.g., "en-US."
- *
- * @return A locale.
- */
-ecma402_locale *ecma402_initLocale(const char *localeId);
-
-/**
- * Frees a locale initialized with ecma402_initLocale().
- *
- * @param locale The locale to free.
- */
-void ecma402_freeLocale(ecma402_locale *locale);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* ECMA_INTL_ECMA402_ECMA_LOCALE_H */
+#endif /* ECMA_INTL_PHP_CLASSES_CASE_FIRST_H */

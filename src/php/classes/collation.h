@@ -18,15 +18,13 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_PHP_EXCEPTIONS_CE_H
-#define ECMA_INTL_PHP_EXCEPTIONS_CE_H
+#ifndef ECMA_INTL_PHP_CLASSES_COLLATION_H
+#define ECMA_INTL_PHP_CLASSES_COLLATION_H
 
 #include "src/php/php_common.h"
 
-extern zend_class_entry *ecmaIntlIcuExceptionClass;
-extern zend_class_entry *ecmaIntlRangeErrorClass;
-extern zend_class_entry *ecmaIntlExceptionInterface;
+extern zend_class_entry *ecmaIntlCollationEnum;
 
-void ecmaIntlRegisterExceptionClasses(void);
+void registerEcmaIntlCollationEnum(void);
 
-#endif /* ECMA_INTL_PHP_EXCEPTIONS_CE_H */
+#endif /* ECMA_INTL_PHP_CLASSES_COLLATION_H */

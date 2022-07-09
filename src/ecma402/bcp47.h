@@ -38,8 +38,7 @@ extern "C" {
  * @param bcp47LanguageTag A buffer in which to store the BCP 47 language tag
  * @return The length of the BCP 47 language tag stored to bcp47LanguageTag
  */
-int ecma402_icuToBcp47LanguageTag(const char *icuLanguageTag,
-                                  char *bcp47LanguageTag);
+int icuToBcp47LanguageTag(const char *icuLanguageTag, char *bcp47LanguageTag);
 
 #ifdef __cplusplus
 } /* extern "C" */

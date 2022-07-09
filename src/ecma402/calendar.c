@@ -25,7 +25,7 @@
 /**
  * Converts an ECMA-numbered day of the week to an ICU-numbered day of the week.
  */
-static UCalendarDaysOfWeek ecmaDayOfWeekToIcuDayOfWeek(ecma402_dayOfWeek day) {
+static UCalendarDaysOfWeek ecmaDayOfWeekToIcuDayOfWeek(dayOfWeek day) {
   switch (day) {
   case ECMA402_MONDAY:
     return UCAL_MONDAY;
@@ -49,7 +49,7 @@ static UCalendarDaysOfWeek ecmaDayOfWeekToIcuDayOfWeek(ecma402_dayOfWeek day) {
 /**
  * Converts an ICU-numbered day of the week to an ECMA-numbered day of the week.
  */
-static ecma402_dayOfWeek icuDayOfWeekToEcmaDayOfWeek(UCalendarDaysOfWeek day) {
+static dayOfWeek icuDayOfWeekToEcmaDayOfWeek(UCalendarDaysOfWeek day) {
   switch (day) {
   case UCAL_MONDAY:
     return ECMA402_MONDAY;
@@ -70,8 +70,7 @@ static ecma402_dayOfWeek icuDayOfWeekToEcmaDayOfWeek(UCalendarDaysOfWeek day) {
   }
 }
 
-ecma402_weekdayType ecma402_getDayOfWeekType(char *localeId,
-                                             ecma402_dayOfWeek day) {
+weekdayType getDayOfWeekType(char *localeId, dayOfWeek day) {
   UCalendar *calendar;
   UErrorCode status = U_ZERO_ERROR;
   UCalendarWeekdayType type;
@@ -111,7 +110,7 @@ ecma402_weekdayType ecma402_getDayOfWeekType(char *localeId,
   }
 }
 
-ecma402_dayOfWeek ecma402_getFirstDayOfWeek(char *localeId) {
+dayOfWeek getFirstDayOfWeek(char *localeId) {
   UCalendar *calendar;
   UErrorCode status = U_ZERO_ERROR;
   UCalendarDaysOfWeek dayOfWeek = 0;

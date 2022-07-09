@@ -23,8 +23,7 @@
 #include <string.h>
 #include <unicode/uloc.h>
 
-int ecma402_icuToBcp47LanguageTag(const char *icuLanguageTag,
-                                  char *bcp47LanguageTag) {
+int icuToBcp47LanguageTag(const char *icuLanguageTag, char *bcp47LanguageTag) {
   int languageTagLen;
   UErrorCode status = U_ZERO_ERROR;
 

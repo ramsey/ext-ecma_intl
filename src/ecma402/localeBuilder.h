@@ -21,8 +21,7 @@
 #ifndef ECMA_INTL_ECMA402_LOCALE_BUILDER_H
 #define ECMA_INTL_ECMA402_LOCALE_BUILDER_H
 
-#include "locale.h"
-#include "src/common.h"
+#include "localeIdentifier.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,7 +30,7 @@ extern "C" {
 /**
  * Options that may be used to dynamically build a locale.
  */
-typedef struct ecma402_localeBuilderOptions {
+typedef struct localeBuilderOptions {
   /**
    * The calendar type to use with the locale, e.g., "buddhist," "hebrew,"
    * "gregory," etc.
@@ -82,12 +81,12 @@ typedef struct ecma402_localeBuilderOptions {
    */
   char *script;
 
-} ecma402_localeBuilderOptions;
+} localeBuilderOptions;
 
 /**
  * Initializes a locale options struct that may be used to dynamically build a
  * locale. This also allocates the struct on the stack; free it using
- * ecma402_freeLocaleBuilderOptions().
+ * freeLocaleBuilderOptions().
  *
  * @param calendar The calendar type to use with the locale.
  * @param caseFirst Whether to sort by uppercase or lowercase first.
@@ -100,20 +99,20 @@ typedef struct ecma402_localeBuilderOptions {
  * @param region The locale's region.
  * @param script The locale's script.
  *
- * @return An ecma402_localeBuilderOptions struct.
+ * @return An localeBuilderOptions struct.
  */
-ecma402_localeBuilderOptions *ecma402_initLocaleBuilderOptions(
-    char *calendar, char *caseFirst, char *collation, char *hourCycle,
-    char *language, char *numberingSystem, const bool *numeric, char *region,
-    char *script);
+localeBuilderOptions *
+initLocaleBuilderOptions(char *calendar, char *caseFirst, char *collation,
+                         char *hourCycle, char *language, char *numberingSystem,
+                         const bool *numeric, char *region, char *script);
 
 /**
  * Frees locale builder options initialized with
- * ecma402_initLocaleBuilderOptions().
+ * initLocaleBuilderOptions().
  *
  * @param options The locale builder options to free.
  */
-void ecma402_freeLocaleBuilderOptions(ecma402_localeBuilderOptions *options);
+void freeLocaleBuilderOptions(localeBuilderOptions *options);
 
 /**
  * Uses localeId as a starting point for dynamically building a locale by adding
@@ -124,8 +123,8 @@ void ecma402_freeLocaleBuilderOptions(ecma402_localeBuilderOptions *options);
  *
  * @return The new locale.
  */
-ecma402_locale *ecma402_buildLocale(const char *localeId,
-                                    ecma402_localeBuilderOptions *options);
+localeIdentifier *buildLocale(const char *localeId,
+                              localeBuilderOptions *options);
 
 #ifdef __cplusplus
 }

@@ -35,10 +35,19 @@ if test "$PHP_ECMA_INTL" != "no"; then
   PHP_ECMA_INTL_C_SOURCES="                                                    \
     src/ecma402/bcp47.c                                                        \
     src/ecma402/calendar.c                                                     \
-    src/ecma402/locale.c                                                       \
-    src/php/classes/php_enums_ce.c                                             \
-    src/php/classes/php_exceptions_ce.c                                        \
-    src/php/classes/php_intl_ce.c                                              \
+    src/ecma402/localeIdentifier.c                                             \
+    src/php/classes/calendar.c                                                 \
+    src/php/classes/case_first.c                                               \
+    src/php/classes/category.c                                                 \
+    src/php/classes/collation.c                                                \
+    src/php/classes/exception.c                                                \
+    src/php/classes/formatting.c                                               \
+    src/php/classes/hour_cycle.c                                               \
+    src/php/classes/icu_exception.c                                            \
+    src/php/classes/intl.c                                                     \
+    src/php/classes/locale_matcher.c                                           \
+    src/php/classes/numbering_system.c                                         \
+    src/php/classes/range_error.c                                              \
     src/php/ecma_intl.c                                                        \
     "
 
@@ -94,13 +103,13 @@ if test "$PHP_ECMA_INTL" != "no"; then
     TEST_SOURCES="                                                             \
       src/ecma402/bcp47.c                                                      \
       src/ecma402/calendar.c                                                   \
-      src/ecma402/locale.c                                                     \
       src/ecma402/localeBuilder.cpp                                            \
+      src/ecma402/localeIdentifier.c                                           \
       src/ecma402/units.cpp                                                    \
       tests/criterion/ecma402/bcp47_test.c                                     \
       tests/criterion/ecma402/calendar_test.c                                  \
       tests/criterion/ecma402/localeBuilder_test.c                             \
-      tests/criterion/ecma402/locale_test.c                                    \
+      tests/criterion/ecma402/localeIdentifier_test.c                          \
       tests/criterion/ecma402/units_test.c                                     \
       tests/criterion/test.c                                                   \
       "

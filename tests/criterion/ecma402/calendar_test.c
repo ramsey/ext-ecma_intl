@@ -60,7 +60,7 @@ ParameterizedTestParameters(ecma402Calendar, getsExpectedDayOfTheWeekType) {
 
 ParameterizedTest(struct testParams *test, ecma402Calendar,
                   getsExpectedDayOfTheWeekType) {
-  int weekdayType = ecma402_getDayOfWeekType(test->localeId, test->day);
+  int weekdayType = getDayOfWeekType(test->localeId, test->day);
 
   cr_assert(eq(int, weekdayType, test->expected),
             "Expected %d for day %d in locale \"%s\"; got %d", test->expected,
@@ -83,7 +83,7 @@ ParameterizedTestParameters(ecma402Calendar, getsExpectedFirstDayOfTheWeek) {
 
 ParameterizedTest(struct testParams *test, ecma402Calendar,
                   getsExpectedFirstDayOfTheWeek) {
-  int dayOfWeek = ecma402_getFirstDayOfWeek(test->localeId);
+  int dayOfWeek = getFirstDayOfWeek(test->localeId);
 
   cr_assert(eq(int, dayOfWeek, test->expected),
             "Expected %d for locale \"%s\"; got %d", test->expected,

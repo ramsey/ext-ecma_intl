@@ -28,7 +28,7 @@
 #define UNITS_TOTAL_CAPACITY 200
 #define UNITS_TYPE_CAPACITY 40
 
-const char **ecma402_getAllMeasurementUnits(int *unitsCount) {
+const char **getAllMeasurementUnits(int *unitsCount) {
   icu::StringEnumeration *availableTypes;
   icu::MeasureUnit measureUnits[UNITS_TYPE_CAPACITY];
   UErrorCode status = U_ZERO_ERROR;

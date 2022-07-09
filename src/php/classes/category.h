@@ -18,23 +18,13 @@
    +----------------------------------------------------------------------+
 */
 
-#include "php_exceptions_ce.h"
+#ifndef ECMA_INTL_PHP_CLASSES_CATEGORY_H
+#define ECMA_INTL_PHP_CLASSES_CATEGORY_H
 
-#include <Zend/zend_exceptions.h>
-#include <ext/spl/spl_exceptions.h>
+#include "src/php/php_common.h"
 
-#include "src/php/ecma_intl_arginfo.h"
+extern zend_class_entry *ecmaIntlCategoryEnum;
 
-zend_class_entry *ecmaIntlIcuExceptionClass = NULL;
-zend_class_entry *ecmaIntlRangeErrorClass = NULL;
-zend_class_entry *ecmaIntlExceptionInterface = NULL;
+void registerEcmaIntlCategoryEnum(void);
 
-void ecmaIntlRegisterExceptionClasses() {
-  ecmaIntlExceptionInterface = register_class_Ecma_Intl_Exception();
-
-  ecmaIntlIcuExceptionClass = register_class_Ecma_Intl_IcuException(
-      spl_ce_RuntimeException, ecmaIntlExceptionInterface);
-
-  ecmaIntlRangeErrorClass = register_class_Ecma_Intl_RangeError(
-      zend_ce_value_error, ecmaIntlExceptionInterface);
-}
+#endif /* ECMA_INTL_PHP_CLASSES_CATEGORY_H */

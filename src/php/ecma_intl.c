@@ -30,9 +30,18 @@
 #include "ecma_intl.h"
 
 #include "ecma_intl_arginfo.h"
-#include "src/php/classes/php_enums_ce.h"
-#include "src/php/classes/php_exceptions_ce.h"
-#include "src/php/classes/php_intl_ce.h"
+#include "src/php/classes/calendar.h"
+#include "src/php/classes/case_first.h"
+#include "src/php/classes/category.h"
+#include "src/php/classes/collation.h"
+#include "src/php/classes/exception.h"
+#include "src/php/classes/formatting.h"
+#include "src/php/classes/hour_cycle.h"
+#include "src/php/classes/icu_exception.h"
+#include "src/php/classes/intl.h"
+#include "src/php/classes/locale_matcher.h"
+#include "src/php/classes/numbering_system.h"
+#include "src/php/classes/range_error.h"
 
 #include <ext/standard/info.h>
 
@@ -55,9 +64,18 @@ ZEND_GET_MODULE(ecma_intl)
 #endif
 
 PHP_MINIT_FUNCTION(ecma_intl) {
-  ecmaIntlRegisterEnums();
-  ecmaIntlRegisterExceptionClasses();
-  ecmaIntlRegisterClass();
+  registerEcmaIntlCalendarEnum();
+  registerEcmaIntlCaseFirstEnum();
+  registerEcmaIntlCategoryEnum();
+  registerEcmaIntlClass();
+  registerEcmaIntlCollationEnum();
+  registerEcmaIntlExceptionInterface();
+  registerEcmaIntlFormattingEnum();
+  registerEcmaIntlHourCycleEnum();
+  registerEcmaIntlIcuExceptionClass();
+  registerEcmaIntlLocaleMatcherEnum();
+  registerEcmaIntlNumberingSystemEnum();
+  registerEcmaIntlRangeErrorClass();
 
   return SUCCESS;
 }

@@ -38,7 +38,7 @@ extern "C" {
  * measurement units array.
  * @return A pointer to a char array of all measurement units.
  */
-const char **ecma402_getAllMeasurementUnits(int *unitsCount);
+const char **getAllMeasurementUnits(int *unitsCount);
 
 #ifdef __cplusplus
 }

@@ -18,31 +18,13 @@
    +----------------------------------------------------------------------+
 */
 
-#include "locale.h"
+#ifndef ECMA_INTL_PHP_CLASSES_HOUR_CYCLE_H
+#define ECMA_INTL_PHP_CLASSES_HOUR_CYCLE_H
 
-#include <stdlib.h>
-#include <string.h>
+#include "src/php/php_common.h"
 
-ecma402_locale *ecma402_initLocale(const char *localeId) {
-  ecma402_locale *locale;
+extern zend_class_entry *ecmaIntlHourCycleEnum;
 
-  if (!localeId || strcmp(localeId, "") == 0) {
-    return NULL;
-  }
+void registerEcmaIntlHourCycleEnum(void);
 
-  locale = (ecma402_locale *)(malloc(sizeof(*locale)));
-
-  if (!locale) {
-    return NULL;
-  }
-
-  locale->id = strdup(localeId);
-  locale->length = strlen(localeId);
-
-  return locale;
-}
-
-void ecma402_freeLocale(ecma402_locale *locale) {
-  free(locale->id);
-  free(locale);
-}
+#endif /* ECMA_INTL_PHP_CLASSES_HOUR_CYCLE_H */

@@ -30,7 +30,7 @@ extern "C" {
 /**
  * Type of the day of the week, i.e., weekday or weekend.
  */
-typedef enum ecma402_weekdayType {
+typedef enum weekdayType {
   /**
    * The day of the week is considered a weekday.
    */
@@ -41,7 +41,7 @@ typedef enum ecma402_weekdayType {
    */
   ECMA402_WEEKEND
 
-} ecma402_weekdayType;
+} weekdayType;
 
 /**
  * The day of the week. The days of the week in this enum are ordered and
@@ -50,7 +50,7 @@ typedef enum ecma402_weekdayType {
  *
  * @link https://tc39.es/proposal-intl-locale-info/#sec-week-info-of-locale
  */
-typedef enum ecma402_dayOfWeek {
+typedef enum dayOfWeek {
   /**
    * Monday
    */
@@ -86,7 +86,7 @@ typedef enum ecma402_dayOfWeek {
    */
   ECMA402_SUNDAY,
 
-} ecma402_dayOfWeek;
+} dayOfWeek;
 
 /**
  * Returns the weekday type (i.e., weekday or weekend) for the given day of the
@@ -96,8 +96,7 @@ typedef enum ecma402_dayOfWeek {
  * @param day The day of the week ot check.
  * @return The weekday type for the day (i.e., weekday or weekend).
  */
-ecma402_weekdayType ecma402_getDayOfWeekType(char *localeId,
-                                             enum ecma402_dayOfWeek day);
+weekdayType getDayOfWeekType(char *localeId, dayOfWeek day);
 
 /**
  * Returns the day of the week that is considered the first day of the week for
@@ -106,7 +105,7 @@ ecma402_weekdayType ecma402_getDayOfWeekType(char *localeId,
  * @param localeId The locale to check.
  * @return The day of the week considered the first day.
  */
-ecma402_dayOfWeek ecma402_getFirstDayOfWeek(char *localeId);
+dayOfWeek getFirstDayOfWeek(char *localeId);
 
 #ifdef __cplusplus
 }

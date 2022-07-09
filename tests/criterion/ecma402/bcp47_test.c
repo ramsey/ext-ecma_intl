@@ -76,7 +76,7 @@ ParameterizedTest(struct tagParam *test, ecma402Bcp47,
   char *bcp47LanguageTag = NULL;
 
   bcp47LanguageTag = (char *)malloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
-  ecma402_icuToBcp47LanguageTag(test->input, bcp47LanguageTag);
+  icuToBcp47LanguageTag(test->input, bcp47LanguageTag);
 
   cr_assert(
       eq(str, bcp47LanguageTag, test->expected),
@@ -91,7 +91,7 @@ ParameterizedTest(char **input, ecma402Bcp47, failedLanguageTagConversion) {
   int bcp47LanguageTagLen;
 
   bcp47LanguageTag = (char *)malloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
-  bcp47LanguageTagLen = ecma402_icuToBcp47LanguageTag(*input, bcp47LanguageTag);
+  bcp47LanguageTagLen = icuToBcp47LanguageTag(*input, bcp47LanguageTag);
 
   cr_assert(eq(int, bcp47LanguageTagLen, ECMA_INTL_FAILURE),
             "Expected language tag \"%s\" to fail", *input);

@@ -18,36 +18,50 @@
    +----------------------------------------------------------------------+
 */
 
-#ifndef ECMA_INTL_COMMON_H
-#define ECMA_INTL_COMMON_H
+#ifndef ECMA_INTL_ECMA402_ECMA_LOCALE_IDENTIFIER_H
+#define ECMA_INTL_ECMA402_ECMA_LOCALE_IDENTIFIER_H
 
-#define BCP47_KEYWORD_CALENDAR "ca"
-#define BCP47_KEYWORD_CASE_FIRST "kf"
-#define BCP47_KEYWORD_COLLATION "co"
-#define BCP47_KEYWORD_HOUR_CYCLE "hc"
-#define BCP47_KEYWORD_NUMBERING_SYSTEM "nu"
-#define BCP47_KEYWORD_NUMERIC "kn"
+#include "src/common.h"
 
-#define CATEGORY_CALENDAR "calendar"
-#define CATEGORY_COLLATION "collation"
-#define CATEGORY_CURRENCY "currency"
-#define CATEGORY_NUMBERING_SYSTEM "numberingSystem"
-#define CATEGORY_TIME_ZONE "timeZone"
-#define CATEGORY_UNIT "unit"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#define ICU_KEYWORD_CALENDAR "calendar"
-#define ICU_KEYWORD_CASE_FIRST "colcasefirst"
-#define ICU_KEYWORD_COLLATION "collation"
-#define ICU_KEYWORD_HOUR_CYCLE "hours"
-#define ICU_KEYWORD_NUMBERING_SYSTEM "numbers"
-#define ICU_KEYWORD_NUMERIC "colnumeric"
+/**
+ * Represents a locale identifier, e.g. "en-US."
+ */
+typedef struct localeIdentifier {
+  /**
+   * Locale identifier, e.g., "en-US."
+   */
+  char *id;
 
-#define UNDETERMINED_LANGUAGE "und"
+  /**
+   * Length of the locale identifier.
+   */
+  unsigned long length;
 
-typedef enum ecmaIntlResultCode {
-  ECMA_INTL_FAILURE = -1,
-  ECMA_INTL_NOOP = 0,
-  ECMA_INTL_SUCCESS = 1,
-} ecmaIntlResultCode;
+} localeIdentifier;
 
-#endif /* ECMA_INTL_COMMON_H */
+/**
+ * Initializes a localeIdentifier struct with the given locale identifier. This
+ * also allocates the struct on the stack; free it using freeLocaleIdentifier().
+ *
+ * @param localeId The locale identifier, e.g., "en-US."
+ *
+ * @return A locale.
+ */
+localeIdentifier *initLocaleIdentifier(const char *localeId);
+
+/**
+ * Frees a locale initialized with initLocaleIdentifier().
+ *
+ * @param locale The locale to free.
+ */
+void freeLocaleIdentifier(localeIdentifier *locale);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* ECMA_INTL_ECMA402_ECMA_LOCALE_IDENTIFIER_H */
