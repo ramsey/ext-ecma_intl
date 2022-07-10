@@ -2,7 +2,9 @@
 
 #include "src/ecma402/localeBuilder.h"
 
-Test(ecma402LocaleBuilder, initializesLocaleBuilderOptionsWithAllNull) {
+#define TEST_SUITE TEST_SUITE
+
+Test(TEST_SUITE, initializesLocaleBuilderOptionsWithAllNull) {
   localeBuilderOptions *options = initLocaleBuilderOptions(
       NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
@@ -19,7 +21,7 @@ Test(ecma402LocaleBuilder, initializesLocaleBuilderOptionsWithAllNull) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, initializesLocaleBuilderOptionsWithAllValues) {
+Test(TEST_SUITE, initializesLocaleBuilderOptionsWithAllValues) {
   char *calendar = "buddhist";
   char *caseFirst = "upper";
   char *collation = "emoji";
@@ -61,7 +63,7 @@ Test(ecma402LocaleBuilder, initializesLocaleBuilderOptionsWithAllValues) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, buildsLocaleWithoutOptions) {
+Test(TEST_SUITE, buildsLocaleWithoutOptions) {
   localeIdentifier *locale;
 
   locale = buildLocale("en-US", NULL);
@@ -73,7 +75,7 @@ Test(ecma402LocaleBuilder, buildsLocaleWithoutOptions) {
   freeLocaleIdentifier(locale);
 }
 
-Test(ecma402LocaleBuilder, returnsUndWhenLocaleIdIsNull) {
+Test(TEST_SUITE, returnsUndWhenLocaleIdIsNull) {
   localeIdentifier *locale;
 
   locale = buildLocale(NULL, NULL);
@@ -85,7 +87,7 @@ Test(ecma402LocaleBuilder, returnsUndWhenLocaleIdIsNull) {
   freeLocaleIdentifier(locale);
 }
 
-Test(ecma402LocaleBuilder, returnsNullWhenLocaleIdIsInvalid) {
+Test(TEST_SUITE, returnsNullWhenLocaleIdIsInvalid) {
   localeIdentifier *locale;
 
   locale = buildLocale("foo_bar", NULL);
@@ -93,7 +95,7 @@ Test(ecma402LocaleBuilder, returnsNullWhenLocaleIdIsInvalid) {
   cr_assert_null(locale);
 }
 
-Test(ecma402LocaleBuilder, setsCalendarFromOptions) {
+Test(TEST_SUITE, setsCalendarFromOptions) {
   localeIdentifier *locale;
   localeBuilderOptions *options;
 
@@ -111,7 +113,7 @@ Test(ecma402LocaleBuilder, setsCalendarFromOptions) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, setsCaseFirstFromOptions) {
+Test(TEST_SUITE, setsCaseFirstFromOptions) {
   localeIdentifier *locale;
   localeBuilderOptions *options;
 
@@ -129,7 +131,7 @@ Test(ecma402LocaleBuilder, setsCaseFirstFromOptions) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, setsCollationFromOptions) {
+Test(TEST_SUITE, setsCollationFromOptions) {
   localeIdentifier *locale;
   localeBuilderOptions *options;
 
@@ -147,7 +149,7 @@ Test(ecma402LocaleBuilder, setsCollationFromOptions) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, setsHourCycleFromOptions) {
+Test(TEST_SUITE, setsHourCycleFromOptions) {
   localeIdentifier *locale;
   localeBuilderOptions *options;
 
@@ -165,7 +167,7 @@ Test(ecma402LocaleBuilder, setsHourCycleFromOptions) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, setsLanguageFromOptions) {
+Test(TEST_SUITE, setsLanguageFromOptions) {
   localeIdentifier *locale;
   localeBuilderOptions *options;
 
@@ -183,7 +185,7 @@ Test(ecma402LocaleBuilder, setsLanguageFromOptions) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, setsNumberingSystemFromOptions) {
+Test(TEST_SUITE, setsNumberingSystemFromOptions) {
   localeIdentifier *locale;
   localeBuilderOptions *options;
 
@@ -201,7 +203,7 @@ Test(ecma402LocaleBuilder, setsNumberingSystemFromOptions) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, setsNumericTrueFromOptions) {
+Test(TEST_SUITE, setsNumericTrueFromOptions) {
   localeIdentifier *locale;
   localeBuilderOptions *options;
   bool numeric = true;
@@ -220,7 +222,7 @@ Test(ecma402LocaleBuilder, setsNumericTrueFromOptions) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, setsNumericFalseFromOptions) {
+Test(TEST_SUITE, setsNumericFalseFromOptions) {
   localeIdentifier *locale;
   localeBuilderOptions *options;
   bool numeric = false;
@@ -239,7 +241,7 @@ Test(ecma402LocaleBuilder, setsNumericFalseFromOptions) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, setsRegionFromOptions) {
+Test(TEST_SUITE, setsRegionFromOptions) {
   localeIdentifier *locale;
   localeBuilderOptions *options;
 
@@ -257,7 +259,7 @@ Test(ecma402LocaleBuilder, setsRegionFromOptions) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, setsScriptFromOptions) {
+Test(TEST_SUITE, setsScriptFromOptions) {
   localeIdentifier *locale;
   localeBuilderOptions *options;
 
@@ -275,7 +277,7 @@ Test(ecma402LocaleBuilder, setsScriptFromOptions) {
   freeLocaleBuilderOptions(options);
 }
 
-Test(ecma402LocaleBuilder, buildsLocaleFromAllOptions) {
+Test(TEST_SUITE, buildsLocaleFromAllOptions) {
   localeIdentifier *locale;
   localeBuilderOptions *options;
   bool numeric = false;

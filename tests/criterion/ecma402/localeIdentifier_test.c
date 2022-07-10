@@ -2,15 +2,17 @@
 
 #include "src/ecma402/localeIdentifier.h"
 
-Test(ecma402LocaleIdentifier, initWithNullLocaleReturnsNull) {
+#define TEST_SUITE ecma402LocaleIdentifier
+
+Test(TEST_SUITE, initWithNullLocaleReturnsNull) {
   cr_assert_null(initLocaleIdentifier(NULL));
 }
 
-Test(ecma402LocaleIdentifier, initWithEmptyLocaleReturnsNull) {
+Test(TEST_SUITE, initWithEmptyLocaleReturnsNull) {
   cr_assert_null(initLocaleIdentifier(""));
 }
 
-Test(ecma402LocaleIdentifier, initWithLocale) {
+Test(TEST_SUITE, initWithLocale) {
   localeIdentifier *locale;
   char *localeId = "en-US";
 

@@ -3,75 +3,51 @@
 
 #include <unicode/uloc.h>
 
-typedef struct tagParam {
-  char *input;
-  char *expected;
-} tagParam;
+#define TEST_SUITE ecma402Bcp47
 
-static void freeTagParams(struct criterion_test_params *crp) {
-  struct tagParam *params = (struct tagParam *)crp->params;
-  for (size_t i = 0; i < crp->length; ++i) {
-    cr_free(params[i].expected);
-    cr_free(params[i].input);
-  }
-  cr_free(params);
+ParameterizedTestParameters(TEST_SUITE, successfulLanguageTagConversion) {
+  START_BASIC_TEST_PARAMS(18)
+
+  BASIC_TEST("en-US", "en-US")
+  BASIC_TEST("en_US", "en-US")
+  BASIC_TEST("de-DE", "de-DE")
+  BASIC_TEST("de_DE", "de-DE")
+  BASIC_TEST("es-MX", "es-MX")
+  BASIC_TEST("es_MX", "es-MX")
+  BASIC_TEST("fr-FR", "fr-FR")
+  BASIC_TEST("fr_FR", "fr-FR")
+  BASIC_TEST("_US", "und-US")
+  BASIC_TEST("und-US", "und-US")
+  BASIC_TEST("_Latn", "und-Latn")
+  BASIC_TEST("und-latn", "und-Latn")
+  BASIC_TEST("zh-hakka", "hak")
+  BASIC_TEST("zh-cmn-CH-u-co-pinyin", "cmn-CH-u-co-pinyin")
+  BASIC_TEST("en-latn-us", "en-Latn-US")
+  BASIC_TEST("en-blah-foo-x-baz", "en-Blah")
+
+  BASIC_TEST("zh-cmn-Hans-CN-boont-u-kf-lower-co-trad-kn-false-ca-"
+             "buddhist-nu-latn-hc-h24",
+             "cmn-Hans-CN-boont-u-ca-buddhist-co-trad-hc-h24-kf-lower-kn-"
+             "false-nu-latn")
+
+  BASIC_TEST("cmn_Hans_CN_BOONT@calendar=buddhist;colcasefirst=lower;"
+             "collation=traditional;colnumeric=no;hours=h24;numbers=latn",
+             "cmn-Hans-CN-boont-u-ca-buddhist-co-trad-hc-h24-kf-lower-kn-"
+             "false-nu-latn")
+
+  END_BASIC_TEST_PARAMS;
 }
 
-static int addTest(struct tagParam *tests, int index, const char *input,
-                   const char *expected) {
-  tests[index].input = test_strdup(input);
-  tests[index].expected = test_strdup(expected);
-
-  return ++index;
-}
-
-ParameterizedTestParameters(ecma402Bcp47, successfulLanguageTagConversion) {
-  struct tagParam *tests;
-  int index = 0;
-
-  tests = cr_malloc(18 * sizeof(tagParam));
-  index = addTest(tests, index, "en-US", "en-US");
-  index = addTest(tests, index, "en_US", "en-US");
-  index = addTest(tests, index, "de-DE", "de-DE");
-  index = addTest(tests, index, "de_DE", "de-DE");
-  index = addTest(tests, index, "es-MX", "es-MX");
-  index = addTest(tests, index, "es_MX", "es-MX");
-  index = addTest(tests, index, "fr-FR", "fr-FR");
-  index = addTest(tests, index, "fr_FR", "fr-FR");
-  index = addTest(tests, index, "_US", "und-US");
-  index = addTest(tests, index, "und-US", "und-US");
-  index = addTest(tests, index, "_Latn", "und-Latn");
-  index = addTest(tests, index, "und-latn", "und-Latn");
-  index = addTest(tests, index, "zh-hakka", "hak");
-  index = addTest(tests, index, "zh-cmn-CH-u-co-pinyin", "cmn-CH-u-co-pinyin");
-  index = addTest(tests, index, "en-latn-us", "en-Latn-US");
-  index = addTest(tests, index, "en-blah-foo-x-baz", "en-Blah");
-
-  index = addTest(tests, index,
-                  "zh-cmn-Hans-CN-boont-u-kf-lower-co-trad-kn-false-ca-"
-                  "buddhist-nu-latn-hc-h24",
-                  "cmn-Hans-CN-boont-u-ca-buddhist-co-trad-hc-h24-kf-lower-kn-"
-                  "false-nu-latn");
-
-  index = addTest(tests, index,
-                  "cmn_Hans_CN_BOONT@calendar=buddhist;colcasefirst=lower;"
-                  "collation=traditional;colnumeric=no;hours=h24;numbers=latn",
-                  "cmn-Hans-CN-boont-u-ca-buddhist-co-trad-hc-h24-kf-lower-kn-"
-                  "false-nu-latn");
-
-  return cr_make_param_array(struct tagParam, tests, index, freeTagParams);
-}
-
-ParameterizedTestParameters(ecma402Bcp47, failedLanguageTagConversion) {
+ParameterizedTestParameters(TEST_SUITE, failedLanguageTagConversion) {
   char **tests = cr_malloc(sizeof(*tests) * 3);
-  tests[0] = test_strdup("");
-  tests[1] = test_strdup("1234");
-  tests[2] = test_strdup("en-latn-us-co-foo");
+  tests[0] = testStrdup("");
+  tests[1] = testStrdup("1234");
+  tests[2] = testStrdup("en-latn-us-co-foo");
 
-  return cr_make_param_array(const char *, tests, 3, test_freeStrings);
+  return cr_make_param_array(const char *, tests, 3, testFreeStrings);
 }
 
-ParameterizedTest(struct tagParam *test, ecma402Bcp47,
+ParameterizedTest(basicTestParams *test, ecma402Bcp47,
                   successfulLanguageTagConversion) {
   char *bcp47LanguageTag = NULL;
 
@@ -86,7 +62,7 @@ ParameterizedTest(struct tagParam *test, ecma402Bcp47,
   free(bcp47LanguageTag);
 }
 
-ParameterizedTest(char **input, ecma402Bcp47, failedLanguageTagConversion) {
+ParameterizedTest(char **input, TEST_SUITE, failedLanguageTagConversion) {
   char *bcp47LanguageTag = NULL;
   int bcp47LanguageTagLen;
 
