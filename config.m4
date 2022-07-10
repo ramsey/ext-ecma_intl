@@ -49,6 +49,11 @@ if test "$PHP_ECMA_INTL" != "no"; then
     src/php/classes/locale_matcher.c                                           \
     src/php/classes/numbering_system.c                                         \
     src/php/classes/range_error.c                                              \
+    src/php/support/calendar.c                                                 \
+    src/php/support/case_first.c                                               \
+    src/php/support/collation.c                                                \
+    src/php/support/hour_cycle.c                                               \
+    src/php/support/numbering_system.c                                         \
     src/php/ecma_intl.c                                                        \
     "
 
@@ -108,12 +113,22 @@ if test "$PHP_ECMA_INTL" != "no"; then
       src/ecma402/localeBuilder.cpp                                            \
       src/ecma402/localeIdentifier.c                                           \
       src/ecma402/units.cpp                                                    \
+      src/php/support/calendar.c                                               \
+      src/php/support/case_first.c                                             \
+      src/php/support/collation.c                                              \
+      src/php/support/hour_cycle.c                                             \
+      src/php/support/numbering_system.c                                       \
       tests/criterion/ecma402/bcp47_test.c                                     \
       tests/criterion/ecma402/calendar_test.c                                  \
       tests/criterion/ecma402/category_test.c                                  \
       tests/criterion/ecma402/localeBuilder_test.c                             \
       tests/criterion/ecma402/localeIdentifier_test.c                          \
       tests/criterion/ecma402/units_test.c                                     \
+      tests/criterion/php/support/calendar_test.c                              \
+      tests/criterion/php/support/case_first_test.c                            \
+      tests/criterion/php/support/collation_test.c                             \
+      tests/criterion/php/support/hour_cycle_test.c                            \
+      tests/criterion/php/support/numbering_system_test.c                      \
       tests/criterion/test.c                                                   \
       "
 
