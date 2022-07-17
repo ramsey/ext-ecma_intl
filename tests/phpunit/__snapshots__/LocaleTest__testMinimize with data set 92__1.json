@@ -1,0 +1,47 @@
+{
+    "baseName": "zh-TW",
+    "calendar": null,
+    "calendars": [
+        "gregory",
+        "roc",
+        "chinese"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "stroke",
+        "big5han",
+        "gb2312",
+        "pinyin",
+        "unihan",
+        "zhuyin",
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h12"
+    ],
+    "language": "zh",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "TW",
+    "script": null,
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "Asia\/Taipei"
+    ],
+    "weekInfo": {
+        "firstDay": 7,
+        "minimalDays": 1,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

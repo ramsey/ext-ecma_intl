@@ -1,0 +1,39 @@
+{
+    "baseName": "fr-Latn-FR",
+    "calendar": null,
+    "calendars": [
+        "gregory"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "fr",
+    "numberingSystem": "latn",
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "FR",
+    "script": "Latn",
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "Europe\/Paris"
+    ],
+    "weekInfo": {
+        "firstDay": 1,
+        "minimalDays": 4,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

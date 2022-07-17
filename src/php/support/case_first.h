@@ -21,10 +21,6 @@
 #ifndef ECMA_INTL_PHP_SUPPORT_CASE_FIRST_H
 #define ECMA_INTL_PHP_SUPPORT_CASE_FIRST_H
 
-#define CASE_FIRST_FALSE "false"
-#define CASE_FIRST_LOWER "lower"
-#define CASE_FIRST_UPPER "upper"
-
 #ifdef __cplusplus
 extern "C" {
 #endif

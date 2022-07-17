@@ -27,4 +27,14 @@ extern zend_class_entry *ecmaIntlNumberingSystemEnum;
 
 void registerEcmaIntlNumberingSystemEnum(void);
 
+/**
+ * Returns a NumberingSystem enum case for the given value.
+ *
+ * @param value The value of the enum case to retrieve.
+ *
+ * @return A zend_object representing the enum case or NULL if a case does not
+ * exist for the value.
+ */
+zend_object *getNumberingSystemEnumCaseByValue(const char *value);
+
 #endif /* ECMA_INTL_PHP_CLASSES_NUMBERING_SYSTEM_H */

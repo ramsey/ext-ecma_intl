@@ -21,9 +21,19 @@
 #include "case_first.h"
 
 #include "src/php/ecma_intl_arginfo.h"
+#include "src/php/support/case_first.h"
+#include <unicode/uloc.h>
 
 zend_class_entry *ecmaIntlCaseFirstEnum = NULL;
 
 void registerEcmaIntlCaseFirstEnum() {
   ecmaIntlCaseFirstEnum = register_class_Ecma_Intl_CaseFirst();
+}
+
+zend_object *getCaseFirstEnumCaseByValue(const char *value) {
+  if (value == NULL) {
+    return NULL;
+  }
+
+  RETURN_ENUM_CASE(ecmaIntlCaseFirstEnum, getCaseFirstCaseName(value), value);
 }

@@ -56,9 +56,9 @@ RUN cd /tmp \
 
 # Install PHP
 RUN cd /tmp \
-    && curl -LOs https://www.php.net/distributions/php-8.1.7.tar.xz \
-    && tar -Jxf php-8.1.7.tar.xz \
-    && cd php-8.1.7/ \
+    && curl -LOs https://www.php.net/distributions/php-8.1.8.tar.xz \
+    && tar -Jxf php-8.1.8.tar.xz \
+    && cd php-8.1.8/ \
     && ./configure \
         --enable-debug \
         --enable-mbstring \
@@ -77,7 +77,7 @@ RUN cd /tmp \
     && mkdir -p "$(php-config --ini-dir)" \
     && cp php.ini-development "$(php-config --ini-path)/php.ini" \
     && cd /tmp \
-    && rm -rf /tmp/php-8.1.7 /tmp/php-8.1.7.tar.xz
+    && rm -rf /tmp/php-8.1.8 /tmp/php-8.1.8.tar.xz
 
 # Prepare for running tests with ecma_intl from JetBrains CLion.
 RUN ln -fs /tmp/ext-ecma_intl/modules/ecma_intl.so "$(php-config --extension-dir)/ecma_intl.so"

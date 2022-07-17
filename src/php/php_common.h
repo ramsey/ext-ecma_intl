@@ -26,4 +26,18 @@
 
 #include "src/common.h"
 
+#define RETURN_ENUM_CASE(enumClassEntry, enumCaseName, enumValue)              \
+  do {                                                                         \
+    if (enumCaseName == NULL) {                                                \
+      zend_value_error("\"%s\" is not a valid backing value for enum \"%s\"",  \
+                       enumValue, ZSTR_VAL(enumClassEntry->name));             \
+      return NULL;                                                             \
+    }                                                                          \
+    zend_string *enumCaseStr =                                                 \
+        zend_string_init(enumCaseName, strlen(enumCaseName), 0);               \
+    zend_object *enumCase = zend_enum_get_case(enumClassEntry, enumCaseStr);   \
+    zend_string_release(enumCaseStr);                                          \
+    return enumCase;                                                           \
+  } while (0)
+
 #endif /* ECMA_INTL_PHP_COMMON_H */

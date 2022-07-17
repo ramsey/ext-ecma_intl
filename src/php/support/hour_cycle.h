@@ -23,11 +23,6 @@
 
 #include <unicode/udat.h>
 
-#define HOUR_CYCLE_H11 "h11"
-#define HOUR_CYCLE_H12 "h12"
-#define HOUR_CYCLE_H23 "h23"
-#define HOUR_CYCLE_H24 "h24"
-
 #ifdef __cplusplus
 extern "C" {
 #endif

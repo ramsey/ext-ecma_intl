@@ -1,0 +1,38 @@
+{
+    "baseName": "cmn-CH",
+    "calendar": null,
+    "calendars": [
+        "gregory"
+    ],
+    "caseFirst": null,
+    "collation": "pinyin",
+    "collations": [
+        "pinyin"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "cmn",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "CH",
+    "script": null,
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "Europe\/Zurich"
+    ],
+    "weekInfo": {
+        "firstDay": 1,
+        "minimalDays": 4,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

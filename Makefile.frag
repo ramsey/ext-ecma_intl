@@ -22,10 +22,10 @@ clion: all tests/criterion/runner
 criterion: tests/criterion/runner
 	./tests/criterion/runner --color=always
 
-test-clean:
+criterion-clean:
 	find . -name \*.d | xargs rm -f
 
-clean: test-clean
+clean: criterion-clean
 
 deepclean: distclean
 	git clean -fXd \
@@ -35,4 +35,4 @@ deepclean: distclean
 		--exclude '!vendor/**' \
 		--exclude '!composer.lock'
 
-.PHONY: check-criterion criterion deepclean test-clean
+.PHONY: check-criterion criterion deepclean criterion-clean test-memory

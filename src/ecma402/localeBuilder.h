@@ -21,7 +21,7 @@
 #ifndef ECMA_INTL_ECMA402_LOCALE_BUILDER_H
 #define ECMA_INTL_ECMA402_LOCALE_BUILDER_H
 
-#include "localeIdentifier.h"
+#include "locale.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -101,10 +101,10 @@ typedef struct localeBuilderOptions {
  *
  * @return An localeBuilderOptions struct.
  */
-localeBuilderOptions *
-initLocaleBuilderOptions(char *calendar, char *caseFirst, char *collation,
-                         char *hourCycle, char *language, char *numberingSystem,
-                         const bool *numeric, char *region, char *script);
+localeBuilderOptions *initLocaleBuilderOptions(
+    const char *calendar, const char *caseFirst, const char *collation,
+    const char *hourCycle, const char *language, const char *numberingSystem,
+    const bool *numeric, const char *region, const char *script);
 
 /**
  * Frees locale builder options initialized with
@@ -123,8 +123,7 @@ void freeLocaleBuilderOptions(localeBuilderOptions *options);
  *
  * @return The new locale.
  */
-localeIdentifier *buildLocale(const char *localeId,
-                              localeBuilderOptions *options);
+locale *buildLocale(const char *localeId, localeBuilderOptions *options);
 
 #ifdef __cplusplus
 }

@@ -20,6 +20,8 @@
 
 #include "hour_cycle.h"
 
+#include "src/ecma402/hour_cycle.h"
+
 #include <string.h>
 
 #define CASE_H11 "H11"

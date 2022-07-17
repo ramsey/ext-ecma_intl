@@ -21,9 +21,20 @@
 #include "numbering_system.h"
 
 #include "src/php/ecma_intl_arginfo.h"
+#include "src/php/support/numbering_system.h"
+#include <unicode/uloc.h>
 
 zend_class_entry *ecmaIntlNumberingSystemEnum = NULL;
 
 void registerEcmaIntlNumberingSystemEnum() {
   ecmaIntlNumberingSystemEnum = register_class_Ecma_Intl_NumberingSystem();
+}
+
+zend_object *getNumberingSystemEnumCaseByValue(const char *value) {
+  if (value == NULL) {
+    return NULL;
+  }
+
+  RETURN_ENUM_CASE(ecmaIntlNumberingSystemEnum,
+                   getNumberingSystemCaseName(value), value);
 }

@@ -36,7 +36,13 @@ if test "$PHP_ECMA_INTL" != "no"; then
     src/ecma402/bcp47.c                                                        \
     src/ecma402/calendar.c                                                     \
     src/ecma402/category.c                                                     \
-    src/ecma402/localeIdentifier.c                                             \
+    src/ecma402/collation.c                                                    \
+    src/ecma402/error.c                                                        \
+    src/ecma402/hour_cycle.c                                                   \
+    src/ecma402/locale.c                                                       \
+    src/ecma402/numbering_system.c                                             \
+    src/ecma402/text_direction.c                                               \
+    src/ecma402/time_zone.c                                                    \
     src/php/classes/calendar.c                                                 \
     src/php/classes/case_first.c                                               \
     src/php/classes/category.c                                                 \
@@ -46,15 +52,23 @@ if test "$PHP_ECMA_INTL" != "no"; then
     src/php/classes/hour_cycle.c                                               \
     src/php/classes/icu_exception.c                                            \
     src/php/classes/intl.c                                                     \
+    src/php/classes/locale.c                                                   \
+    src/php/classes/locale/options.c                                           \
+    src/php/classes/locale/text_direction.c                                    \
+    src/php/classes/locale/text_info.c                                         \
+    src/php/classes/locale/week_day.c                                          \
+    src/php/classes/locale/week_info.c                                         \
     src/php/classes/locale_matcher.c                                           \
     src/php/classes/numbering_system.c                                         \
     src/php/classes/range_error.c                                              \
+    src/php/ecma_intl.c                                                        \
     src/php/support/calendar.c                                                 \
     src/php/support/case_first.c                                               \
     src/php/support/collation.c                                                \
     src/php/support/hour_cycle.c                                               \
+    src/php/support/locale/text_direction.c                                    \
+    src/php/support/locale/week_day.c                                          \
     src/php/support/numbering_system.c                                         \
-    src/php/ecma_intl.c                                                        \
     "
 
   PHP_ECMA_INTL_CXX_SOURCES="                                                  \
@@ -110,24 +124,40 @@ if test "$PHP_ECMA_INTL" != "no"; then
       src/ecma402/bcp47.c                                                      \
       src/ecma402/calendar.c                                                   \
       src/ecma402/category.c                                                   \
+      src/ecma402/collation.c                                                  \
+      src/ecma402/error.c                                                      \
+      src/ecma402/hour_cycle.c                                                 \
+      src/ecma402/locale.c                                                     \
       src/ecma402/localeBuilder.cpp                                            \
-      src/ecma402/localeIdentifier.c                                           \
+      src/ecma402/numbering_system.c                                           \
+      src/ecma402/text_direction.c                                             \
+      src/ecma402/time_zone.c                                                  \
       src/ecma402/units.cpp                                                    \
       src/php/support/calendar.c                                               \
       src/php/support/case_first.c                                             \
       src/php/support/collation.c                                              \
       src/php/support/hour_cycle.c                                             \
+      src/php/support/locale/text_direction.c                                  \
+      src/php/support/locale/week_day.c                                        \
       src/php/support/numbering_system.c                                       \
       tests/criterion/ecma402/bcp47_test.c                                     \
       tests/criterion/ecma402/calendar_test.c                                  \
       tests/criterion/ecma402/category_test.c                                  \
+      tests/criterion/ecma402/collation_test.c                                 \
+      tests/criterion/ecma402/error_test.c                                     \
+      tests/criterion/ecma402/hour_cycle_test.c                                \
       tests/criterion/ecma402/localeBuilder_test.c                             \
-      tests/criterion/ecma402/localeIdentifier_test.c                          \
+      tests/criterion/ecma402/locale_test.c                                    \
+      tests/criterion/ecma402/numbering_system_test.c                          \
+      tests/criterion/ecma402/text_direction_test.c                            \
+      tests/criterion/ecma402/time_zone_test.c                                 \
       tests/criterion/ecma402/units_test.c                                     \
       tests/criterion/php/support/calendar_test.c                              \
       tests/criterion/php/support/case_first_test.c                            \
       tests/criterion/php/support/collation_test.c                             \
       tests/criterion/php/support/hour_cycle_test.c                            \
+      tests/criterion/php/support/locale/text_direction_test.c                 \
+      tests/criterion/php/support/locale/week_day_test.c                       \
       tests/criterion/php/support/numbering_system_test.c                      \
       tests/criterion/test.c                                                   \
       "

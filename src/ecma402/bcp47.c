@@ -23,15 +23,17 @@
 #include <string.h>
 #include <unicode/uloc.h>
 
-int icuToBcp47LanguageTag(const char *icuLanguageTag, char *bcp47LanguageTag) {
+int icuToBcp47LanguageTag(const char *icuLanguageTag, char *bcp47LanguageTag,
+                          errorStatus *status) {
   int languageTagLen;
-  UErrorCode status = U_ZERO_ERROR;
+  UErrorCode icuStatus = U_ZERO_ERROR;
 
   languageTagLen = uloc_toLanguageTag(icuLanguageTag, bcp47LanguageTag,
-                                      ULOC_FULLNAME_CAPACITY, 1, &status);
+                                      ULOC_FULLNAME_CAPACITY, 1, &icuStatus);
 
-  if (strcmp(icuLanguageTag, "") == 0 || U_FAILURE(status)) {
-    return ECMA_INTL_FAILURE;
+  if (U_FAILURE(icuStatus)) {
+    icuError(status, icuStatus, __FILE__, __LINE__, NULL);
+    return 0;
   }
 
   return languageTagLen;

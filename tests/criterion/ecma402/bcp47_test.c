@@ -6,7 +6,7 @@
 #define TEST_SUITE ecma402Bcp47
 
 ParameterizedTestParameters(TEST_SUITE, successfulLanguageTagConversion) {
-  START_BASIC_TEST_PARAMS(18)
+  START_BASIC_TEST_PARAMS(19)
 
   BASIC_TEST("en-US", "en-US")
   BASIC_TEST("en_US", "en-US")
@@ -17,6 +17,7 @@ ParameterizedTestParameters(TEST_SUITE, successfulLanguageTagConversion) {
   BASIC_TEST("fr-FR", "fr-FR")
   BASIC_TEST("fr_FR", "fr-FR")
   BASIC_TEST("_US", "und-US")
+  BASIC_TEST("", "und")
   BASIC_TEST("und-US", "und-US")
   BASIC_TEST("_Latn", "und-Latn")
   BASIC_TEST("und-latn", "und-Latn")
@@ -38,21 +39,12 @@ ParameterizedTestParameters(TEST_SUITE, successfulLanguageTagConversion) {
   END_BASIC_TEST_PARAMS;
 }
 
-ParameterizedTestParameters(TEST_SUITE, failedLanguageTagConversion) {
-  char **tests = cr_malloc(sizeof(*tests) * 3);
-  tests[0] = testStrdup("");
-  tests[1] = testStrdup("1234");
-  tests[2] = testStrdup("en-latn-us-co-foo");
-
-  return cr_make_param_array(const char *, tests, 3, testFreeStrings);
-}
-
 ParameterizedTest(basicTestParams *test, ecma402Bcp47,
                   successfulLanguageTagConversion) {
   char *bcp47LanguageTag = NULL;
 
   bcp47LanguageTag = (char *)malloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
-  icuToBcp47LanguageTag(test->input, bcp47LanguageTag);
+  icuToBcp47LanguageTag(test->input, bcp47LanguageTag, NULL);
 
   cr_assert(
       eq(str, bcp47LanguageTag, test->expected),
@@ -62,15 +54,28 @@ ParameterizedTest(basicTestParams *test, ecma402Bcp47,
   free(bcp47LanguageTag);
 }
 
+ParameterizedTestParameters(TEST_SUITE, failedLanguageTagConversion) {
+  char **tests = cr_malloc(sizeof(*tests) * 3);
+  tests[0] = testStrdup("1234");
+  tests[1] = testStrdup("en-latn-us-co-foo");
+  tests[2] = testStrdup("de-de_euro");
+
+  return cr_make_param_array(const char *, tests, 3, testFreeStrings);
+}
+
 ParameterizedTest(char **input, TEST_SUITE, failedLanguageTagConversion) {
   char *bcp47LanguageTag = NULL;
   int bcp47LanguageTagLen;
+  errorStatus *status;
+
+  status = initErrorStatus();
 
   bcp47LanguageTag = (char *)malloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
-  bcp47LanguageTagLen = icuToBcp47LanguageTag(*input, bcp47LanguageTag);
+  bcp47LanguageTagLen = icuToBcp47LanguageTag(*input, bcp47LanguageTag, status);
 
-  cr_assert(eq(int, bcp47LanguageTagLen, ECMA_INTL_FAILURE),
+  cr_assert(eq(int, hasError(status), true),
             "Expected language tag \"%s\" to fail", *input);
+  cr_assert(eq(int, bcp47LanguageTagLen, 0));
 
   free(bcp47LanguageTag);
 }

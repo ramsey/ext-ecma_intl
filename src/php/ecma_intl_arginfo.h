@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: 352937d8227438dfdd6664f694e5d3ced4938880 */
+ * Stub hash: 5a138d552f3a661f328098a11b1585f78a4ae165 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Ecma_Intl_getCanonicalLocales, 0, 1, IS_ARRAY, 0)
 	ZEND_ARG_TYPE_MASK(0, locales, MAY_BE_ARRAY|MAY_BE_STRING, NULL)
@@ -12,10 +12,54 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Ecma_Intl___construct, 0, 0, 0)
 ZEND_END_ARG_INFO()
 
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Ecma_Intl_Locale___construct, 0, 0, 1)
+	ZEND_ARG_TYPE_INFO(0, tag, IS_STRING, 0)
+	ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, options, Ecma\\Intl\\Locale\\Options, 1, "null")
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_class_Ecma_Intl_Locale___toString, 0, 0, IS_STRING, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_WITH_RETURN_OBJ_INFO_EX(arginfo_class_Ecma_Intl_Locale_maximize, 0, 0, Ecma\\Intl\\Locale, 0)
+ZEND_END_ARG_INFO()
+
+#define arginfo_class_Ecma_Intl_Locale_minimize arginfo_class_Ecma_Intl_Locale_maximize
+
+#define arginfo_class_Ecma_Intl_Locale_toString arginfo_class_Ecma_Intl_Locale___toString
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Ecma_Intl_Locale_Options___construct, 0, 0, 0)
+	ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, calendar, Ecma\\Intl\\Calendar, 1, "null")
+	ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, caseFirst, Ecma\\Intl\\CaseFirst, 1, "null")
+	ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, collation, Ecma\\Intl\\Collation, 1, "null")
+	ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, hourCycle, Ecma\\Intl\\HourCycle, 1, "null")
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, language, IS_STRING, 1, "null")
+	ZEND_ARG_OBJ_INFO_WITH_DEFAULT_VALUE(0, numberingSystem, Ecma\\Intl\\NumberingSystem, 1, "null")
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, numeric, _IS_BOOL, 1, "null")
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, region, IS_STRING, 1, "null")
+	ZEND_ARG_TYPE_INFO_WITH_DEFAULT_VALUE(0, script, IS_STRING, 1, "null")
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Ecma_Intl_Locale_TextInfo___construct, 0, 0, 1)
+	ZEND_ARG_OBJ_INFO(0, direction, Ecma\\Intl\\Locale\\TextDirection, 0)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(arginfo_class_Ecma_Intl_Locale_WeekInfo___construct, 0, 0, 3)
+	ZEND_ARG_OBJ_INFO(0, firstDay, Ecma\\Intl\\Locale\\WeekDay, 0)
+	ZEND_ARG_TYPE_INFO(0, minimalDays, IS_LONG, 0)
+	ZEND_ARG_TYPE_INFO(0, weekend, IS_ARRAY, 0)
+ZEND_END_ARG_INFO()
+
 
 ZEND_METHOD(Ecma_Intl, getCanonicalLocales);
 ZEND_METHOD(Ecma_Intl, supportedValuesOf);
 ZEND_METHOD(Ecma_Intl, __construct);
+ZEND_METHOD(Ecma_Intl_Locale, __construct);
+ZEND_METHOD(Ecma_Intl_Locale, __toString);
+ZEND_METHOD(Ecma_Intl_Locale, maximize);
+ZEND_METHOD(Ecma_Intl_Locale, minimize);
+ZEND_METHOD(Ecma_Intl_Locale_Options, __construct);
+ZEND_METHOD(Ecma_Intl_Locale_TextInfo, __construct);
+ZEND_METHOD(Ecma_Intl_Locale_WeekInfo, __construct);
 
 
 static const zend_function_entry class_Ecma_Intl_methods[] = {
@@ -66,6 +110,16 @@ static const zend_function_entry class_Ecma_Intl_IcuException_methods[] = {
 };
 
 
+static const zend_function_entry class_Ecma_Intl_Locale_methods[] = {
+	ZEND_ME(Ecma_Intl_Locale, __construct, arginfo_class_Ecma_Intl_Locale___construct, ZEND_ACC_PUBLIC)
+	ZEND_ME(Ecma_Intl_Locale, __toString, arginfo_class_Ecma_Intl_Locale___toString, ZEND_ACC_PUBLIC)
+	ZEND_ME(Ecma_Intl_Locale, maximize, arginfo_class_Ecma_Intl_Locale_maximize, ZEND_ACC_PUBLIC)
+	ZEND_ME(Ecma_Intl_Locale, minimize, arginfo_class_Ecma_Intl_Locale_minimize, ZEND_ACC_PUBLIC)
+	ZEND_MALIAS(Ecma_Intl_Locale, toString, __toString, arginfo_class_Ecma_Intl_Locale_toString, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+
 static const zend_function_entry class_Ecma_Intl_LocaleMatcher_methods[] = {
 	ZEND_FE_END
 };
@@ -77,6 +131,34 @@ static const zend_function_entry class_Ecma_Intl_NumberingSystem_methods[] = {
 
 
 static const zend_function_entry class_Ecma_Intl_RangeError_methods[] = {
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_Ecma_Intl_Locale_Options_methods[] = {
+	ZEND_ME(Ecma_Intl_Locale_Options, __construct, arginfo_class_Ecma_Intl_Locale_Options___construct, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_Ecma_Intl_Locale_TextDirection_methods[] = {
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_Ecma_Intl_Locale_TextInfo_methods[] = {
+	ZEND_ME(Ecma_Intl_Locale_TextInfo, __construct, arginfo_class_Ecma_Intl_Locale_TextInfo___construct, ZEND_ACC_PUBLIC)
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_Ecma_Intl_Locale_WeekDay_methods[] = {
+	ZEND_FE_END
+};
+
+
+static const zend_function_entry class_Ecma_Intl_Locale_WeekInfo_methods[] = {
+	ZEND_ME(Ecma_Intl_Locale_WeekInfo, __construct, arginfo_class_Ecma_Intl_Locale_WeekInfo___construct, ZEND_ACC_PUBLIC)
 	ZEND_FE_END
 };
 
@@ -415,6 +497,126 @@ static zend_class_entry *register_class_Ecma_Intl_IcuException(zend_class_entry 
 	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl", "IcuException", class_Ecma_Intl_IcuException_methods);
 	class_entry = zend_register_internal_class_ex(&ce, class_entry_RuntimeException);
 	zend_class_implements(class_entry, 1, class_entry_Ecma_Intl_Exception);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_Locale(zend_class_entry *class_entry_Stringable)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl", "Locale", class_Ecma_Intl_Locale_methods);
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+	zend_class_implements(class_entry, 1, class_entry_Stringable);
+
+	zval property_baseName_default_value;
+	ZVAL_UNDEF(&property_baseName_default_value);
+	zend_string *property_baseName_name = zend_string_init("baseName", sizeof("baseName") - 1, 1);
+	zend_declare_typed_property(class_entry, property_baseName_name, &property_baseName_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_STRING));
+	zend_string_release(property_baseName_name);
+
+	zend_string *property_calendar_class_Ecma_Intl_Calendar = zend_string_init("Ecma\\Intl\\Calendar", sizeof("Ecma\\Intl\\Calendar")-1, 1);
+	zval property_calendar_default_value;
+	ZVAL_UNDEF(&property_calendar_default_value);
+	zend_string *property_calendar_name = zend_string_init("calendar", sizeof("calendar") - 1, 1);
+	zend_declare_typed_property(class_entry, property_calendar_name, &property_calendar_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_calendar_class_Ecma_Intl_Calendar, 0, MAY_BE_NULL));
+	zend_string_release(property_calendar_name);
+
+	zval property_calendars_default_value;
+	ZVAL_UNDEF(&property_calendars_default_value);
+	zend_string *property_calendars_name = zend_string_init("calendars", sizeof("calendars") - 1, 1);
+	zend_declare_typed_property(class_entry, property_calendars_name, &property_calendars_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_ARRAY));
+	zend_string_release(property_calendars_name);
+
+	zend_string *property_caseFirst_class_Ecma_Intl_CaseFirst = zend_string_init("Ecma\\Intl\\CaseFirst", sizeof("Ecma\\Intl\\CaseFirst")-1, 1);
+	zval property_caseFirst_default_value;
+	ZVAL_UNDEF(&property_caseFirst_default_value);
+	zend_string *property_caseFirst_name = zend_string_init("caseFirst", sizeof("caseFirst") - 1, 1);
+	zend_declare_typed_property(class_entry, property_caseFirst_name, &property_caseFirst_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_caseFirst_class_Ecma_Intl_CaseFirst, 0, MAY_BE_NULL));
+	zend_string_release(property_caseFirst_name);
+
+	zend_string *property_collation_class_Ecma_Intl_Collation = zend_string_init("Ecma\\Intl\\Collation", sizeof("Ecma\\Intl\\Collation")-1, 1);
+	zval property_collation_default_value;
+	ZVAL_UNDEF(&property_collation_default_value);
+	zend_string *property_collation_name = zend_string_init("collation", sizeof("collation") - 1, 1);
+	zend_declare_typed_property(class_entry, property_collation_name, &property_collation_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_collation_class_Ecma_Intl_Collation, 0, MAY_BE_NULL));
+	zend_string_release(property_collation_name);
+
+	zval property_collations_default_value;
+	ZVAL_UNDEF(&property_collations_default_value);
+	zend_string *property_collations_name = zend_string_init("collations", sizeof("collations") - 1, 1);
+	zend_declare_typed_property(class_entry, property_collations_name, &property_collations_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_ARRAY));
+	zend_string_release(property_collations_name);
+
+	zend_string *property_hourCycle_class_Ecma_Intl_HourCycle = zend_string_init("Ecma\\Intl\\HourCycle", sizeof("Ecma\\Intl\\HourCycle")-1, 1);
+	zval property_hourCycle_default_value;
+	ZVAL_UNDEF(&property_hourCycle_default_value);
+	zend_string *property_hourCycle_name = zend_string_init("hourCycle", sizeof("hourCycle") - 1, 1);
+	zend_declare_typed_property(class_entry, property_hourCycle_name, &property_hourCycle_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_hourCycle_class_Ecma_Intl_HourCycle, 0, MAY_BE_NULL));
+	zend_string_release(property_hourCycle_name);
+
+	zval property_hourCycles_default_value;
+	ZVAL_UNDEF(&property_hourCycles_default_value);
+	zend_string *property_hourCycles_name = zend_string_init("hourCycles", sizeof("hourCycles") - 1, 1);
+	zend_declare_typed_property(class_entry, property_hourCycles_name, &property_hourCycles_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_ARRAY));
+	zend_string_release(property_hourCycles_name);
+
+	zval property_language_default_value;
+	ZVAL_UNDEF(&property_language_default_value);
+	zend_string *property_language_name = zend_string_init("language", sizeof("language") - 1, 1);
+	zend_declare_typed_property(class_entry, property_language_name, &property_language_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_STRING|MAY_BE_NULL));
+	zend_string_release(property_language_name);
+
+	zend_string *property_numberingSystem_class_Ecma_Intl_NumberingSystem = zend_string_init("Ecma\\Intl\\NumberingSystem", sizeof("Ecma\\Intl\\NumberingSystem")-1, 1);
+	zval property_numberingSystem_default_value;
+	ZVAL_UNDEF(&property_numberingSystem_default_value);
+	zend_string *property_numberingSystem_name = zend_string_init("numberingSystem", sizeof("numberingSystem") - 1, 1);
+	zend_declare_typed_property(class_entry, property_numberingSystem_name, &property_numberingSystem_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_numberingSystem_class_Ecma_Intl_NumberingSystem, 0, MAY_BE_NULL));
+	zend_string_release(property_numberingSystem_name);
+
+	zval property_numberingSystems_default_value;
+	ZVAL_UNDEF(&property_numberingSystems_default_value);
+	zend_string *property_numberingSystems_name = zend_string_init("numberingSystems", sizeof("numberingSystems") - 1, 1);
+	zend_declare_typed_property(class_entry, property_numberingSystems_name, &property_numberingSystems_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_ARRAY));
+	zend_string_release(property_numberingSystems_name);
+
+	zval property_numeric_default_value;
+	ZVAL_UNDEF(&property_numeric_default_value);
+	zend_string *property_numeric_name = zend_string_init("numeric", sizeof("numeric") - 1, 1);
+	zend_declare_typed_property(class_entry, property_numeric_name, &property_numeric_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_BOOL));
+	zend_string_release(property_numeric_name);
+
+	zval property_region_default_value;
+	ZVAL_UNDEF(&property_region_default_value);
+	zend_string *property_region_name = zend_string_init("region", sizeof("region") - 1, 1);
+	zend_declare_typed_property(class_entry, property_region_name, &property_region_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_STRING|MAY_BE_NULL));
+	zend_string_release(property_region_name);
+
+	zval property_script_default_value;
+	ZVAL_UNDEF(&property_script_default_value);
+	zend_string *property_script_name = zend_string_init("script", sizeof("script") - 1, 1);
+	zend_declare_typed_property(class_entry, property_script_name, &property_script_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_STRING|MAY_BE_NULL));
+	zend_string_release(property_script_name);
+
+	zend_string *property_textInfo_class_Ecma_Intl_Locale_TextInfo = zend_string_init("Ecma\\Intl\\Locale\\TextInfo", sizeof("Ecma\\Intl\\Locale\\TextInfo")-1, 1);
+	zval property_textInfo_default_value;
+	ZVAL_UNDEF(&property_textInfo_default_value);
+	zend_string *property_textInfo_name = zend_string_init("textInfo", sizeof("textInfo") - 1, 1);
+	zend_declare_typed_property(class_entry, property_textInfo_name, &property_textInfo_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_textInfo_class_Ecma_Intl_Locale_TextInfo, 0, 0));
+	zend_string_release(property_textInfo_name);
+
+	zval property_timeZones_default_value;
+	ZVAL_UNDEF(&property_timeZones_default_value);
+	zend_string *property_timeZones_name = zend_string_init("timeZones", sizeof("timeZones") - 1, 1);
+	zend_declare_typed_property(class_entry, property_timeZones_name, &property_timeZones_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_ARRAY|MAY_BE_NULL));
+	zend_string_release(property_timeZones_name);
+
+	zend_string *property_weekInfo_class_Ecma_Intl_Locale_WeekInfo = zend_string_init("Ecma\\Intl\\Locale\\WeekInfo", sizeof("Ecma\\Intl\\Locale\\WeekInfo")-1, 1);
+	zval property_weekInfo_default_value;
+	ZVAL_UNDEF(&property_weekInfo_default_value);
+	zend_string *property_weekInfo_name = zend_string_init("weekInfo", sizeof("weekInfo") - 1, 1);
+	zend_declare_typed_property(class_entry, property_weekInfo_name, &property_weekInfo_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_weekInfo_class_Ecma_Intl_Locale_WeekInfo, 0, 0));
+	zend_string_release(property_weekInfo_name);
 
 	return class_entry;
 }
@@ -905,6 +1107,185 @@ static zend_class_entry *register_class_Ecma_Intl_RangeError(zend_class_entry *c
 	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl", "RangeError", class_Ecma_Intl_RangeError_methods);
 	class_entry = zend_register_internal_class_ex(&ce, class_entry_ValueError);
 	zend_class_implements(class_entry, 1, class_entry_Ecma_Intl_Exception);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_Locale_Options(void)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl\\Locale", "Options", class_Ecma_Intl_Locale_Options_methods);
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+
+	zend_string *property_calendar_class_Ecma_Intl_Calendar = zend_string_init("Ecma\\Intl\\Calendar", sizeof("Ecma\\Intl\\Calendar")-1, 1);
+	zval property_calendar_default_value;
+	ZVAL_NULL(&property_calendar_default_value);
+	zend_string *property_calendar_name = zend_string_init("calendar", sizeof("calendar") - 1, 1);
+	zend_declare_typed_property(class_entry, property_calendar_name, &property_calendar_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_calendar_class_Ecma_Intl_Calendar, 0, MAY_BE_NULL));
+	zend_string_release(property_calendar_name);
+
+	zend_string *property_caseFirst_class_Ecma_Intl_CaseFirst = zend_string_init("Ecma\\Intl\\CaseFirst", sizeof("Ecma\\Intl\\CaseFirst")-1, 1);
+	zval property_caseFirst_default_value;
+	ZVAL_NULL(&property_caseFirst_default_value);
+	zend_string *property_caseFirst_name = zend_string_init("caseFirst", sizeof("caseFirst") - 1, 1);
+	zend_declare_typed_property(class_entry, property_caseFirst_name, &property_caseFirst_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_caseFirst_class_Ecma_Intl_CaseFirst, 0, MAY_BE_NULL));
+	zend_string_release(property_caseFirst_name);
+
+	zend_string *property_collation_class_Ecma_Intl_Collation = zend_string_init("Ecma\\Intl\\Collation", sizeof("Ecma\\Intl\\Collation")-1, 1);
+	zval property_collation_default_value;
+	ZVAL_NULL(&property_collation_default_value);
+	zend_string *property_collation_name = zend_string_init("collation", sizeof("collation") - 1, 1);
+	zend_declare_typed_property(class_entry, property_collation_name, &property_collation_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_collation_class_Ecma_Intl_Collation, 0, MAY_BE_NULL));
+	zend_string_release(property_collation_name);
+
+	zend_string *property_hourCycle_class_Ecma_Intl_HourCycle = zend_string_init("Ecma\\Intl\\HourCycle", sizeof("Ecma\\Intl\\HourCycle")-1, 1);
+	zval property_hourCycle_default_value;
+	ZVAL_NULL(&property_hourCycle_default_value);
+	zend_string *property_hourCycle_name = zend_string_init("hourCycle", sizeof("hourCycle") - 1, 1);
+	zend_declare_typed_property(class_entry, property_hourCycle_name, &property_hourCycle_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_hourCycle_class_Ecma_Intl_HourCycle, 0, MAY_BE_NULL));
+	zend_string_release(property_hourCycle_name);
+
+	zval property_language_default_value;
+	ZVAL_NULL(&property_language_default_value);
+	zend_string *property_language_name = zend_string_init("language", sizeof("language") - 1, 1);
+	zend_declare_typed_property(class_entry, property_language_name, &property_language_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_STRING|MAY_BE_NULL));
+	zend_string_release(property_language_name);
+
+	zend_string *property_numberingSystem_class_Ecma_Intl_NumberingSystem = zend_string_init("Ecma\\Intl\\NumberingSystem", sizeof("Ecma\\Intl\\NumberingSystem")-1, 1);
+	zval property_numberingSystem_default_value;
+	ZVAL_NULL(&property_numberingSystem_default_value);
+	zend_string *property_numberingSystem_name = zend_string_init("numberingSystem", sizeof("numberingSystem") - 1, 1);
+	zend_declare_typed_property(class_entry, property_numberingSystem_name, &property_numberingSystem_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_numberingSystem_class_Ecma_Intl_NumberingSystem, 0, MAY_BE_NULL));
+	zend_string_release(property_numberingSystem_name);
+
+	zval property_numeric_default_value;
+	ZVAL_NULL(&property_numeric_default_value);
+	zend_string *property_numeric_name = zend_string_init("numeric", sizeof("numeric") - 1, 1);
+	zend_declare_typed_property(class_entry, property_numeric_name, &property_numeric_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_BOOL|MAY_BE_NULL));
+	zend_string_release(property_numeric_name);
+
+	zval property_region_default_value;
+	ZVAL_NULL(&property_region_default_value);
+	zend_string *property_region_name = zend_string_init("region", sizeof("region") - 1, 1);
+	zend_declare_typed_property(class_entry, property_region_name, &property_region_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_STRING|MAY_BE_NULL));
+	zend_string_release(property_region_name);
+
+	zval property_script_default_value;
+	ZVAL_NULL(&property_script_default_value);
+	zend_string *property_script_name = zend_string_init("script", sizeof("script") - 1, 1);
+	zend_declare_typed_property(class_entry, property_script_name, &property_script_default_value, ZEND_ACC_PUBLIC, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_STRING|MAY_BE_NULL));
+	zend_string_release(property_script_name);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_Locale_TextDirection(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("Ecma\\Intl\\Locale\\TextDirection", IS_STRING, class_Ecma_Intl_Locale_TextDirection_methods);
+
+	zval enum_case_BottomToTop_value;
+	zend_string *enum_case_BottomToTop_value_str = zend_string_init("btt", sizeof("btt") - 1, 1);
+	ZVAL_STR(&enum_case_BottomToTop_value, enum_case_BottomToTop_value_str);
+	zend_enum_add_case_cstr(class_entry, "BottomToTop", &enum_case_BottomToTop_value);
+
+	zval enum_case_LeftToRight_value;
+	zend_string *enum_case_LeftToRight_value_str = zend_string_init("ltr", sizeof("ltr") - 1, 1);
+	ZVAL_STR(&enum_case_LeftToRight_value, enum_case_LeftToRight_value_str);
+	zend_enum_add_case_cstr(class_entry, "LeftToRight", &enum_case_LeftToRight_value);
+
+	zval enum_case_RightToLeft_value;
+	zend_string *enum_case_RightToLeft_value_str = zend_string_init("rtl", sizeof("rtl") - 1, 1);
+	ZVAL_STR(&enum_case_RightToLeft_value, enum_case_RightToLeft_value_str);
+	zend_enum_add_case_cstr(class_entry, "RightToLeft", &enum_case_RightToLeft_value);
+
+	zval enum_case_TopToBottom_value;
+	zend_string *enum_case_TopToBottom_value_str = zend_string_init("ttb", sizeof("ttb") - 1, 1);
+	ZVAL_STR(&enum_case_TopToBottom_value, enum_case_TopToBottom_value_str);
+	zend_enum_add_case_cstr(class_entry, "TopToBottom", &enum_case_TopToBottom_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_Locale_TextInfo(void)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl\\Locale", "TextInfo", class_Ecma_Intl_Locale_TextInfo_methods);
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+	class_entry->ce_flags |= ZEND_ACC_FINAL;
+
+	zend_string *property_direction_class_Ecma_Intl_Locale_TextDirection = zend_string_init("Ecma\\Intl\\Locale\\TextDirection", sizeof("Ecma\\Intl\\Locale\\TextDirection")-1, 1);
+	zval property_direction_default_value;
+	ZVAL_UNDEF(&property_direction_default_value);
+	zend_string *property_direction_name = zend_string_init("direction", sizeof("direction") - 1, 1);
+	zend_declare_typed_property(class_entry, property_direction_name, &property_direction_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_direction_class_Ecma_Intl_Locale_TextDirection, 0, 0));
+	zend_string_release(property_direction_name);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_Locale_WeekDay(void)
+{
+	zend_class_entry *class_entry = zend_register_internal_enum("Ecma\\Intl\\Locale\\WeekDay", IS_LONG, class_Ecma_Intl_Locale_WeekDay_methods);
+
+	zval enum_case_Monday_value;
+	ZVAL_LONG(&enum_case_Monday_value, 1);
+	zend_enum_add_case_cstr(class_entry, "Monday", &enum_case_Monday_value);
+
+	zval enum_case_Tuesday_value;
+	ZVAL_LONG(&enum_case_Tuesday_value, 2);
+	zend_enum_add_case_cstr(class_entry, "Tuesday", &enum_case_Tuesday_value);
+
+	zval enum_case_Wednesday_value;
+	ZVAL_LONG(&enum_case_Wednesday_value, 3);
+	zend_enum_add_case_cstr(class_entry, "Wednesday", &enum_case_Wednesday_value);
+
+	zval enum_case_Thursday_value;
+	ZVAL_LONG(&enum_case_Thursday_value, 4);
+	zend_enum_add_case_cstr(class_entry, "Thursday", &enum_case_Thursday_value);
+
+	zval enum_case_Friday_value;
+	ZVAL_LONG(&enum_case_Friday_value, 5);
+	zend_enum_add_case_cstr(class_entry, "Friday", &enum_case_Friday_value);
+
+	zval enum_case_Saturday_value;
+	ZVAL_LONG(&enum_case_Saturday_value, 6);
+	zend_enum_add_case_cstr(class_entry, "Saturday", &enum_case_Saturday_value);
+
+	zval enum_case_Sunday_value;
+	ZVAL_LONG(&enum_case_Sunday_value, 7);
+	zend_enum_add_case_cstr(class_entry, "Sunday", &enum_case_Sunday_value);
+
+	return class_entry;
+}
+
+static zend_class_entry *register_class_Ecma_Intl_Locale_WeekInfo(void)
+{
+	zend_class_entry ce, *class_entry;
+
+	INIT_NS_CLASS_ENTRY(ce, "Ecma\\Intl\\Locale", "WeekInfo", class_Ecma_Intl_Locale_WeekInfo_methods);
+	class_entry = zend_register_internal_class_ex(&ce, NULL);
+	class_entry->ce_flags |= ZEND_ACC_FINAL;
+
+	zend_string *property_firstDay_class_Ecma_Intl_Locale_WeekDay = zend_string_init("Ecma\\Intl\\Locale\\WeekDay", sizeof("Ecma\\Intl\\Locale\\WeekDay")-1, 1);
+	zval property_firstDay_default_value;
+	ZVAL_UNDEF(&property_firstDay_default_value);
+	zend_string *property_firstDay_name = zend_string_init("firstDay", sizeof("firstDay") - 1, 1);
+	zend_declare_typed_property(class_entry, property_firstDay_name, &property_firstDay_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_CLASS(property_firstDay_class_Ecma_Intl_Locale_WeekDay, 0, 0));
+	zend_string_release(property_firstDay_name);
+
+	zval property_minimalDays_default_value;
+	ZVAL_UNDEF(&property_minimalDays_default_value);
+	zend_string *property_minimalDays_name = zend_string_init("minimalDays", sizeof("minimalDays") - 1, 1);
+	zend_declare_typed_property(class_entry, property_minimalDays_name, &property_minimalDays_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_LONG));
+	zend_string_release(property_minimalDays_name);
+
+	zval property_weekend_default_value;
+	ZVAL_UNDEF(&property_weekend_default_value);
+	zend_string *property_weekend_name = zend_string_init("weekend", sizeof("weekend") - 1, 1);
+	zend_declare_typed_property(class_entry, property_weekend_name, &property_weekend_default_value, ZEND_ACC_PUBLIC|ZEND_ACC_READONLY, NULL, (zend_type) ZEND_TYPE_INIT_MASK(MAY_BE_ARRAY));
+	zend_string_release(property_weekend_name);
 
 	return class_entry;
 }

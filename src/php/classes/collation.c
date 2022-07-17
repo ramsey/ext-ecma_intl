@@ -21,9 +21,19 @@
 #include "collation.h"
 
 #include "src/php/ecma_intl_arginfo.h"
+#include "src/php/support/collation.h"
+#include <unicode/uloc.h>
 
 zend_class_entry *ecmaIntlCollationEnum = NULL;
 
 void registerEcmaIntlCollationEnum() {
   ecmaIntlCollationEnum = register_class_Ecma_Intl_Collation();
+}
+
+zend_object *getCollationEnumCaseByValue(const char *value) {
+  if (value == NULL) {
+    return NULL;
+  }
+
+  RETURN_ENUM_CASE(ecmaIntlCollationEnum, getCollationCaseName(value), value);
 }

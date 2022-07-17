@@ -1,8 +1,11 @@
 *.d
 *.dep
+*.gcda
+*.gcno
 *.la
 *.lo
 *.o
+*.profraw
 .libs
 .phpunit.result.cache
 acinclude.m4

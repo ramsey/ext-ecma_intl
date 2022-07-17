@@ -1,0 +1,36 @@
+{
+    "baseName": "zh",
+    "calendar": "gregory",
+    "calendars": [
+        "gregory"
+    ],
+    "caseFirst": null,
+    "collation": "pinyin",
+    "collations": [
+        "pinyin"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "zh",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": null,
+    "script": null,
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": null,
+    "weekInfo": {
+        "firstDay": 7,
+        "minimalDays": 1,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

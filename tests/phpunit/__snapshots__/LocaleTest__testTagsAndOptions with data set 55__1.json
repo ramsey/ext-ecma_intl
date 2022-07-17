@@ -1,0 +1,40 @@
+{
+    "baseName": "und-Latn-DE",
+    "calendar": null,
+    "calendars": [
+        "gregory"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "und",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "DE",
+    "script": "Latn",
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "Europe\/Berlin",
+        "Europe\/Busingen"
+    ],
+    "weekInfo": {
+        "firstDay": 1,
+        "minimalDays": 4,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

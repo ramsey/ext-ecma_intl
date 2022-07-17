@@ -37,10 +37,4 @@
 
 #define UNDETERMINED_LANGUAGE "und"
 
-typedef enum ecmaIntlResultCode {
-  ECMA_INTL_FAILURE = -1,
-  ECMA_INTL_NOOP = 0,
-  ECMA_INTL_SUCCESS = 1,
-} ecmaIntlResultCode;
-
 #endif /* ECMA_INTL_COMMON_H */

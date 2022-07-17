@@ -188,6 +188,223 @@ namespace Ecma\Intl
     }
 
     /**
+     * A Locale represents a Unicode locale identifier
+     *
+     * @link https://tc39.es/ecma402/#locale-objects ECMA-402: Locale Objects
+     * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale MDN: Intl.Locale
+     * @link https://tc39.es/proposal-intl-locale-info/ Intl Locale Info Proposal
+     */
+    class Locale implements \Stringable
+    {
+        /**
+         * The Unicode language identifier
+         *
+         * The base name is the language tag without extensions. Its structure
+         * is defined in
+         * {@link https://www.unicode.org/reports/tr35/#31-unicode-language-identifier UTS #35, Section 3.1}.
+         */
+        public readonly string $baseName;
+
+        /**
+         * The locale's calendar part, if available
+         *
+         * This is available when `ca` is present in the language tag or
+         * `calendar` is set on the options object.
+         */
+        public readonly ?Calendar $calendar;
+
+        /**
+         * Calendar identifiers preferred for the locale
+         *
+         * If the calendar is provided as part of the language tag or the
+         * options object, this defaults to that calendar value. Otherwise,
+         * it consists of a list of calendar identifiers, sorted in descending
+         * preference of those in common use for the locale.
+         *
+         * @link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.calendars Intl Locale Info Proposal
+         *
+         * @var Calendar[]
+         */
+        public readonly array $calendars;
+
+        /**
+         * Whether case is taken into account for the locale's collation rules,
+         * if available
+         *
+         * This is available when `kf` is present in the language tag or
+         * `caseFirst` is set on the options object.
+         */
+        public readonly ?CaseFirst $caseFirst;
+
+        /**
+         * The collation type for the locale, if available
+         *
+         * This is available when `co` is present in the language tag or
+         * `collation` is set on the options object.
+         */
+        public readonly ?Collation $collation;
+
+        /**
+         * Collation types preferred for the locale
+         *
+         * If the collation is provided as part of the language tag or the
+         * options object, this defaults to that collation value. Otherwise,
+         * it consists of a list of collation identifiers, sorted in descending
+         * preference of those in common use for the locale.
+         *
+         * @link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.collations Intl Locale Info Proposal
+         *
+         * @var Collation[]
+         */
+        public readonly array $collations;
+
+        /**
+         * The time keeping convention used by the locale, if available
+         *
+         * This is available when `hc` is present in the language tag or
+         * `hourCycle` is set on the options object.
+         */
+        public readonly ?HourCycle $hourCycle;
+
+        /**
+         * Hour cycles preferred for the locale
+         *
+         * If the hour cycle is provided as part of the language tag or the
+         * options object, this defaults to that hour cycle value. Otherwise,
+         * it consists of a list of hour cycle identifiers, sorted in descending
+         * preference of those in common use for the locale.
+         *
+         * @link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.hourCycles Intl Locale Info Proposal
+         *
+         * @var HourCycle[]
+         */
+        public readonly array $hourCycles;
+
+        /**
+         * The language associated with the locale, if available
+         */
+        public readonly ?string $language;
+
+        /**
+         * The numbering system used by the locale, if available
+         *
+         * This is available when `nu` is present in the language tag or
+         * `numberingSystem` is set on the options object.
+         */
+        public readonly ?NumberingSystem $numberingSystem;
+
+        /**
+         * Numbering system identifiers preferred for the locale
+         *
+         * If the numbering system is provided as part of the language tag or
+         * the options object, this defaults to that numbering system value.
+         * Otherwise, it consists of a list of numbering system identifiers,
+         * sorted in descending preference of those in common use for the
+         * locale.
+         *
+         * @link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.numberingSystems Intl Locale Info Proposal
+         *
+         * @var NumberingSystem[]
+         */
+        public readonly array $numberingSystems;
+
+        /**
+         * Whether the locale has special collation handling for numeric
+         * characters
+         *
+         * If true, the locale will take numeric characters into account when
+         * collating and sorting strings. This means sequences of decimal digits
+         * will be compared as numbers, so, for example, "A-21" will be less
+         * than "A-123."
+         */
+        public readonly bool $numeric;
+
+        /**
+         * The region associated with the locale, if available
+         */
+        public readonly ?string $region;
+
+        /**
+         * The script associated with the locale, if available
+         */
+        public readonly ?string $script;
+
+        /**
+         * Information about the layout of text in the locale
+         *
+         * @link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.textInfo Intl Locale Info Proposal
+         */
+        public readonly Locale\TextInfo $textInfo;
+
+        /**
+         * An array of time zone identifiers associated with the locale
+         *
+         * @link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.timeZones Intl Locale Info Proposal
+         *
+         * @var string[]
+         */
+        public readonly ?array $timeZones;
+
+        /**
+         * Information about days of the week for the locale
+         *
+         * @link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.weekInfo Intl Locale Info Proposal
+         * @link https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Patterns_Week_Elements UTS 35: Week Elements
+         */
+        public readonly Locale\WeekInfo $weekInfo;
+
+        /**
+         * A Locale represents a Unicode locale identifier
+         *
+         * @link https://tc39.es/ecma402/#locale-objects ECMA-402: Locale Objects
+         * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale MDN: Intl.Locale
+         * @link https://tc39.es/proposal-intl-locale-info/ Intl Locale Info Proposal
+         *
+         * @param string $tag The language tag (or locale identifier)
+         * @param Locale\Options|null $options Additional options to apply to
+         *     the language tag
+         */
+        public function __construct(string $tag, ?Locale\Options $options = null)
+        {
+        }
+
+        /**
+         * Returns a string representation of the full locale identifier
+         */
+        public function __toString(): string
+        {
+        }
+
+        /**
+         * Returns a new Locale with the most likely subtag values for
+         * language, script, and region, based on the existing values
+         *
+         * @link https://www.unicode.org/reports/tr35/#Likely_Subtags UTS #35: Likely Subtags
+         */
+        public function maximize(): Locale
+        {
+        }
+
+        /**
+         * Returns a new Locale removing the most likely subtag values
+         *
+         * @link https://www.unicode.org/reports/tr35/#Likely_Subtags UTS #35: Likely Subtags
+         */
+        public function minimize(): Locale
+        {
+        }
+
+        /**
+         * Returns a string representation of the full locale identifier
+         *
+         * @implementation-alias Ecma\Intl\Locale::__toString
+         */
+        public function toString(): string
+        {
+        }
+    }
+
+    /**
      * Locale matching algorithms for use in locale negotiation
      *
      * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl#locale_negotiation MDN: Locale negotiation
@@ -309,5 +526,216 @@ namespace Ecma\Intl
      */
     class RangeError extends \ValueError implements Exception
     {
+    }
+}
+
+namespace Ecma\Intl\Locale
+{
+    /**
+     * Configuration for the locale
+     *
+     * Any property set on the Options object passed to the Locale's
+     * constructor will override the same properties on the language tag passed
+     * to the Locale.
+     *
+     * @link https://tc39.es/ecma402/#sec-intl-locale-constructor ECMA-402: The Intl.Locale Constructor
+     * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale/Locale MDN: Intl.Locale() constructor
+     */
+    class Options
+    {
+        /**
+         * The calendar to use with the locale
+         */
+        public ?\Ecma\Intl\Calendar $calendar = null;
+
+        /**
+         * The case sorting algorithm to use with the locale
+         */
+        public ?\Ecma\Intl\CaseFirst $caseFirst = null;
+
+        /**
+         * The collation algorithm to use with the locale
+         */
+        public ?\Ecma\Intl\Collation $collation = null;
+
+        /**
+         * The hour cycle to use with the locale
+         */
+        public ?\Ecma\Intl\HourCycle $hourCycle = null;
+
+        /**
+         * The locale's language (e.g., "en", "fr", "pt", "ja")
+         */
+        public ?string $language = null;
+
+        /**
+         * The locale's numbering system
+         */
+        public ?\Ecma\Intl\NumberingSystem $numberingSystem = null;
+
+        /**
+         * Whether to sort a sequence of decimal digits with its numeric value
+         * (i.e, "A-21" < "A-123")
+         */
+        public ?bool $numeric = null;
+
+        /**
+         * The locale's region (e.g., "US", "CA", "BR", "JP")
+         */
+        public ?string $region = null;
+
+        /**
+         * The locale's script (e.g., "Latn", "Cyrl")
+         */
+        public ?string $script = null;
+
+        /**
+         * Configuration for the locale
+         *
+         * Any property set on the Options object passed to the Locale's
+         * constructor will override the same properties on the language tag passed
+         * to the Locale.
+         *
+         * @link https://tc39.es/ecma402/#sec-intl-locale-constructor ECMA-402: The Intl.Locale Constructor
+         * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale/Locale MDN: Intl.Locale() constructor
+         *
+         * @param \Ecma\Intl\Calendar|null $calendar The calendar to use with
+         *     the locale
+         * @param \Ecma\Intl\CaseFirst|null $caseFirst The case sorting
+         *     algorithm to use with the locale
+         * @param \Ecma\Intl\Collation|null $collation The collation algorithm
+         *     to use with the locale
+         * @param \Ecma\Intl\HourCycle|null $hourCycle The hour cycle to use
+         *     with the locale
+         * @param string|null $language The locale's language (e.g., "en", "fr",
+         *     "pt", "ja")
+         * @param \Ecma\Intl\NumberingSystem|null $numberingSystem The locale's
+         *     numbering system
+         * @param bool|null $numeric Whether to sort a sequence of decimal
+         *     digits with its numeric value (i.e, "A-21" < "A-123")
+         * @param string|null $region The locale's region (e.g., "US", "CA",
+         *     "BR", "JP")
+         * @param string|null $script The locale's script (e.g., "Latn", "Cyrl")
+         */
+        public function __construct(
+            ?\Ecma\Intl\Calendar $calendar = null,
+            ?\Ecma\Intl\CaseFirst $caseFirst = null,
+            ?\Ecma\Intl\Collation $collation = null,
+            ?\Ecma\Intl\HourCycle $hourCycle = null,
+            ?string $language = null,
+            ?\Ecma\Intl\NumberingSystem $numberingSystem = null,
+            ?bool $numeric = null,
+            ?string $region = null,
+            ?string $script = null,
+        ) {
+        }
+    }
+
+    /**
+     * The character direction of a locale
+     */
+    enum TextDirection: string
+    {
+        case BottomToTop = 'btt';
+        case LeftToRight = 'ltr';
+        case RightToLeft = 'rtl';
+        case TopToBottom = 'ttb';
+    }
+
+    /**
+     * Locale information associated with data specified in UTS 35's Layout
+     * Elements
+     *
+     * @link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.textInfo Intl Locale Info Proposal
+     * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale/textInfo MDN: Intl.Locale.prototype.textInfo
+     * @link https://www.unicode.org/reports/tr35/tr35-general.html#Layout_Elements UTS 35: Layout Elements
+     */
+    final class TextInfo
+    {
+        /**
+         * The ordering of characters for the locale
+         */
+        public readonly TextDirection $direction;
+
+        /**
+         * Locale information associated with data specified in UTS 35's Layout
+         * Elements
+         *
+         * @link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.textInfo Intl Locale Info Proposal
+         * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale/textInfo MDN: Intl.Locale.prototype.textInfo
+         * @link https://www.unicode.org/reports/tr35/tr35-general.html#Layout_Elements UTS 35: Layout Elements
+         *
+         * @param TextDirection $direction The ordering of characters for the locale
+         */
+        public function __construct(TextDirection $direction)
+        {
+        }
+    }
+
+    /**
+     * Days of the week
+     *
+     * Each case is mapped to an integer value corresponding to the values
+     * defined in {@link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.weekInfo WeekInfo Record Fields}.
+     */
+    enum WeekDay: int
+    {
+        case Monday = 1;
+        case Tuesday = 2;
+        case Wednesday = 3;
+        case Thursday = 4;
+        case Friday = 5;
+        case Saturday = 6;
+        case Sunday = 7;
+    }
+
+    /**
+     * Locale information associated with data specified in UTS 35's Week
+     * Elements
+     *
+     * @link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.weekInfo Intl Locale Info Proposal
+     * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale/weekInfo MDN: Intl.Locale.prototype.weekInfo
+     * @link https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Patterns_Week_Elements UTS 35: Week Elements
+     */
+    final class WeekInfo
+    {
+        /**
+         * The first day of the week in the locale
+         */
+        public readonly WeekDay $firstDay;
+
+        /**
+         * The number of days required for the first week of a month or year
+         * in the locale
+         */
+        public readonly int $minimalDays;
+
+        /**
+         * The days of the week that are considered weekend days in the locale
+         *
+         * Note that the number of days in a weekend are different in each
+         * locale and may not be contiguous.
+         *
+         * @var WeekDay[] $weekend
+         */
+        public readonly array $weekend;
+
+        /**
+         * Locale information associated with data specified in UTS 35's Week
+         * Elements
+         *
+         * @link https://tc39.es/proposal-intl-locale-info/#sec-Intl.Locale.prototype.weekInfo Intl Locale Info Proposal
+         * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale/weekInfo MDN: Intl.Locale.prototype.weekInfo
+         * @link https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Patterns_Week_Elements UTS 35: Week Elements
+         *
+         * @param WeekDay $firstDay The first day of the week in the locale
+         * @param int $minimalDays The number of days required for the first
+         *     week of a month or year in the locale
+         * @param WeekDay[] $weekend The days of the week that are considered
+         *     weekend days in the locale
+         */
+        public function __construct(WeekDay $firstDay, int $minimalDays, array $weekend)
+        {
+        }
     }
 }

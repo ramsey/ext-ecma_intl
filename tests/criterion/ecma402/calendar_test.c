@@ -39,12 +39,11 @@ ParameterizedTestParameters(TEST_SUITE, getsExpectedDayOfTheWeekType) {
   ADD_CALENDAR_TEST("ar-OM", ECMA402_SATURDAY, ECMA402_WEEKEND);
   ADD_CALENDAR_TEST("ar-OM", ECMA402_SUNDAY, ECMA402_WEEKDAY);
 
-  ADD_CALENDAR_TEST("en-US", 8, ECMA_INTL_FAILURE);
-  ADD_CALENDAR_TEST("en-US", 0, ECMA_INTL_FAILURE);
+  ADD_CALENDAR_TEST("en-US", 8, ECMA402_WEEKDAY);
+  ADD_CALENDAR_TEST("en-US", 0, ECMA402_WEEKDAY);
 
   return cr_make_param_array(calendarTestParams, tests, index,
                              freeCalendarTestParams);
-  ;
 }
 
 ParameterizedTest(calendarTestParams *test, TEST_SUITE,
@@ -78,6 +77,100 @@ ParameterizedTest(calendarTestParams *test, TEST_SUITE,
   cr_assert(eq(int, dayOfWeek, test->expected),
             "Expected %d for locale \"%s\"; got %d", test->expected,
             test->localeId, dayOfWeek);
+}
+
+Test(TEST_SUITE, getsSupportedCalendarsFromCalendarKeyword) {
+  const char **calendars;
+  int calendarCount;
+
+  calendars = (const char **)malloc(sizeof(const char *) * CALENDARS_CAPACITY);
+  calendarCount = getSupportedCalendars("fa-IR-u-ca-gregory", calendars);
+
+  cr_assert(eq(int, calendarCount, 1));
+  cr_assert(eq(str, (char *)calendars[0], "gregory"));
+
+  for (int i = 0; i < calendarCount; i++) {
+    free((void *)calendars[i]);
+  }
+  free(calendars);
+}
+
+Test(TEST_SUITE, getsDefaultSupportedCalendarsForLocale) {
+  const char **calendars;
+  int calendarCount;
+
+  calendars = (const char **)malloc(sizeof(const char *) * CALENDARS_CAPACITY);
+  calendarCount = getSupportedCalendars("fa-IR", calendars);
+
+  cr_assert(eq(int, calendarCount, 5));
+  cr_assert(eq(str, (char *)calendars[0], "persian"));
+  cr_assert(eq(str, (char *)calendars[1], "gregory"));
+  cr_assert(eq(str, (char *)calendars[2], "islamic"));
+  cr_assert(eq(str, (char *)calendars[3], "islamic-civil"));
+  cr_assert(eq(str, (char *)calendars[4], "islamic-tbla"));
+
+  for (int i = 0; i < calendarCount; i++) {
+    free((void *)calendars[i]);
+  }
+  free(calendars);
+}
+
+Test(TEST_SUITE, getsWeekInfoForEnUs) {
+  weekInfo *info = getWeekInfo("en-US");
+
+  cr_assert(eq(int, info->firstDay, ECMA402_SUNDAY));
+  cr_assert(eq(int, info->minimalDays, 1));
+  cr_assert(eq(int, info->weekendLength, 2));
+  cr_assert(eq(int, info->weekend[0], ECMA402_SATURDAY));
+  cr_assert(eq(int, info->weekend[1], ECMA402_SUNDAY));
+
+  freeWeekInfo(info);
+}
+
+Test(TEST_SUITE, getsWeekInfoForEnGb) {
+  weekInfo *info = getWeekInfo("en-GB");
+
+  cr_assert(eq(int, info->firstDay, ECMA402_MONDAY));
+  cr_assert(eq(int, info->minimalDays, 4));
+  cr_assert(eq(int, info->weekendLength, 2));
+  cr_assert(eq(int, info->weekend[0], ECMA402_SATURDAY));
+  cr_assert(eq(int, info->weekend[1], ECMA402_SUNDAY));
+
+  freeWeekInfo(info);
+}
+
+Test(TEST_SUITE, getsWeekInfoForFaIr) {
+  weekInfo *info = getWeekInfo("fa-IR");
+
+  cr_assert(eq(int, info->firstDay, ECMA402_SATURDAY));
+  cr_assert(eq(int, info->minimalDays, 1));
+  cr_assert(eq(int, info->weekendLength, 1));
+  cr_assert(eq(int, info->weekend[0], ECMA402_FRIDAY));
+
+  freeWeekInfo(info);
+}
+
+Test(TEST_SUITE, getsWeekInfoForUnknownLocale) {
+  weekInfo *info = getWeekInfo("");
+
+  cr_assert(eq(int, info->firstDay, ECMA402_SUNDAY));
+  cr_assert(eq(int, info->minimalDays, 1));
+  cr_assert(eq(int, info->weekendLength, 2));
+  cr_assert(eq(int, info->weekend[0], ECMA402_SATURDAY));
+  cr_assert(eq(int, info->weekend[1], ECMA402_SUNDAY));
+
+  freeWeekInfo(info);
+}
+
+Test(TEST_SUITE, initializesEmptyWeekInfo) {
+  weekInfo *info = initEmptyWeekInfo();
+
+  cr_assert(eq(int, info->firstDay, 0));
+  cr_assert(eq(int, info->minimalDays, 0));
+  cr_assert(eq(int, info->weekendLength, 0));
+  cr_assert_not_null(info->weekend);
+
+  freeWeekInfo(info);
 }
 
 static void freeCalendarTestParams(struct criterion_test_params *crp) {

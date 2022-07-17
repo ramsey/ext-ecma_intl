@@ -1,0 +1,41 @@
+{
+    "baseName": "und-Arab",
+    "calendar": null,
+    "calendars": [
+        "gregory",
+        "coptic",
+        "islamic",
+        "islamic-civil",
+        "islamic-tbla"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h12"
+    ],
+    "language": "und",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": null,
+    "script": "Arab",
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": null,
+    "weekInfo": {
+        "firstDay": 6,
+        "minimalDays": 1,
+        "weekend": [
+            5,
+            6
+        ]
+    }
+}

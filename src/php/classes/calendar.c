@@ -19,10 +19,21 @@
 */
 
 #include "calendar.h"
+
 #include "src/php/ecma_intl_arginfo.h"
+#include "src/php/support/calendar.h"
+#include <unicode/uloc.h>
 
 zend_class_entry *ecmaIntlCalendarEnum = NULL;
 
 void registerEcmaIntlCalendarEnum() {
   ecmaIntlCalendarEnum = register_class_Ecma_Intl_Calendar();
+}
+
+zend_object *getCalendarEnumCaseByValue(const char *value) {
+  if (value == NULL) {
+    return NULL;
+  }
+
+  RETURN_ENUM_CASE(ecmaIntlCalendarEnum, getCalendarCaseName(value), value);
 }

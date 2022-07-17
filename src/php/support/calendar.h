@@ -21,25 +21,6 @@
 #ifndef ECMA_INTL_PHP_SUPPORT_CALENDAR_H
 #define ECMA_INTL_PHP_SUPPORT_CALENDAR_H
 
-#define CALENDAR_BUDDHIST "buddhist"
-#define CALENDAR_CHINESE "chinese"
-#define CALENDAR_COPTIC "coptic"
-#define CALENDAR_DANGI "dangi"
-#define CALENDAR_ETHIOAA "ethioaa"
-#define CALENDAR_ETHIOPIC "ethiopic"
-#define CALENDAR_GREGORY "gregory"
-#define CALENDAR_HEBREW "hebrew"
-#define CALENDAR_INDIAN "indian"
-#define CALENDAR_ISLAMIC "islamic"
-#define CALENDAR_ISLAMIC_CIVIL "islamic-civil"
-#define CALENDAR_ISLAMIC_RGSA "islamic-rgsa"
-#define CALENDAR_ISLAMIC_TBLA "islamic-tbla"
-#define CALENDAR_ISLAMIC_UMALQURA "islamic-umalqura"
-#define CALENDAR_ISO8601 "iso8601"
-#define CALENDAR_JAPANESE "japanese"
-#define CALENDAR_PERSIAN "persian"
-#define CALENDAR_ROC "roc"
-
 #ifdef __cplusplus
 extern "C" {
 #endif

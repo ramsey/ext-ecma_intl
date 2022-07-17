@@ -39,6 +39,12 @@
 #include "src/php/classes/hour_cycle.h"
 #include "src/php/classes/icu_exception.h"
 #include "src/php/classes/intl.h"
+#include "src/php/classes/locale.h"
+#include "src/php/classes/locale/options.h"
+#include "src/php/classes/locale/text_direction.h"
+#include "src/php/classes/locale/text_info.h"
+#include "src/php/classes/locale/week_day.h"
+#include "src/php/classes/locale/week_info.h"
 #include "src/php/classes/locale_matcher.h"
 #include "src/php/classes/numbering_system.h"
 #include "src/php/classes/range_error.h"
@@ -73,7 +79,13 @@ PHP_MINIT_FUNCTION(ecma_intl) {
   registerEcmaIntlFormattingEnum();
   registerEcmaIntlHourCycleEnum();
   registerEcmaIntlIcuExceptionClass();
+  registerEcmaIntlLocaleClass();
   registerEcmaIntlLocaleMatcherEnum();
+  registerEcmaIntlLocaleOptionsClass();
+  registerEcmaIntlLocaleTextDirectionEnum();
+  registerEcmaIntlLocaleTextInfoClass();
+  registerEcmaIntlLocaleWeekDayEnum();
+  registerEcmaIntlLocaleWeekInfoClass();
   registerEcmaIntlNumberingSystemEnum();
   registerEcmaIntlRangeErrorClass();
 

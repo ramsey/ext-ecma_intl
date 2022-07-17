@@ -20,6 +20,8 @@
 
 #include "collation.h"
 
+#include "src/ecma402/collation.h"
+
 #include <string.h>
 
 #define CASE_BIG5HAN "Big5han"

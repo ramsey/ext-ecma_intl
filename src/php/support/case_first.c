@@ -20,6 +20,8 @@
 
 #include "case_first.h"
 
+#include "src/ecma402/case_first.h"
+
 #include <string.h>
 
 #define YES "yes"

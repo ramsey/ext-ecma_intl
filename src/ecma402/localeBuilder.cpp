@@ -24,9 +24,6 @@
 #include <cstring>
 #include <unicode/localebuilder.h>
 
-#define NUMERIC_TRUE "true"
-#define NUMERIC_FALSE "false"
-
 #define SET_OPTIONS_PROPERTY(property)                                         \
   do {                                                                         \
     if (property) {                                                            \
@@ -43,17 +40,36 @@
     }                                                                          \
   } while (0)
 
-#define SET_BUILDER_PROPERTY(method, value)                                    \
+#define SET_BUILDER_PROPERTY(method, value, errorCode)                         \
   do {                                                                         \
-    if (value) {                                                               \
+    if (value != nullptr) {                                                    \
+      TEST_NOT_EMPTY(value, errorCode);                                        \
       icuLocaleBuilder.set##method(value);                                     \
+      TEST_BUILDER(errorCode);                                                 \
     }                                                                          \
   } while (0)
 
-#define SET_BUILDER_KEYWORD(keyword, value)                                    \
+#define SET_BUILDER_KEYWORD(keyword, value, errorCode)                         \
   do {                                                                         \
-    if (value) {                                                               \
+    if (value != nullptr) {                                                    \
+      TEST_NOT_EMPTY(value, errorCode);                                        \
       icuLocaleBuilder.setUnicodeLocaleKeyword(keyword, value);                \
+      TEST_BUILDER(errorCode);                                                 \
+    }                                                                          \
+  } while (0)
+
+#define TEST_BUILDER(errorCode)                                                \
+  do {                                                                         \
+    icuLocaleBuilder.build(status);                                            \
+    if (U_FAILURE(status)) {                                                   \
+      return localeWithEcmaError(errorCode, __FILE__, __LINE__, nullptr);      \
+    }                                                                          \
+  } while (0)
+
+#define TEST_NOT_EMPTY(value, errorCode)                                       \
+  do {                                                                         \
+    if (strcmp(value, "") == 0) {                                              \
+      return localeWithEcmaError(errorCode, __FILE__, __LINE__, nullptr);      \
     }                                                                          \
   } while (0)
 
@@ -61,10 +77,10 @@
 extern "C" {
 #endif
 
-localeBuilderOptions *
-initLocaleBuilderOptions(char *calendar, char *caseFirst, char *collation,
-                         char *hourCycle, char *language, char *numberingSystem,
-                         const bool *numeric, char *region, char *script) {
+localeBuilderOptions *initLocaleBuilderOptions(
+    const char *calendar, const char *caseFirst, const char *collation,
+    const char *hourCycle, const char *language, const char *numberingSystem,
+    const bool *numeric, const char *region, const char *script) {
 
   localeBuilderOptions *options;
   options = (localeBuilderOptions *)(malloc(sizeof(*options)));
@@ -84,7 +100,11 @@ initLocaleBuilderOptions(char *calendar, char *caseFirst, char *collation,
 
   if (numeric) {
     options->numeric = (bool *)malloc(sizeof(bool *));
-    *options->numeric = *numeric;
+    if (options->numeric != nullptr) {
+      *options->numeric = *numeric;
+    } else {
+      options->numeric = nullptr;
+    }
   } else {
     options->numeric = nullptr;
   }
@@ -106,26 +126,29 @@ void freeLocaleBuilderOptions(localeBuilderOptions *options) {
   free(options);
 }
 
-localeIdentifier *buildLocale(const char *localeId,
-                              localeBuilderOptions *options) {
+locale *buildLocale(const char *localeId, localeBuilderOptions *options) {
   icu::Locale icuLocale;
   icu::LocaleBuilder icuLocaleBuilder;
   UErrorCode status = U_ZERO_ERROR;
 
   icuLocaleBuilder = icu::LocaleBuilder();
   icuLocaleBuilder.setLanguageTag(localeId);
+  TEST_BUILDER(INVALID_LOCALE_ID);
 
   if (options) {
-    SET_BUILDER_PROPERTY(Language, options->language);
-    SET_BUILDER_PROPERTY(Region, options->region);
-    SET_BUILDER_PROPERTY(Script, options->script);
-
-    SET_BUILDER_KEYWORD(BCP47_KEYWORD_CALENDAR, options->calendar);
-    SET_BUILDER_KEYWORD(BCP47_KEYWORD_CASE_FIRST, options->caseFirst);
-    SET_BUILDER_KEYWORD(BCP47_KEYWORD_COLLATION, options->collation);
-    SET_BUILDER_KEYWORD(BCP47_KEYWORD_HOUR_CYCLE, options->hourCycle);
+    SET_BUILDER_KEYWORD(BCP47_KEYWORD_CALENDAR, options->calendar,
+                        INVALID_CALENDAR);
+    SET_BUILDER_KEYWORD(BCP47_KEYWORD_CASE_FIRST, options->caseFirst,
+                        INVALID_CASE_FIRST);
+    SET_BUILDER_KEYWORD(BCP47_KEYWORD_COLLATION, options->collation,
+                        INVALID_COLLATION);
+    SET_BUILDER_KEYWORD(BCP47_KEYWORD_HOUR_CYCLE, options->hourCycle,
+                        INVALID_HOUR_CYCLE);
+    SET_BUILDER_PROPERTY(Language, options->language, INVALID_LANGUAGE);
     SET_BUILDER_KEYWORD(BCP47_KEYWORD_NUMBERING_SYSTEM,
-                        options->numberingSystem);
+                        options->numberingSystem, INVALID_NUMBERING_SYSTEM);
+    SET_BUILDER_PROPERTY(Region, options->region, INVALID_REGION);
+    SET_BUILDER_PROPERTY(Script, options->script, INVALID_SCRIPT);
 
     if (options->numeric != nullptr) {
       icuLocaleBuilder.setUnicodeLocaleKeyword(
@@ -137,12 +160,12 @@ localeIdentifier *buildLocale(const char *localeId,
   icuLocale = icuLocaleBuilder.build(status);
 
   if (U_FAILURE(status)) {
-    return nullptr;
+    return localeWithEcmaError(INVALID_LOCALE_ID, __FILE__, __LINE__, nullptr);
   }
 
   std::string builtLocale = icuLocale.toLanguageTag<std::string>(status);
 
-  return initLocaleIdentifier(builtLocale.c_str());
+  return initLocale(builtLocale.c_str());
 }
 
 #ifdef __cplusplus

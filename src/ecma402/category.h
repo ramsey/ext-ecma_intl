@@ -56,12 +56,12 @@ extern "C" {
  *
  * @return The total count of the supported values returned for the category.
  */
-int getSupportedValuesForCategory(char *category, const char **values);
+int getSupportedValuesForCategory(const char *category, const char **values);
 
 /**
  * Returns the recommended const char ** capacity for the given category.
  */
-int getCapacityForCategory(char *category);
+int getCapacityForCategory(const char *category);
 
 #ifdef __cplusplus
 }

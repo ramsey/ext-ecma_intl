@@ -2,7 +2,7 @@
 
 #include "src/ecma402/localeBuilder.h"
 
-#define TEST_SUITE TEST_SUITE
+#define TEST_SUITE ecma402LocaleBuilder
 
 Test(TEST_SUITE, initializesLocaleBuilderOptionsWithAllNull) {
   localeBuilderOptions *options = initLocaleBuilderOptions(
@@ -64,39 +64,42 @@ Test(TEST_SUITE, initializesLocaleBuilderOptionsWithAllValues) {
 }
 
 Test(TEST_SUITE, buildsLocaleWithoutOptions) {
-  localeIdentifier *locale;
+  locale *locale;
 
   locale = buildLocale("en-US", NULL);
 
   cr_assert_not_null(locale);
   cr_assert(eq(str, locale->id, "en-US"));
-  cr_assert(eq(int, locale->length, 5));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
 }
 
 Test(TEST_SUITE, returnsUndWhenLocaleIdIsNull) {
-  localeIdentifier *locale;
+  locale *locale;
 
   locale = buildLocale(NULL, NULL);
 
   cr_assert_not_null(locale);
   cr_assert(eq(str, locale->id, "und"));
-  cr_assert(eq(int, locale->length, 3));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
 }
 
-Test(TEST_SUITE, returnsNullWhenLocaleIdIsInvalid) {
-  localeIdentifier *locale;
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorsWhenLocaleIdIsInvalid) {
+  locale *locale;
 
   locale = buildLocale("foo_bar", NULL);
 
-  cr_assert_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_LOCALE_ID));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
 }
 
 Test(TEST_SUITE, setsCalendarFromOptions) {
-  localeIdentifier *locale;
+  locale *locale;
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions("buddhist", NULL, NULL, NULL, NULL, NULL,
@@ -107,14 +110,13 @@ Test(TEST_SUITE, setsCalendarFromOptions) {
   cr_assert_not_null(locale);
   cr_assert(eq(str, options->calendar, "buddhist"));
   cr_assert(eq(str, locale->id, "en-US-u-ca-buddhist"));
-  cr_assert(eq(int, locale->length, 19));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
   freeLocaleBuilderOptions(options);
 }
 
 Test(TEST_SUITE, setsCaseFirstFromOptions) {
-  localeIdentifier *locale;
+  locale *locale;
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, "upper", NULL, NULL, NULL, NULL,
@@ -125,14 +127,13 @@ Test(TEST_SUITE, setsCaseFirstFromOptions) {
   cr_assert_not_null(locale);
   cr_assert(eq(str, options->caseFirst, "upper"));
   cr_assert(eq(str, locale->id, "en-US-u-kf-upper"));
-  cr_assert(eq(int, locale->length, 16));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
   freeLocaleBuilderOptions(options);
 }
 
 Test(TEST_SUITE, setsCollationFromOptions) {
-  localeIdentifier *locale;
+  locale *locale;
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, NULL, "emoji", NULL, NULL, NULL,
@@ -143,14 +144,13 @@ Test(TEST_SUITE, setsCollationFromOptions) {
   cr_assert_not_null(locale);
   cr_assert(eq(str, options->collation, "emoji"));
   cr_assert(eq(str, locale->id, "en-US-u-co-emoji"));
-  cr_assert(eq(int, locale->length, 16));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
   freeLocaleBuilderOptions(options);
 }
 
 Test(TEST_SUITE, setsHourCycleFromOptions) {
-  localeIdentifier *locale;
+  locale *locale;
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, NULL, NULL, "h23", NULL, NULL, NULL,
@@ -161,14 +161,13 @@ Test(TEST_SUITE, setsHourCycleFromOptions) {
   cr_assert_not_null(locale);
   cr_assert(eq(str, options->hourCycle, "h23"));
   cr_assert(eq(str, locale->id, "en-US-u-hc-h23"));
-  cr_assert(eq(int, locale->length, 14));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
   freeLocaleBuilderOptions(options);
 }
 
 Test(TEST_SUITE, setsLanguageFromOptions) {
-  localeIdentifier *locale;
+  locale *locale;
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, "es", NULL, NULL,
@@ -179,14 +178,13 @@ Test(TEST_SUITE, setsLanguageFromOptions) {
   cr_assert_not_null(locale);
   cr_assert(eq(str, options->language, "es"));
   cr_assert(eq(str, locale->id, "es-US"));
-  cr_assert(eq(int, locale->length, 5));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
   freeLocaleBuilderOptions(options);
 }
 
 Test(TEST_SUITE, setsNumberingSystemFromOptions) {
-  localeIdentifier *locale;
+  locale *locale;
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, "tibt", NULL,
@@ -197,14 +195,13 @@ Test(TEST_SUITE, setsNumberingSystemFromOptions) {
   cr_assert_not_null(locale);
   cr_assert(eq(str, options->numberingSystem, "tibt"));
   cr_assert(eq(str, locale->id, "en-US-u-nu-tibt"));
-  cr_assert(eq(int, locale->length, 15));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
   freeLocaleBuilderOptions(options);
 }
 
 Test(TEST_SUITE, setsNumericTrueFromOptions) {
-  localeIdentifier *locale;
+  locale *locale;
   localeBuilderOptions *options;
   bool numeric = true;
 
@@ -216,14 +213,13 @@ Test(TEST_SUITE, setsNumericTrueFromOptions) {
   cr_assert_not_null(locale);
   cr_assert(eq(int, *options->numeric, true));
   cr_assert(eq(str, locale->id, "en-US-u-kn"));
-  cr_assert(eq(int, locale->length, 10));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
   freeLocaleBuilderOptions(options);
 }
 
 Test(TEST_SUITE, setsNumericFalseFromOptions) {
-  localeIdentifier *locale;
+  locale *locale;
   localeBuilderOptions *options;
   bool numeric = false;
 
@@ -235,14 +231,13 @@ Test(TEST_SUITE, setsNumericFalseFromOptions) {
   cr_assert_not_null(locale);
   cr_assert(eq(int, *options->numeric, false));
   cr_assert(eq(str, locale->id, "en-US-u-kn-false"));
-  cr_assert(eq(int, locale->length, 16));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
   freeLocaleBuilderOptions(options);
 }
 
 Test(TEST_SUITE, setsRegionFromOptions) {
-  localeIdentifier *locale;
+  locale *locale;
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -253,14 +248,13 @@ Test(TEST_SUITE, setsRegionFromOptions) {
   cr_assert_not_null(locale);
   cr_assert(eq(str, options->region, "CA"));
   cr_assert(eq(str, locale->id, "en-CA"));
-  cr_assert(eq(int, locale->length, 5));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
   freeLocaleBuilderOptions(options);
 }
 
 Test(TEST_SUITE, setsScriptFromOptions) {
-  localeIdentifier *locale;
+  locale *locale;
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -271,14 +265,13 @@ Test(TEST_SUITE, setsScriptFromOptions) {
   cr_assert_not_null(locale);
   cr_assert(eq(str, options->script, "latn"));
   cr_assert(eq(str, locale->id, "en-Latn-US"));
-  cr_assert(eq(int, locale->length, 10));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
   freeLocaleBuilderOptions(options);
 }
 
 Test(TEST_SUITE, buildsLocaleFromAllOptions) {
-  localeIdentifier *locale;
+  locale *locale;
   localeBuilderOptions *options;
   bool numeric = false;
 
@@ -291,8 +284,313 @@ Test(TEST_SUITE, buildsLocaleFromAllOptions) {
   cr_assert(eq(
       str, locale->id,
       "de-Cyrl-CH-u-ca-gregory-co-phonebk-hc-h11-kf-lower-kn-false-nu-arab"));
-  cr_assert(eq(int, locale->length, 67));
 
-  freeLocaleIdentifier(locale);
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidCalendar) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions("invalid calendar", NULL, NULL, NULL, NULL,
+                                     NULL, NULL, NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_CALENDAR));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyCalendar) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions("", NULL, NULL, NULL, NULL, NULL, NULL,
+                                     NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_CALENDAR));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidCaseFirst) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, "invalid case first", NULL, NULL,
+                                     NULL, NULL, NULL, NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_CASE_FIRST));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyCaseFirst) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, "", NULL, NULL, NULL, NULL, NULL,
+                                     NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_CASE_FIRST));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidCollation) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, NULL, "invalid collation", NULL,
+                                     NULL, NULL, NULL, NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_COLLATION));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyCollation) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, NULL, "", NULL, NULL, NULL, NULL,
+                                     NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_COLLATION));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidHourCycle) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, "invalid hour cycle",
+                                     NULL, NULL, NULL, NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_HOUR_CYCLE));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyHourCycle) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, "", NULL, NULL, NULL,
+                                     NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_HOUR_CYCLE));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidLanguage) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, "invalid language",
+                                     NULL, NULL, NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_LANGUAGE));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyLanguage) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, "",
+                                     NULL, NULL, NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_LANGUAGE));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidNumberingSystem) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options =
+      initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL,
+                               "invalid numbering system", NULL, NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_NUMBERING_SYSTEM));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyNumberingSystem) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options =
+      initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL,
+                               "", NULL, NULL, NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_NUMBERING_SYSTEM));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidRegion) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                     "invalid region", NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_REGION));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyRegion) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                     "", NULL);
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_REGION));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidScript) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                     NULL, "invalid script");
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_SCRIPT));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
+  freeLocaleBuilderOptions(options);
+}
+
+Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyScript) {
+  locale *locale;
+  localeBuilderOptions *options;
+
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                     NULL, "");
+
+  locale = buildLocale("en-US", options);
+
+  cr_assert_not_null(locale);
+  cr_assert_null(locale->id);
+  cr_assert(eq(int, hasError(locale->status), true));
+  cr_assert(eq(int, locale->status->ecma, INVALID_SCRIPT));
+  cr_assert(eq(int, locale->status->icu, 0));
+
+  freeLocale(locale);
   freeLocaleBuilderOptions(options);
 }

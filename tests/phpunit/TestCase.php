@@ -8,9 +8,11 @@ use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 
 abstract class TestCase extends PHPUnitTestCase
 {
+    use MatchesSnapshots;
     use MockeryPHPUnitIntegration;
 
     protected $backupStaticAttributes = false;

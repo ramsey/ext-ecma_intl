@@ -1,0 +1,39 @@
+{
+    "baseName": "kok-IN",
+    "calendar": null,
+    "calendars": [
+        "gregory",
+        "indian"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h12"
+    ],
+    "language": "kok",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "IN",
+    "script": null,
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "Asia\/Calcutta"
+    ],
+    "weekInfo": {
+        "firstDay": 7,
+        "minimalDays": 1,
+        "weekend": [
+            7
+        ]
+    }
+}

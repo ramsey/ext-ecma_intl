@@ -1,0 +1,41 @@
+{
+    "baseName": "ja-Latn-JP-hepburn-heploc",
+    "calendar": null,
+    "calendars": [
+        "gregory",
+        "japanese"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "unihan",
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "ja",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "JP",
+    "script": "Latn",
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "Asia\/Tokyo"
+    ],
+    "weekInfo": {
+        "firstDay": 7,
+        "minimalDays": 1,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

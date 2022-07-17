@@ -21,9 +21,28 @@
 #include "hour_cycle.h"
 
 #include "src/php/ecma_intl_arginfo.h"
+#include "src/php/support/hour_cycle.h"
 
 zend_class_entry *ecmaIntlHourCycleEnum = NULL;
 
 void registerEcmaIntlHourCycleEnum() {
   ecmaIntlHourCycleEnum = register_class_Ecma_Intl_HourCycle();
+}
+
+zend_object *getHourCycleEnumCaseByValue(const char *value) {
+  if (value == NULL) {
+    return NULL;
+  }
+
+  RETURN_ENUM_CASE(ecmaIntlHourCycleEnum, getHourCycleCaseName(value), value);
+}
+
+zend_object *getHourCycleEnumCaseByHourCycle(UDateFormatHourCycle hourCycle) {
+  const char *caseName = getHourCycleCaseNameByHourCycle(hourCycle);
+
+  if (caseName == NULL) {
+    return NULL;
+  }
+
+  return zend_enum_get_case_cstr(ecmaIntlHourCycleEnum, caseName);
 }

@@ -34,7 +34,7 @@
 static void sort(const char *array[], int length);
 static int compareStrings(const void *left, const void *right);
 
-int getSupportedValuesForCategory(char *category, const char **values) {
+int getSupportedValuesForCategory(const char *category, const char **values) {
   UEnumeration *enumeration = NULL;
   UErrorCode status = U_ZERO_ERROR;
   const char *identifier, **units = NULL;
@@ -102,7 +102,7 @@ int getSupportedValuesForCategory(char *category, const char **values) {
   return valuesCount;
 }
 
-int getCapacityForCategory(char *category) {
+int getCapacityForCategory(const char *category) {
   if (strcmp(CATEGORY_CALENDAR, category) == 0) {
     return CATEGORY_CALENDAR_CAPACITY;
   } else if (strcmp(CATEGORY_COLLATION, category) == 0) {

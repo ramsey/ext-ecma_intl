@@ -1,0 +1,36 @@
+{
+    "baseName": "de",
+    "calendar": "buddhist",
+    "calendars": [
+        "buddhist"
+    ],
+    "caseFirst": null,
+    "collation": "phonebk",
+    "collations": [
+        "phonebk"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "de",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": null,
+    "script": null,
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": null,
+    "weekInfo": {
+        "firstDay": 1,
+        "minimalDays": 4,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

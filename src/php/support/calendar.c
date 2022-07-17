@@ -20,6 +20,8 @@
 
 #include "calendar.h"
 
+#include "src/ecma402/calendar.h"
+
 #include <string.h>
 
 #define CASE_BUDDHIST "Buddhist"

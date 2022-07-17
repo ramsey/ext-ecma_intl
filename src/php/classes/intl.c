@@ -62,19 +62,24 @@ PHP_METHOD(Ecma_Intl, getCanonicalLocales) {
   }
 
   ZEND_HASH_FOREACH_VAL(localeArray, localeFromArray)
+
   if (Z_TYPE_P(localeFromArray) != IS_STRING) {
     zend_value_error(
         "The $locales argument must be type string or an array of type string");
     RETURN_THROWS();
   }
+
   char bcp47LanguageTag[ULOC_FULLNAME_CAPACITY];
-  if (icuToBcp47LanguageTag(Z_STRVAL_P(localeFromArray), bcp47LanguageTag) ==
-      ECMA_INTL_FAILURE) {
+  const char *localeValue = Z_STRVAL_P(localeFromArray);
+  int result = icuToBcp47LanguageTag(localeValue, bcp47LanguageTag, NULL);
+
+  if (result == 0 || strcmp(localeValue, "") == 0) {
     zend_throw_error(ecmaIntlRangeErrorClass, "invalid language tag: %s",
-                     Z_STRVAL_P(localeFromArray));
+                     localeValue);
   } else {
     add_next_index_string(return_value, bcp47LanguageTag);
   }
+
   ZEND_HASH_FOREACH_END();
 
   if (localeString) {
@@ -99,7 +104,7 @@ PHP_METHOD(Ecma_Intl, supportedValuesOf) {
   ZEND_PARSE_PARAMETERS_END();
 
   category = zend_enum_fetch_case_value(categoryEnum);
-  categoryValue = ZSTR_VAL(Z_STR_P(category));
+  categoryValue = Z_STRVAL_P(category);
 
   values = (const char **)emalloc(sizeof(const char *) *
                                   getCapacityForCategory(categoryValue));

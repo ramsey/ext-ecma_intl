@@ -1,0 +1,38 @@
+{
+    "baseName": "ja",
+    "calendar": "japanese",
+    "calendars": [
+        "japanese"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "unihan",
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "ja",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": true,
+    "region": null,
+    "script": null,
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": null,
+    "weekInfo": {
+        "firstDay": 7,
+        "minimalDays": 1,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

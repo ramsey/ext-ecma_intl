@@ -20,6 +20,8 @@
 
 #include "numbering_system.h"
 
+#include "src/ecma402/numbering_system.h"
+
 #include <string.h>
 
 #define CASE_ADLM "Adlm"
