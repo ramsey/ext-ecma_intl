@@ -24,12 +24,15 @@
 #include <cstring>
 #include <unicode/localebuilder.h>
 
+#define OPTION_CAPACITY 15
+
 #define SET_OPTIONS_PROPERTY(property)                                         \
   do {                                                                         \
     if (property) {                                                            \
-      options->property = strdup(property);                                    \
-    } else {                                                                   \
-      options->property = nullptr;                                             \
+      options->property = (char *)malloc(sizeof(char *) * OPTION_CAPACITY);    \
+      if (options->property) {                                                 \
+        memcpy(options->property, property, strlen(property) + 1);             \
+      }                                                                        \
     }                                                                          \
   } while (0)
 
@@ -77,13 +80,36 @@
 extern "C" {
 #endif
 
+localeBuilderOptions *initEmptyLocaleBuilderOptions() {
+  localeBuilderOptions *options;
+
+  options = (localeBuilderOptions *)(malloc(sizeof(*options)));
+
+  if (options == nullptr) {
+    return nullptr;
+  }
+
+  options->calendar = nullptr;
+  options->caseFirst = nullptr;
+  options->collation = nullptr;
+  options->hourCycle = nullptr;
+  options->language = nullptr;
+  options->numberingSystem = nullptr;
+  options->numeric = nullptr;
+  options->region = nullptr;
+  options->script = nullptr;
+
+  return options;
+}
+
 localeBuilderOptions *initLocaleBuilderOptions(
     const char *calendar, const char *caseFirst, const char *collation,
     const char *hourCycle, const char *language, const char *numberingSystem,
     const bool *numeric, const char *region, const char *script) {
 
   localeBuilderOptions *options;
-  options = (localeBuilderOptions *)(malloc(sizeof(*options)));
+
+  options = initEmptyLocaleBuilderOptions();
 
   if (options == nullptr) {
     return nullptr;
@@ -98,15 +124,11 @@ localeBuilderOptions *initLocaleBuilderOptions(
   SET_OPTIONS_PROPERTY(region);
   SET_OPTIONS_PROPERTY(script);
 
-  if (numeric) {
-    options->numeric = (bool *)malloc(sizeof(bool *));
+  if (numeric != nullptr) {
+    options->numeric = (bool *)malloc(sizeof(const bool *));
     if (options->numeric != nullptr) {
-      *options->numeric = *numeric;
-    } else {
-      options->numeric = nullptr;
+      memcpy(options->numeric, numeric, sizeof(const bool *));
     }
-  } else {
-    options->numeric = nullptr;
   }
 
   return options;
@@ -152,7 +174,7 @@ locale *buildLocale(const char *localeId, localeBuilderOptions *options) {
     SET_BUILDER_PROPERTY(Script, options->script, INVALID_SCRIPT);
 
     if (options->numeric != nullptr) {
-      numericValue = (char *)malloc(strlen(NUMERIC_FALSE) + 1);
+      numericValue = (char *)malloc(sizeof(char *) * OPTION_CAPACITY);
       if (*options->numeric) {
         memcpy(numericValue, NUMERIC_TRUE, strlen(NUMERIC_TRUE) + 1);
       } else {

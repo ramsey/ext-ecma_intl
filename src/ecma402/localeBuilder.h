@@ -84,8 +84,16 @@ typedef struct localeBuilderOptions {
 } localeBuilderOptions;
 
 /**
- * Initializes a locale options struct that may be used to dynamically build a
- * locale. This also allocates the struct on the stack; free it using
+ * Initializes an empty locale builder options struct. This also allocates the
+ * struct on the stack; free it using freeLocaleBuilderOptions().
+ *
+ * @return A localeBuilderOptions struct.
+ */
+localeBuilderOptions *initEmptyLocaleBuilderOptions(void);
+
+/**
+ * Initializes a locale builder options struct that may be used to dynamically
+ * build a locale. This also allocates the struct on the stack; free it using
  * freeLocaleBuilderOptions().
  *
  * @param calendar The calendar type to use with the locale.
@@ -99,7 +107,7 @@ typedef struct localeBuilderOptions {
  * @param region The locale's region.
  * @param script The locale's script.
  *
- * @return An localeBuilderOptions struct.
+ * @return A localeBuilderOptions struct.
  */
 localeBuilderOptions *initLocaleBuilderOptions(
     const char *calendar, const char *caseFirst, const char *collation,

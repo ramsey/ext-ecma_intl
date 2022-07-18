@@ -4,6 +4,22 @@
 
 #define TEST_SUITE ecma402LocaleBuilder
 
+Test(TEST_SUITE, initializesEmptyLocaleBuilderOptions) {
+  localeBuilderOptions *options = initEmptyLocaleBuilderOptions();
+
+  cr_assert_null(options->calendar);
+  cr_assert_null(options->caseFirst);
+  cr_assert_null(options->collation);
+  cr_assert_null(options->hourCycle);
+  cr_assert_null(options->language);
+  cr_assert_null(options->numberingSystem);
+  cr_assert_null(options->numeric);
+  cr_assert_null(options->region);
+  cr_assert_null(options->script);
+
+  freeLocaleBuilderOptions(options);
+}
+
 Test(TEST_SUITE, initializesLocaleBuilderOptionsWithAllNull) {
   localeBuilderOptions *options = initLocaleBuilderOptions(
       NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
@@ -464,8 +480,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyLanguage) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, "",
-                                     NULL, NULL, NULL, NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, "", NULL, NULL,
+                                     NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -503,9 +519,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyNumberingSystem) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options =
-      initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL,
-                               "", NULL, NULL, NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, "", NULL,
+                                     NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
