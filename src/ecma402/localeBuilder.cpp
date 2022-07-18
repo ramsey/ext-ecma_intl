@@ -125,9 +125,9 @@ localeBuilderOptions *initLocaleBuilderOptions(
   SET_OPTIONS_PROPERTY(script);
 
   if (numeric != nullptr) {
-    options->numeric = (bool *)malloc(sizeof(const bool *));
+    options->numeric = (bool *)malloc(sizeof(*options->numeric));
     if (options->numeric != nullptr) {
-      memcpy(options->numeric, numeric, sizeof(const bool *));
+      memcpy(options->numeric, numeric, sizeof(*numeric));
     }
   }
 
