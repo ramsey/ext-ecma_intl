@@ -73,10 +73,9 @@
     zval *zv = zend_read_property(ecmaIntlLocaleOptionsClass, &obj->std,       \
                                   option, strlen(option), false, NULL);        \
     if (Z_TYPE_P(zv) == IS_TRUE || Z_TYPE_P(zv) == IS_FALSE) {                 \
-      bool val = Z_TYPE_P(zv) == IS_TRUE ? true : false;                       \
-      var = &val;                                                              \
+      var = Z_TYPE_P(zv) == IS_TRUE ? NUMERIC_TRUE : NUMERIC_FALSE;            \
     } else {                                                                   \
-      var = NULL;                                                              \
+      var = NUMERIC_NULL;                                                      \
     }                                                                          \
   } while (0)
 
@@ -495,7 +494,7 @@ static localeBuilderOptions *convertToBuilderOptions(zval *options) {
   localeOptionsObj *optionsObj;
   char *calendar, *caseFirst, *collation, *hourCycle, *language,
       *numberingSystem, *region, *script;
-  bool *numeric;
+  numericValue numeric;
 
   optionsObj = Z_LOCALE_OPTIONS_P(options);
 

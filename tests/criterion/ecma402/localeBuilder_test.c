@@ -13,7 +13,7 @@ Test(TEST_SUITE, initializesEmptyLocaleBuilderOptions) {
   cr_assert_null(options->hourCycle);
   cr_assert_null(options->language);
   cr_assert_null(options->numberingSystem);
-  cr_assert_null(options->numeric);
+  cr_assert(eq(int, options->numeric, NUMERIC_NULL));
   cr_assert_null(options->region);
   cr_assert_null(options->script);
 
@@ -22,7 +22,7 @@ Test(TEST_SUITE, initializesEmptyLocaleBuilderOptions) {
 
 Test(TEST_SUITE, initializesLocaleBuilderOptionsWithAllNull) {
   localeBuilderOptions *options = initLocaleBuilderOptions(
-      NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+      NULL, NULL, NULL, NULL, NULL, NULL, NUMERIC_NULL, NULL, NULL);
 
   cr_assert_null(options->calendar);
   cr_assert_null(options->caseFirst);
@@ -30,7 +30,7 @@ Test(TEST_SUITE, initializesLocaleBuilderOptionsWithAllNull) {
   cr_assert_null(options->hourCycle);
   cr_assert_null(options->language);
   cr_assert_null(options->numberingSystem);
-  cr_assert_null(options->numeric);
+  cr_assert(eq(int, options->numeric, NUMERIC_NULL));
   cr_assert_null(options->region);
   cr_assert_null(options->script);
 
@@ -44,12 +44,9 @@ Test(TEST_SUITE, initializesLocaleBuilderOptionsWithAllValues) {
   char *hourCycle = "h23";
   char *language = "en";
   char *numberingSystem = "thai";
-  bool *numeric;
+  numericValue numeric = NUMERIC_TRUE;
   char *region = "CA";
   char *script = "Latn";
-
-  bool numericValue = true;
-  numeric = &numericValue;
 
   localeBuilderOptions *options = initLocaleBuilderOptions(
       calendar, caseFirst, collation, hourCycle, language, numberingSystem,
@@ -61,7 +58,7 @@ Test(TEST_SUITE, initializesLocaleBuilderOptionsWithAllValues) {
   cr_assert(eq(str, options->hourCycle, "h23"));
   cr_assert(eq(str, options->language, "en"));
   cr_assert(eq(str, options->numberingSystem, "thai"));
-  cr_assert(eq(int, *options->numeric, 1));
+  cr_assert(eq(int, options->numeric, NUMERIC_TRUE));
   cr_assert(eq(str, options->region, "CA"));
   cr_assert(eq(str, options->script, "Latn"));
 
@@ -72,7 +69,6 @@ Test(TEST_SUITE, initializesLocaleBuilderOptionsWithAllValues) {
   cr_assert(ne(ptr, options->hourCycle, hourCycle));
   cr_assert(ne(ptr, options->language, language));
   cr_assert(ne(ptr, options->numberingSystem, numberingSystem));
-  cr_assert(ne(ptr, options->numeric, numeric));
   cr_assert(ne(ptr, options->region, region));
   cr_assert(ne(ptr, options->script, script));
 
@@ -119,7 +115,7 @@ Test(TEST_SUITE, setsCalendarFromOptions) {
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions("buddhist", NULL, NULL, NULL, NULL, NULL,
-                                     NULL, NULL, NULL);
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -136,7 +132,7 @@ Test(TEST_SUITE, setsCaseFirstFromOptions) {
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, "upper", NULL, NULL, NULL, NULL,
-                                     NULL, NULL, NULL);
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -153,7 +149,7 @@ Test(TEST_SUITE, setsCollationFromOptions) {
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, NULL, "emoji", NULL, NULL, NULL,
-                                     NULL, NULL, NULL);
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -169,8 +165,8 @@ Test(TEST_SUITE, setsHourCycleFromOptions) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, "h23", NULL, NULL, NULL,
-                                     NULL, NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, "h23", NULL, NULL,
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -186,8 +182,8 @@ Test(TEST_SUITE, setsLanguageFromOptions) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, "es", NULL, NULL,
-                                     NULL, NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, "es", NULL,
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -203,8 +199,8 @@ Test(TEST_SUITE, setsNumberingSystemFromOptions) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, "tibt", NULL,
-                                     NULL, NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, "tibt",
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -219,15 +215,15 @@ Test(TEST_SUITE, setsNumberingSystemFromOptions) {
 Test(TEST_SUITE, setsNumericTrueFromOptions) {
   locale *locale;
   localeBuilderOptions *options;
-  bool numeric = true;
+  numericValue numeric = NUMERIC_TRUE;
 
   options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL,
-                                     &numeric, NULL, NULL);
+                                     numeric, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
   cr_assert_not_null(locale);
-  cr_assert(eq(int, *options->numeric, true));
+  cr_assert(eq(int, options->numeric, NUMERIC_TRUE));
   cr_assert(eq(str, locale->id, "en-US-u-kn"));
 
   freeLocale(locale);
@@ -237,15 +233,15 @@ Test(TEST_SUITE, setsNumericTrueFromOptions) {
 Test(TEST_SUITE, setsNumericFalseFromOptions) {
   locale *locale;
   localeBuilderOptions *options;
-  bool numeric = false;
+  numericValue numeric = NUMERIC_FALSE;
 
   options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL,
-                                     &numeric, NULL, NULL);
+                                     numeric, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
   cr_assert_not_null(locale);
-  cr_assert(eq(int, *options->numeric, false));
+  cr_assert(eq(int, options->numeric, NUMERIC_FALSE));
   cr_assert(eq(str, locale->id, "en-US-u-kn-false"));
 
   freeLocale(locale);
@@ -256,8 +252,8 @@ Test(TEST_SUITE, setsRegionFromOptions) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                     "CA", NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL,
+                                     NUMERIC_NULL, "CA", NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -273,8 +269,8 @@ Test(TEST_SUITE, setsScriptFromOptions) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                     NULL, "latn");
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL,
+                                     NUMERIC_NULL, NULL, "latn");
 
   locale = buildLocale("en-US", options);
 
@@ -289,10 +285,10 @@ Test(TEST_SUITE, setsScriptFromOptions) {
 Test(TEST_SUITE, buildsLocaleFromAllOptions) {
   locale *locale;
   localeBuilderOptions *options;
-  bool numeric = false;
+  numericValue numeric = NUMERIC_FALSE;
 
   options = initLocaleBuilderOptions("gregory", "lower", "phonebk", "h11", "de",
-                                     "arab", &numeric, "ch", "cyrl");
+                                     "arab", numeric, "ch", "cyrl");
 
   locale = buildLocale(NULL, options);
 
@@ -310,7 +306,7 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidCalendar) {
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions("invalid calendar", NULL, NULL, NULL, NULL,
-                                     NULL, NULL, NULL, NULL);
+                                     NULL, NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -328,8 +324,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyCalendar) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions("", NULL, NULL, NULL, NULL, NULL, NULL,
-                                     NULL, NULL);
+  options = initLocaleBuilderOptions("", NULL, NULL, NULL, NULL, NULL,
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -348,7 +344,7 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidCaseFirst) {
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, "invalid case first", NULL, NULL,
-                                     NULL, NULL, NULL, NULL, NULL);
+                                     NULL, NULL, NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -366,8 +362,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyCaseFirst) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, "", NULL, NULL, NULL, NULL, NULL,
-                                     NULL, NULL);
+  options = initLocaleBuilderOptions(NULL, "", NULL, NULL, NULL, NULL,
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -386,7 +382,7 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidCollation) {
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, NULL, "invalid collation", NULL,
-                                     NULL, NULL, NULL, NULL, NULL);
+                                     NULL, NULL, NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -404,8 +400,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyCollation) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, "", NULL, NULL, NULL, NULL,
-                                     NULL, NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, "", NULL, NULL, NULL,
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -424,7 +420,7 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidHourCycle) {
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, NULL, NULL, "invalid hour cycle",
-                                     NULL, NULL, NULL, NULL, NULL);
+                                     NULL, NULL, NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -442,8 +438,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyHourCycle) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, "", NULL, NULL, NULL,
-                                     NULL, NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, "", NULL, NULL,
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -462,7 +458,7 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidLanguage) {
   localeBuilderOptions *options;
 
   options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, "invalid language",
-                                     NULL, NULL, NULL, NULL);
+                                     NULL, NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -480,8 +476,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyLanguage) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, "", NULL, NULL,
-                                     NULL, NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, "", NULL,
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -499,9 +495,9 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidNumberingSystem) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options =
-      initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL,
-                               "invalid numbering system", NULL, NULL, NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL,
+                                     "invalid numbering system", NUMERIC_NULL,
+                                     NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -519,8 +515,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyNumberingSystem) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, "", NULL,
-                                     NULL, NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, "",
+                                     NUMERIC_NULL, NULL, NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -538,8 +534,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidRegion) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                     "invalid region", NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL,
+                                     NUMERIC_NULL, "invalid region", NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -557,8 +553,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyRegion) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                     "", NULL);
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL,
+                                     NUMERIC_NULL, "", NULL);
 
   locale = buildLocale("en-US", options);
 
@@ -576,8 +572,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForInvalidScript) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                     NULL, "invalid script");
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL,
+                                     NUMERIC_NULL, NULL, "invalid script");
 
   locale = buildLocale("en-US", options);
 
@@ -595,8 +591,8 @@ Test(TEST_SUITE, returnsEmptyLocaleWithErrorForEmptyScript) {
   locale *locale;
   localeBuilderOptions *options;
 
-  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                     NULL, "");
+  options = initLocaleBuilderOptions(NULL, NULL, NULL, NULL, NULL, NULL,
+                                     NUMERIC_NULL, NULL, "");
 
   locale = buildLocale("en-US", options);
 

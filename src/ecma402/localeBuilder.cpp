@@ -95,7 +95,7 @@ localeBuilderOptions *initEmptyLocaleBuilderOptions() {
   options->hourCycle = nullptr;
   options->language = nullptr;
   options->numberingSystem = nullptr;
-  options->numeric = nullptr;
+  options->numeric = NUMERIC_NULL;
   options->region = nullptr;
   options->script = nullptr;
 
@@ -105,7 +105,7 @@ localeBuilderOptions *initEmptyLocaleBuilderOptions() {
 localeBuilderOptions *initLocaleBuilderOptions(
     const char *calendar, const char *caseFirst, const char *collation,
     const char *hourCycle, const char *language, const char *numberingSystem,
-    const bool *numeric, const char *region, const char *script) {
+    numericValue numeric, const char *region, const char *script) {
 
   localeBuilderOptions *options;
 
@@ -124,12 +124,7 @@ localeBuilderOptions *initLocaleBuilderOptions(
   SET_OPTIONS_PROPERTY(region);
   SET_OPTIONS_PROPERTY(script);
 
-  if (numeric != nullptr) {
-    options->numeric = (bool *)malloc(sizeof(*options->numeric));
-    if (options->numeric != nullptr) {
-      memcpy(options->numeric, numeric, sizeof(*numeric));
-    }
-  }
+  options->numeric = numeric;
 
   return options;
 }
@@ -141,7 +136,6 @@ void freeLocaleBuilderOptions(localeBuilderOptions *options) {
   FREE_OPTIONS_PROPERTY(hourCycle);
   FREE_OPTIONS_PROPERTY(language);
   FREE_OPTIONS_PROPERTY(numberingSystem);
-  FREE_OPTIONS_PROPERTY(numeric);
   FREE_OPTIONS_PROPERTY(region);
   FREE_OPTIONS_PROPERTY(script);
 
@@ -173,9 +167,9 @@ locale *buildLocale(const char *localeId, localeBuilderOptions *options) {
     SET_BUILDER_PROPERTY(Region, options->region, INVALID_REGION);
     SET_BUILDER_PROPERTY(Script, options->script, INVALID_SCRIPT);
 
-    if (options->numeric != nullptr) {
+    if (options->numeric != NUMERIC_NULL) {
       numericValue = (char *)malloc(sizeof(char *) * OPTION_CAPACITY);
-      if (*options->numeric) {
+      if (options->numeric == NUMERIC_TRUE) {
         memcpy(numericValue, BCP47_NUMERIC_TRUE,
                strlen(BCP47_NUMERIC_TRUE) + 1);
       } else {

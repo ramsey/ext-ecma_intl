@@ -57,7 +57,7 @@ Test(TEST_SUITE, initializesWithBasicLocale) {
   cr_assert_null(locale->hourCycle);
   cr_assert(eq(str, locale->language, "en"));
   cr_assert_null(locale->numberingSystem);
-  cr_assert(eq(int, locale->numeric, 0));
+  cr_assert(eq(int, locale->numeric, false));
   cr_assert(eq(str, locale->region, "US"));
   cr_assert_null(locale->script);
 
@@ -90,7 +90,7 @@ Test(TEST_SUITE, initializesWithFullLocale) {
   cr_assert(eq(str, locale->hourCycle, "h23"));
   cr_assert(eq(str, locale->language, "en"));
   cr_assert(eq(str, locale->numberingSystem, "latn"));
-  cr_assert(eq(int, locale->numeric, 1));
+  cr_assert(eq(int, locale->numeric, true));
   cr_assert(eq(str, locale->region, "US"));
   cr_assert(eq(str, locale->script, "Latn"));
 
@@ -118,7 +118,7 @@ Test(TEST_SUITE, initializesWithLanguageOnly) {
   cr_assert_null(locale->hourCycle);
   cr_assert(eq(str, locale->language, "en"));
   cr_assert_null(locale->numberingSystem);
-  cr_assert(eq(int, locale->numeric, 0));
+  cr_assert(eq(int, locale->numeric, false));
   cr_assert_null(locale->region);
   cr_assert_null(locale->script);
 
@@ -146,7 +146,7 @@ Test(TEST_SUITE, initializesWithRegionOnly) {
   cr_assert_null(locale->hourCycle);
   cr_assert(eq(str, locale->language, "und"));
   cr_assert_null(locale->numberingSystem);
-  cr_assert(eq(int, locale->numeric, 0));
+  cr_assert(eq(int, locale->numeric, false));
   cr_assert(eq(str, locale->region, "US"));
   cr_assert_null(locale->script);
 
@@ -174,7 +174,7 @@ Test(TEST_SUITE, initializesWithScriptOnly) {
   cr_assert_null(locale->hourCycle);
   cr_assert(eq(str, locale->language, "und"));
   cr_assert_null(locale->numberingSystem);
-  cr_assert(eq(int, locale->numeric, 0));
+  cr_assert(eq(int, locale->numeric, false));
   cr_assert_null(locale->region);
   cr_assert(eq(str, locale->script, "Latn"));
 
@@ -202,7 +202,7 @@ Test(TEST_SUITE, initializesWithEmptyString) {
   cr_assert_null(locale->hourCycle);
   cr_assert(eq(str, locale->language, "und"));
   cr_assert_null(locale->numberingSystem);
-  cr_assert(eq(int, locale->numeric, 0));
+  cr_assert(eq(int, locale->numeric, false));
   cr_assert_null(locale->region);
   cr_assert_null(locale->script);
 

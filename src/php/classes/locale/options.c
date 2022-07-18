@@ -49,7 +49,7 @@ PHP_METHOD(Ecma_Intl_Locale_Options, __construct) {
        *hourCycle = NULL, *numberingSystem = NULL;
   char *language = NULL, *region = NULL, *script = NULL;
   size_t languageLength, regionLength, scriptLength;
-  bool numeric = 0, numericNull = 1;
+  bool numeric = false, numericNull = true;
 
   ZEND_PARSE_PARAMETERS_START(0, 9)
   Z_PARAM_OPTIONAL
@@ -90,7 +90,7 @@ PHP_METHOD(Ecma_Intl_Locale_Options, __construct) {
     SET_PROP_ZVAL(OPTION_NUMBERING_SYSTEM, numberingSystem);
   }
 
-  if (numericNull == 0) {
+  if (numericNull == false) {
     SET_PROP_BOOL(OPTION_NUMERIC, numeric);
   }
 

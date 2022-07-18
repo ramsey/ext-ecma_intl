@@ -27,6 +27,12 @@
 extern "C" {
 #endif
 
+typedef enum numericValue {
+  NUMERIC_NULL = -1,
+  NUMERIC_FALSE = 0,
+  NUMERIC_TRUE = 1
+} numericValue;
+
 /**
  * Options that may be used to dynamically build a locale.
  */
@@ -69,7 +75,7 @@ typedef struct localeBuilderOptions {
   /**
    * Whether the locale has special collation handling for numeric characters.
    */
-  bool *numeric;
+  numericValue numeric;
 
   /**
    * The locale's region, e.g. "US."
@@ -112,7 +118,7 @@ localeBuilderOptions *initEmptyLocaleBuilderOptions(void);
 localeBuilderOptions *initLocaleBuilderOptions(
     const char *calendar, const char *caseFirst, const char *collation,
     const char *hourCycle, const char *language, const char *numberingSystem,
-    const bool *numeric, const char *region, const char *script);
+    numericValue numeric, const char *region, const char *script);
 
 /**
  * Frees locale builder options initialized with
