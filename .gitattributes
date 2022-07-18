@@ -16,3 +16,6 @@
 /resources/                 export-ignore
 /SECURITY.md                export-ignore
 /tests/                     export-ignore
+
+tests/phpt/**               -linguist-detectable
+tests/phpunit/**            -linguist-detectable
