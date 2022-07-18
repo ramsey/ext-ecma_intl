@@ -288,7 +288,7 @@ static bool getNumeric(const char *localeId, errorStatus *status) {
     return numericValue;
   }
 
-  if (strcmp(numeric, NUMERIC_TRUE) == 0) {
+  if (strcmp(numeric, BCP47_NUMERIC_TRUE) == 0) {
     numericValue = true;
   }
 

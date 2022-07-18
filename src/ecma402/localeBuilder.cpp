@@ -176,9 +176,11 @@ locale *buildLocale(const char *localeId, localeBuilderOptions *options) {
     if (options->numeric != nullptr) {
       numericValue = (char *)malloc(sizeof(char *) * OPTION_CAPACITY);
       if (*options->numeric) {
-        memcpy(numericValue, NUMERIC_TRUE, strlen(NUMERIC_TRUE) + 1);
+        memcpy(numericValue, BCP47_NUMERIC_TRUE,
+               strlen(BCP47_NUMERIC_TRUE) + 1);
       } else {
-        memcpy(numericValue, NUMERIC_FALSE, strlen(NUMERIC_FALSE) + 1);
+        memcpy(numericValue, BCP47_NUMERIC_FALSE,
+               strlen(BCP47_NUMERIC_FALSE) + 1);
       }
       icuLocaleBuilder.setUnicodeLocaleKeyword(BCP47_KEYWORD_NUMERIC,
                                                numericValue);

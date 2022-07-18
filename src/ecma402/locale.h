@@ -28,9 +28,6 @@
 #include <stdbool.h>
 #include <unicode/utypes.h>
 
-#define NUMERIC_TRUE "true"
-#define NUMERIC_FALSE "false"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
