@@ -130,6 +130,7 @@ locale *buildLocale(const char *localeId, localeBuilderOptions *options) {
   icu::Locale icuLocale;
   icu::LocaleBuilder icuLocaleBuilder;
   UErrorCode status = U_ZERO_ERROR;
+  char *numericValue = nullptr;
 
   icuLocaleBuilder = icu::LocaleBuilder();
   icuLocaleBuilder.setLanguageTag(localeId);
@@ -151,13 +152,22 @@ locale *buildLocale(const char *localeId, localeBuilderOptions *options) {
     SET_BUILDER_PROPERTY(Script, options->script, INVALID_SCRIPT);
 
     if (options->numeric != nullptr) {
-      icuLocaleBuilder.setUnicodeLocaleKeyword(
-          BCP47_KEYWORD_NUMERIC,
-          *options->numeric ? NUMERIC_TRUE : NUMERIC_FALSE);
+      numericValue = (char *)malloc(strlen(NUMERIC_FALSE) + 1);
+      if (*options->numeric) {
+        memcpy(numericValue, NUMERIC_TRUE, strlen(NUMERIC_TRUE) + 1);
+      } else {
+        memcpy(numericValue, NUMERIC_FALSE, strlen(NUMERIC_FALSE) + 1);
+      }
+      icuLocaleBuilder.setUnicodeLocaleKeyword(BCP47_KEYWORD_NUMERIC,
+                                               numericValue);
     }
   }
 
   icuLocale = icuLocaleBuilder.build(status);
+
+  if (numericValue) {
+    free(numericValue);
+  }
 
   if (U_FAILURE(status)) {
     return localeWithEcmaError(INVALID_LOCALE_ID, __FILE__, __LINE__, nullptr);

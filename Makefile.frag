@@ -35,4 +35,4 @@ deepclean: distclean
 		--exclude '!vendor/**' \
 		--exclude '!composer.lock'
 
-.PHONY: check-criterion criterion deepclean criterion-clean test-memory
+.PHONY: check-criterion criterion deepclean criterion-clean
