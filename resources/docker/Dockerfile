@@ -5,7 +5,12 @@
 # and: https://www.jetbrains.com/help/clion/2022.1/clion-toolchains-in-docker.html#create-docker-toolchain
 FROM ubuntu:21.10
 
+ARG icu=71.1
+ARG php=8.1.8
+
 ENV DEBIAN_FRONTEND=noninteractive
+
+SHELL ["/bin/bash", "-c"]
 
 # Configure the system for building ICU and PHP.
 RUN apt-get update \
@@ -42,23 +47,11 @@ RUN apt-get update \
     && dpkg-reconfigure --frontend noninteractive tzdata \
     && locale-gen en_US.UTF-8
 
-# Install ICU
-RUN cd /tmp \
-    && curl -LOs https://github.com/unicode-org/icu/releases/download/release-71-1/icu4c-71_1-src.tgz \
-    && tar -zxf icu4c-71_1-src.tgz \
-    && cd icu/source/ \
-    && ./runConfigureICU Linux \
-    && make -j$(nproc) \
-    && make install \
-    && ldconfig \
-    && cd /tmp \
-    && rm -rf /tmp/icu /tmp/icu4c-71_1-src.tgz
-
 # Install PHP
 RUN cd /tmp \
-    && curl -LOs https://www.php.net/distributions/php-8.1.8.tar.xz \
-    && tar -Jxf php-8.1.8.tar.xz \
-    && cd php-8.1.8/ \
+    && curl -LOs "https://www.php.net/distributions/php-${php}.tar.xz" \
+    && tar -Jxf "php-${php}.tar.xz" \
+    && cd "php-${php}/" \
     && ./configure \
         --enable-debug \
         --enable-mbstring \
@@ -77,7 +70,21 @@ RUN cd /tmp \
     && mkdir -p "$(php-config --ini-dir)" \
     && cp php.ini-development "$(php-config --ini-path)/php.ini" \
     && cd /tmp \
-    && rm -rf /tmp/php-8.1.8 /tmp/php-8.1.8.tar.xz
+    && rm -rf "/tmp/php-${php}" "/tmp/php-${php}.tar.xz"
+
+# Install ICU
+RUN export icu_dash="${icu//./-}" \
+    && export icu_under="${icu//./_}" \
+    && cd /tmp \
+    && curl -LOs "https://github.com/unicode-org/icu/releases/download/release-${icu_dash}/icu4c-${icu_under}-src.tgz" \
+    && tar -zxf "icu4c-${icu_under}-src.tgz" \
+    && cd icu/source/ \
+    && ./runConfigureICU Linux \
+    && make -j$(nproc) \
+    && make install \
+    && ldconfig \
+    && cd /tmp \
+    && rm -rf /tmp/icu "/tmp/icu4c-${icu_under}-src.tgz"
 
 # Prepare for running tests with ecma_intl from JetBrains CLion.
 RUN ln -fs /tmp/ext-ecma_intl/modules/ecma_intl.so "$(php-config --extension-dir)/ecma_intl.so"

@@ -27,6 +27,11 @@
 extern "C" {
 #endif
 
+/**
+ * The numeric field of localeBuilderOptions may have three states: unset, off,
+ * and on. This enum represents those three states as "null," "false", and
+ * "true," using integer values.
+ */
 typedef enum numericValue {
   NUMERIC_NULL = -1,
   NUMERIC_FALSE = 0,
