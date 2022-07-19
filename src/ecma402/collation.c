@@ -20,6 +20,7 @@
 
 #include "collation.h"
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unicode/ucol.h>
