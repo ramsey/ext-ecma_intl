@@ -3,6 +3,7 @@
 namespace Ecma\Test\Intl;
 
 use Ecma\Intl\HourCycle;
+use Ecma\Test\TestCase;
 
 class HourCycleTest extends TestCase
 {

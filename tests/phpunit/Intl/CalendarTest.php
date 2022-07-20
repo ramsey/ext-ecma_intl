@@ -3,6 +3,7 @@
 namespace Ecma\Test\Intl;
 
 use Ecma\Intl\Calendar;
+use Ecma\Test\TestCase;
 
 class CalendarTest extends TestCase
 {

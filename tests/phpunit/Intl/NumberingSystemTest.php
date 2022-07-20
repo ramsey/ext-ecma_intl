@@ -3,6 +3,7 @@
 namespace Ecma\Test\Intl;
 
 use Ecma\Intl\NumberingSystem;
+use Ecma\Test\TestCase;
 
 class NumberingSystemTest extends TestCase
 {

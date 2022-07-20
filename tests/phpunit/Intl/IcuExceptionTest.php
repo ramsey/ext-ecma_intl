@@ -4,6 +4,7 @@ namespace Ecma\Test\Intl;
 
 use Ecma\Intl\Exception;
 use Ecma\Intl\IcuException;
+use Ecma\Test\TestCase;
 use LogicException;
 use RuntimeException;
 

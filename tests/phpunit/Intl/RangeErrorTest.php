@@ -4,6 +4,7 @@ namespace Ecma\Test\Intl;
 
 use Ecma\Intl\Exception;
 use Ecma\Intl\RangeError;
+use Ecma\Test\TestCase;
 use RuntimeException;
 use ValueError;
 

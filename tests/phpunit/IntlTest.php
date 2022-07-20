@@ -1,6 +1,6 @@
 <?php
 
-namespace Ecma\Test\Intl;
+namespace Ecma\Test;
 
 use Ecma\Intl;
 use ReflectionClass;

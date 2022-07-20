@@ -4,7 +4,7 @@ namespace Ecma\Test\Intl\Locale;
 
 use Ecma\Intl\Locale\TextDirection;
 use Ecma\Intl\Locale\TextInfo;
-use Ecma\Test\Intl\TestCase;
+use Ecma\Test\TestCase;
 use ReflectionClass;
 
 class TextInfoTest extends TestCase

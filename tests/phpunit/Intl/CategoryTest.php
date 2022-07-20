@@ -3,6 +3,7 @@
 namespace Ecma\Test\Intl;
 
 use Ecma\Intl\Category;
+use Ecma\Test\TestCase;
 
 class CategoryTest extends TestCase
 {

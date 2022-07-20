@@ -9,6 +9,7 @@ use Ecma\Intl\HourCycle;
 use Ecma\Intl\Locale;
 use Ecma\Intl\NumberingSystem;
 use Ecma\Intl\RangeError;
+use Ecma\Test\TestCase;
 
 class LocaleTest extends TestCase
 {

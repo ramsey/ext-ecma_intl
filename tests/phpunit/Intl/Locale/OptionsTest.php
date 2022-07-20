@@ -8,7 +8,7 @@ use Ecma\Intl\Collation;
 use Ecma\Intl\HourCycle;
 use Ecma\Intl\Locale\Options;
 use Ecma\Intl\NumberingSystem;
-use Ecma\Test\Intl\TestCase;
+use Ecma\Test\TestCase;
 
 /**
  * @psalm-type OptionsArray = array{calendar?: Calendar|null, caseFirst?: CaseFirst|null, collation?: Collation|null, hourCycle?: HourCycle|null, language?: string|null, numberingSystem?: NumberingSystem|null, numeric?: bool|null, region?: string|null, script?: string|null}

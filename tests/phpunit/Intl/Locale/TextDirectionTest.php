@@ -3,7 +3,7 @@
 namespace Ecma\Test\Intl\Locale;
 
 use Ecma\Intl\Locale\TextDirection;
-use Ecma\Test\Intl\TestCase;
+use Ecma\Test\TestCase;
 
 class TextDirectionTest extends TestCase
 {

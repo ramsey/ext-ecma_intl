@@ -3,7 +3,7 @@
 namespace Ecma\Test\Intl\Locale;
 
 use Ecma\Intl\Locale\WeekDay;
-use Ecma\Test\Intl\TestCase;
+use Ecma\Test\TestCase;
 
 class WeekDayTest extends TestCase
 {

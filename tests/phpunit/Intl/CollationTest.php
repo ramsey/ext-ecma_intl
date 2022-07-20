@@ -3,6 +3,7 @@
 namespace Ecma\Test\Intl;
 
 use Ecma\Intl\Collation;
+use Ecma\Test\TestCase;
 
 class CollationTest extends TestCase
 {

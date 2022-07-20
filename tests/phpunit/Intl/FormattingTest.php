@@ -3,6 +3,7 @@
 namespace Ecma\Test\Intl;
 
 use Ecma\Intl\Formatting;
+use Ecma\Test\TestCase;
 
 class FormattingTest extends TestCase
 {

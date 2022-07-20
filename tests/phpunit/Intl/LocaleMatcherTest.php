@@ -3,6 +3,7 @@
 namespace Ecma\Test\Intl;
 
 use Ecma\Intl\LocaleMatcher;
+use Ecma\Test\TestCase;
 
 class LocaleMatcherTest extends TestCase
 {

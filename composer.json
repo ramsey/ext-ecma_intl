@@ -34,7 +34,7 @@
     "prefer-stable": true,
     "autoload-dev": {
         "psr-4": {
-            "Ecma\\Test\\Intl\\": "tests/phpunit/"
+            "Ecma\\Test\\": "tests/phpunit/"
         },
         "classmap": [
             "src/php/ecma_intl.stub.php"

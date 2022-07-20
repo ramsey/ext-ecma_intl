@@ -3,6 +3,7 @@
 namespace Ecma\Test\Intl;
 
 use Ecma\Intl\CaseFirst;
+use Ecma\Test\TestCase;
 
 class CaseFirstTest extends TestCase
 {

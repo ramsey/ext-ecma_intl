@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ecma\Test\Intl;
+namespace Ecma\Test;
 
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;

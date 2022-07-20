@@ -4,7 +4,7 @@ namespace Ecma\Test\Intl\Locale;
 
 use Ecma\Intl\Locale\WeekDay;
 use Ecma\Intl\Locale\WeekInfo;
-use Ecma\Test\Intl\TestCase;
+use Ecma\Test\TestCase;
 use ReflectionClass;
 use ValueError;
 
