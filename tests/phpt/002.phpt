@@ -1,0 +1,12 @@
+--TEST--
+Check extension constants
+--EXTENSIONS--
+ecma_intl
+--FILE--
+<?php
+echo "ECMA_INTL_ICU_VERSION: " . ECMA_INTL_ICU_VERSION . "\n";
+echo "ECMA_INTL_UNICODE_VERSION: " . ECMA_INTL_UNICODE_VERSION . "\n";
+?>
+--EXPECTF--
+ECMA_INTL_ICU_VERSION: %f
+ECMA_INTL_UNICODE_VERSION: %f

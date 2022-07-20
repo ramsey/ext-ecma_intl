@@ -1,0 +1,54 @@
+{
+    "baseName": "sgn-BR",
+    "calendar": null,
+    "calendars": [
+        "gregory"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "sgn",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "BR",
+    "script": null,
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "America\/Araguaina",
+        "America\/Bahia",
+        "America\/Belem",
+        "America\/Boa_Vista",
+        "America\/Campo_Grande",
+        "America\/Cuiaba",
+        "America\/Eirunepe",
+        "America\/Fortaleza",
+        "America\/Maceio",
+        "America\/Manaus",
+        "America\/Noronha",
+        "America\/Porto_Velho",
+        "America\/Recife",
+        "America\/Rio_Branco",
+        "America\/Santarem",
+        "America\/Sao_Paulo"
+    ],
+    "weekInfo": {
+        "firstDay": 7,
+        "minimalDays": 1,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

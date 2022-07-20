@@ -46,36 +46,36 @@
 
 #define GET_OPTION_ENUM_VALUE(var, obj, option, enumClassEntry)                \
   do {                                                                         \
-    zval *zv = zend_read_property(ecmaIntlLocaleOptionsClass, &obj->std,       \
+    zval *zv = zend_read_property(ecmaIntlLocaleOptionsClass, &(obj)->std,     \
                                   option, strlen(option), false, NULL);        \
     if (Z_TYPE_P(zv) == IS_OBJECT) {                                           \
       zend_object *enumCase = Z_OBJ_P(zv);                                     \
       zval *enumValue = zend_enum_fetch_case_value(enumCase);                  \
-      var = Z_STRVAL_P(enumValue);                                             \
+      (var) = Z_STRVAL_P(enumValue);                                           \
     } else {                                                                   \
-      var = NULL;                                                              \
+      (var) = NULL;                                                            \
     }                                                                          \
   } while (0)
 
 #define GET_OPTION_STRING(var, obj, option)                                    \
   do {                                                                         \
-    zval *zv = zend_read_property(ecmaIntlLocaleOptionsClass, &obj->std,       \
+    zval *zv = zend_read_property(ecmaIntlLocaleOptionsClass, &(obj)->std,     \
                                   option, strlen(option), false, NULL);        \
     if (Z_TYPE_P(zv) == IS_STRING) {                                           \
-      var = Z_STRVAL_P(zv);                                                    \
+      (var) = Z_STRVAL_P(zv);                                                  \
     } else {                                                                   \
-      var = NULL;                                                              \
+      (var) = NULL;                                                            \
     }                                                                          \
   } while (0)
 
 #define GET_OPTION_BOOL(var, obj, option)                                      \
   do {                                                                         \
-    zval *zv = zend_read_property(ecmaIntlLocaleOptionsClass, &obj->std,       \
+    zval *zv = zend_read_property(ecmaIntlLocaleOptionsClass, &(obj)->std,     \
                                   option, strlen(option), false, NULL);        \
     if (Z_TYPE_P(zv) == IS_TRUE || Z_TYPE_P(zv) == IS_FALSE) {                 \
-      var = Z_TYPE_P(zv) == IS_TRUE ? NUMERIC_TRUE : NUMERIC_FALSE;            \
+      (var) = Z_TYPE_P(zv) == IS_TRUE ? NUMERIC_TRUE : NUMERIC_FALSE;          \
     } else {                                                                   \
-      var = NUMERIC_NULL;                                                      \
+      (var) = NUMERIC_NULL;                                                    \
     }                                                                          \
   } while (0)
 
@@ -98,7 +98,7 @@
 
 #define SET_PROP_STRING_OR_NULL(property, value)                               \
   do {                                                                         \
-    if (value == NULL) {                                                       \
+    if ((value) == NULL) {                                                     \
       SET_PROP_NULL(property);                                                 \
     } else {                                                                   \
       zend_update_property_string(ecmaIntlLocaleClass, object, property,       \
@@ -209,7 +209,6 @@ PHP_METHOD(Ecma_Intl_Locale, __construct) {
 
 PHP_METHOD(Ecma_Intl_Locale, maximize) {
   char *maxLocaleId;
-  UErrorCode status = U_ZERO_ERROR;
   localeObj *localeObj, *newLocaleObj;
   zend_object *newObject;
   locale *maxLocale;
@@ -217,17 +216,8 @@ PHP_METHOD(Ecma_Intl_Locale, maximize) {
   ZEND_PARSE_PARAMETERS_NONE();
 
   localeObj = Z_LOCALE_P(getThis());
-  maxLocaleId = (char *)emalloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
+  maxLocale = maximizeLocale(localeObj->locale);
 
-  uloc_addLikelySubtags(localeObj->locale->canonicalId, maxLocaleId,
-                        ULOC_FULLNAME_CAPACITY, &status);
-
-  if (U_FAILURE(status)) {
-    zend_throw_error(ecmaIntlIcuExceptionClass, "unable to maximize locale: %s",
-                     u_errorName(status));
-  }
-
-  maxLocale = initLocale(maxLocaleId);
   if (hasError(maxLocale->status)) {
     handleError(maxLocale->status, maxLocaleId);
   }
@@ -236,14 +226,11 @@ PHP_METHOD(Ecma_Intl_Locale, maximize) {
   newLocaleObj = localeObjFromObj(newObject);
   initLocaleObj(newLocaleObj, maxLocale);
 
-  efree(maxLocaleId);
-
   RETURN_OBJ(&newLocaleObj->std);
 }
 
 PHP_METHOD(Ecma_Intl_Locale, minimize) {
   char *minLocaleId;
-  UErrorCode status = U_ZERO_ERROR;
   localeObj *localeObj, *newLocaleObj;
   zend_object *newObject;
   locale *minLocale;
@@ -251,17 +238,8 @@ PHP_METHOD(Ecma_Intl_Locale, minimize) {
   ZEND_PARSE_PARAMETERS_NONE();
 
   localeObj = Z_LOCALE_P(getThis());
-  minLocaleId = (char *)emalloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
+  minLocale = minimizeLocale(localeObj->locale);
 
-  uloc_minimizeSubtags(localeObj->locale->canonicalId, minLocaleId,
-                       ULOC_FULLNAME_CAPACITY, &status);
-
-  if (U_FAILURE(status)) {
-    zend_throw_error(ecmaIntlIcuExceptionClass, "unable to minimize locale: %s",
-                     u_errorName(status));
-  }
-
-  minLocale = initLocale(minLocaleId);
   if (hasError(minLocale->status)) {
     handleError(minLocale->status, minLocaleId);
   }
@@ -269,8 +247,6 @@ PHP_METHOD(Ecma_Intl_Locale, minimize) {
   newObject = createLocaleObj(ecmaIntlLocaleClass);
   newLocaleObj = localeObjFromObj(newObject);
   initLocaleObj(newLocaleObj, minLocale);
-
-  efree(minLocaleId);
 
   RETURN_OBJ(&newLocaleObj->std);
 }
@@ -535,6 +511,14 @@ static void handleError(errorStatus *status, const char *localeId) {
   case INVALID_SCRIPT:
     zend_throw_error(ecmaIntlRangeErrorClass,
                      "script is not a well-formed script value");
+    return;
+  case UNABLE_TO_MAXIMIZE_LOCALE:
+    zend_throw_error(ecmaIntlIcuExceptionClass, "unable to maximize locale: %s",
+                     localeId);
+    return;
+  case UNABLE_TO_MINIMIZE_LOCALE:
+    zend_throw_error(ecmaIntlIcuExceptionClass, "unable to minimize locale: %s",
+                     localeId);
     return;
   }
 

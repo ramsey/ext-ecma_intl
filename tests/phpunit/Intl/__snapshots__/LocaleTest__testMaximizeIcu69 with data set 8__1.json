@@ -1,0 +1,41 @@
+{
+    "baseName": "hak-Hans-CN",
+    "calendar": null,
+    "calendars": [
+        "gregory",
+        "chinese"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h12"
+    ],
+    "language": "hak",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "CN",
+    "script": "Hans",
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "Asia\/Shanghai",
+        "Asia\/Urumqi"
+    ],
+    "weekInfo": {
+        "firstDay": 7,
+        "minimalDays": 1,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

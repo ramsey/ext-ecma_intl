@@ -1,0 +1,38 @@
+{
+    "baseName": "th",
+    "calendar": null,
+    "calendars": [
+        "buddhist",
+        "gregory"
+    ],
+    "caseFirst": "upper",
+    "collation": null,
+    "collations": [
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "th",
+    "numberingSystem": "thai",
+    "numberingSystems": [
+        "thai"
+    ],
+    "numeric": false,
+    "region": null,
+    "script": null,
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": null,
+    "weekInfo": {
+        "firstDay": 7,
+        "minimalDays": 1,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

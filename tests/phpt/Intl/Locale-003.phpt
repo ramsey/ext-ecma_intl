@@ -1,7 +1,9 @@
 --TEST--
-Intl\Locale tags and options
+Intl\Locale tags and options (for ICU 69.1 and earlier)
 --EXTENSIONS--
 ecma_intl
+--SKIPIF--
+<?php if (version_compare(ECMA_INTL_ICU_VERSION, '69.1', '>')) exit('SKIP ICU version 69.1 and earlier required'); ?>
 --FILE--
 <?php
 use Ecma\Intl\Calendar;
@@ -599,7 +601,7 @@ Original: und-US
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -785,7 +787,7 @@ Original: und-Latn
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -1619,7 +1621,7 @@ Original: hak
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "hak",
     "numberingSystem": null,
@@ -1662,7 +1664,7 @@ Maximized: hak-Hans-CN
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "hak",
     "numberingSystem": null,
@@ -1708,7 +1710,7 @@ Minimized: hak
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "hak",
     "numberingSystem": null,
@@ -2601,7 +2603,7 @@ Original: und-1234-variant
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -5912,7 +5914,7 @@ Original: und-a-abc-def
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -6072,7 +6074,7 @@ Original: zh-u-ca-chinese-x-u-ca-chinese
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,
@@ -6120,7 +6122,7 @@ Maximized: zh-Hans-CN-u-ca-chinese-x-u-ca-chinese
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,
@@ -6171,7 +6173,7 @@ Minimized: zh-u-ca-chinese-x-u-ca-chinese
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,
@@ -8416,7 +8418,7 @@ Original: und-Arab-u-em-emoji
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -8554,7 +8556,7 @@ Original: und-Latn-u-em-emoji
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -8710,7 +8712,7 @@ Original: und-Latn-DE-u-em-emoji
     "hourCycles": [
         "h23"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -8844,7 +8846,7 @@ Original: und-Zzzz-DE-u-em-emoji
     "hourCycles": [
         "h23"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -8982,7 +8984,7 @@ Original: zh-u-ca-chinese
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,
@@ -9030,7 +9032,7 @@ Maximized: zh-Hans-CN-u-ca-chinese
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,
@@ -9081,7 +9083,7 @@ Minimized: zh-u-ca-chinese
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,
@@ -9122,7 +9124,7 @@ Original: zh-u-ca-gregory-co-pinyin
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,
@@ -9163,7 +9165,7 @@ Maximized: zh-Hans-CN-u-ca-gregory-co-pinyin
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,
@@ -9207,7 +9209,7 @@ Minimized: zh-u-ca-gregory-co-pinyin
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,
@@ -11660,7 +11662,7 @@ Original: und-u-ca-buddhist
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -11816,7 +11818,7 @@ Original: und-u-kf-lower
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -11972,7 +11974,7 @@ Original: und-u-kf-false
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -12127,7 +12129,7 @@ Original: und-u-co-phonebk
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -12281,7 +12283,7 @@ Original: und-u-hc-h11
     "hourCycles": [
         "h11"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -12437,7 +12439,7 @@ Original: und-u-hc-h12
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -12593,7 +12595,7 @@ Original: und-u-hc-h23
     "hourCycles": [
         "h23"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -12749,7 +12751,7 @@ Original: und-u-hc-h24
     "hourCycles": [
         "h24"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -13033,7 +13035,7 @@ Original: und-u-nu-thai
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": "thai",
     "numberingSystems": [
         "thai"
@@ -13189,7 +13191,7 @@ Original: und-u-kn
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -13345,7 +13347,7 @@ Original: und-u-kn-false
     "hourCycles": [
         "h12"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -13501,7 +13503,7 @@ Original: und-ES
     "hourCycles": [
         "h23"
     ],
-    "language": "und",
+    "language": null,
     "numberingSystem": null,
     "numberingSystems": [
         "latn"
@@ -14251,7 +14253,7 @@ Original: zh-Hans
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,
@@ -14300,7 +14302,7 @@ Maximized: zh-Hans-CN
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,
@@ -14352,7 +14354,7 @@ Minimized: zh
     ],
     "hourCycle": null,
     "hourCycles": [
-        "h23"
+        "h12"
     ],
     "language": "zh",
     "numberingSystem": null,

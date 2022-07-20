@@ -1,0 +1,67 @@
+{
+    "baseName": "fr-Cyrl-CA",
+    "calendar": null,
+    "calendars": [
+        "gregory"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "fr",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "CA",
+    "script": "Cyrl",
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "America\/Blanc-Sablon",
+        "America\/Cambridge_Bay",
+        "America\/Coral_Harbour",
+        "America\/Creston",
+        "America\/Dawson",
+        "America\/Dawson_Creek",
+        "America\/Edmonton",
+        "America\/Fort_Nelson",
+        "America\/Glace_Bay",
+        "America\/Goose_Bay",
+        "America\/Halifax",
+        "America\/Inuvik",
+        "America\/Iqaluit",
+        "America\/Moncton",
+        "America\/Montreal",
+        "America\/Nipigon",
+        "America\/Pangnirtung",
+        "America\/Rainy_River",
+        "America\/Rankin_Inlet",
+        "America\/Regina",
+        "America\/Resolute",
+        "America\/St_Johns",
+        "America\/Swift_Current",
+        "America\/Thunder_Bay",
+        "America\/Toronto",
+        "America\/Vancouver",
+        "America\/Whitehorse",
+        "America\/Winnipeg",
+        "America\/Yellowknife"
+    ],
+    "weekInfo": {
+        "firstDay": 7,
+        "minimalDays": 1,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

@@ -86,13 +86,13 @@ Test(TEST_SUITE, buildsLocaleWithoutOptions) {
   freeLocale(locale);
 }
 
-Test(TEST_SUITE, returnsUndWhenLocaleIdIsNull) {
+Test(TEST_SUITE, returnsDefaultLocaleWhenLocaleIdIsNull) {
   locale *locale;
 
   locale = buildLocale(NULL, NULL);
 
   cr_assert_not_null(locale);
-  cr_assert(eq(str, locale->id, "und"));
+  cr_assert(eq(str, locale->id, "en-US-u-va-posix"));
 
   freeLocale(locale);
 }

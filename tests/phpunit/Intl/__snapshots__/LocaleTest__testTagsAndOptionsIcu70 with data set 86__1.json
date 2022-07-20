@@ -1,0 +1,41 @@
+{
+    "baseName": "und-ES",
+    "calendar": null,
+    "calendars": [
+        "gregory"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": null,
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "ES",
+    "script": null,
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "Africa\/Ceuta",
+        "Atlantic\/Canary",
+        "Europe\/Madrid"
+    ],
+    "weekInfo": {
+        "firstDay": 1,
+        "minimalDays": 4,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "baseName": "und-Zzzz-DE",
+    "calendar": null,
+    "calendars": [
+        "gregory"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": null,
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "DE",
+    "script": "Zzzz",
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "Europe\/Berlin",
+        "Europe\/Busingen"
+    ],
+    "weekInfo": {
+        "firstDay": 1,
+        "minimalDays": 4,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

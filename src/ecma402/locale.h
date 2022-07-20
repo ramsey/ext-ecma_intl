@@ -137,10 +137,35 @@ void freeLocale(locale *locale);
 
 /**
  * Returns a new empty locale with the errorStatus field populated with an
- * ecmaErrorCode as the error.
+ * ecmaErrorCode as the error. This also allocates the struct and its properties
+ * on the stack; free it using freeLocale().
  */
 locale *localeWithEcmaError(ecmaErrorCode errorCode, const char *fileName,
                             int lineNumber, const char *errorMessage);
+
+/**
+ * Initializes and returns a new locale based on the provided locale, with
+ * likely sub tags added. This also allocates the struct and its properties on
+ * the stack; free it using freeLocale().
+ *
+ * @param locale The locale to maximize.
+ *
+ * @return A locale based on the input locale, with likely sub tags added.
+ */
+locale *maximizeLocale(locale *locale);
+
+/**
+ * Initializes and returns a new locale based on the provided locale, with
+ * sub tags removed according to the algorithm described in the CLDR technical
+ * report: http://www.unicode.org/reports/tr35/#Likely_Subtags. This also
+ * allocates the struct and its properties on the stack; free it using
+ * freeLocale().
+ *
+ * @param locale The locale to minimize.
+ *
+ * @return A locale based on the input locale, with sub tags removed.
+ */
+locale *minimizeLocale(locale *locale);
 
 #ifdef __cplusplus
 }

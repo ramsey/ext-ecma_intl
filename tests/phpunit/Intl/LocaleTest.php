@@ -116,8 +116,12 @@ class LocaleTest extends TestCase
     /**
      * @dataProvider tagsAndOptionsProvider
      */
-    public function testTagsAndOptions(string $tag, string $expected, ?Locale\Options $options = null): void
+    public function testTagsAndOptionsIcu69(string $tag, string $expected, ?Locale\Options $options = null): void
     {
+        if (version_compare(ECMA_INTL_ICU_VERSION, '69.1', '>')) {
+            $this->markTestSkipped('Skipping test requiring ICU 69.1 or earlier');
+        }
+
         $locale = new Locale($tag, $options);
 
         $this->assertSame($expected, $locale->toString());
@@ -128,8 +132,12 @@ class LocaleTest extends TestCase
     /**
      * @dataProvider tagsAndOptionsProvider
      */
-    public function testMaximize(string $tag, string $expected, ?Locale\Options $options = null): void
+    public function testMaximizeIcu69(string $tag, string $expected, ?Locale\Options $options = null): void
     {
+        if (version_compare(ECMA_INTL_ICU_VERSION, '69.1', '>')) {
+            $this->markTestSkipped('Skipping test requiring ICU 69.1 or earlier');
+        }
+
         $locale = new Locale($tag, $options);
         $maximizedLocale = $locale->maximize();
 
@@ -140,8 +148,60 @@ class LocaleTest extends TestCase
     /**
      * @dataProvider tagsAndOptionsProvider
      */
-    public function testMinimize(string $tag, string $expected, ?Locale\Options $options = null): void
+    public function testMinimizeIcu69(string $tag, string $expected, ?Locale\Options $options = null): void
     {
+        if (version_compare(ECMA_INTL_ICU_VERSION, '69.1', '>')) {
+            $this->markTestSkipped('Skipping test requiring ICU 69.1 or earlier');
+        }
+
+        $locale = new Locale($tag, $options);
+        $minimizedLocale = $locale->minimize();
+
+        $this->assertNotSame($locale, $minimizedLocale);
+        $this->assertMatchesJsonSnapshot($minimizedLocale);
+    }
+
+    /**
+     * @dataProvider tagsAndOptionsProvider
+     */
+    public function testTagsAndOptionsIcu70(string $tag, string $expected, ?Locale\Options $options = null): void
+    {
+        if (version_compare(ECMA_INTL_ICU_VERSION, '70.1', '<')) {
+            $this->markTestSkipped('Skipping test requiring ICU 70.1 or later');
+        }
+
+        $locale = new Locale($tag, $options);
+
+        $this->assertSame($expected, $locale->toString());
+        $this->assertSame($expected, (string) $locale);
+        $this->assertMatchesJsonSnapshot($locale);
+    }
+
+    /**
+     * @dataProvider tagsAndOptionsProvider
+     */
+    public function testMaximizeIcu70(string $tag, string $expected, ?Locale\Options $options = null): void
+    {
+        if (version_compare(ECMA_INTL_ICU_VERSION, '70.1', '<')) {
+            $this->markTestSkipped('Skipping test requiring ICU 70.1 or later');
+        }
+
+        $locale = new Locale($tag, $options);
+        $maximizedLocale = $locale->maximize();
+
+        $this->assertNotSame($locale, $maximizedLocale);
+        $this->assertMatchesJsonSnapshot($maximizedLocale);
+    }
+
+    /**
+     * @dataProvider tagsAndOptionsProvider
+     */
+    public function testMinimizeIcu70(string $tag, string $expected, ?Locale\Options $options = null): void
+    {
+        if (version_compare(ECMA_INTL_ICU_VERSION, '70.1', '<')) {
+            $this->markTestSkipped('Skipping test requiring ICU 70.1 or later');
+        }
+
         $locale = new Locale($tag, $options);
         $minimizedLocale = $locale->minimize();
 

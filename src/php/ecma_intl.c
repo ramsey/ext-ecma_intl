@@ -70,6 +70,11 @@ ZEND_GET_MODULE(ecma_intl)
 #endif
 
 PHP_MINIT_FUNCTION(ecma_intl) {
+  REGISTER_STRING_CONSTANT("ECMA_INTL_ICU_VERSION", U_ICU_VERSION,
+                           CONST_CS | CONST_PERSISTENT);
+  REGISTER_STRING_CONSTANT("ECMA_INTL_UNICODE_VERSION", U_UNICODE_VERSION,
+                           CONST_CS | CONST_PERSISTENT);
+
   registerEcmaIntlCalendarEnum();
   registerEcmaIntlCaseFirstEnum();
   registerEcmaIntlCategoryEnum();

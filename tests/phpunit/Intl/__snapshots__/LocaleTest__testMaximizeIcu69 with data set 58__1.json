@@ -1,0 +1,39 @@
+{
+    "baseName": "zh-Hans-CN",
+    "calendar": "gregory",
+    "calendars": [
+        "gregory"
+    ],
+    "caseFirst": null,
+    "collation": "pinyin",
+    "collations": [
+        "pinyin"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h12"
+    ],
+    "language": "zh",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "CN",
+    "script": "Hans",
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "Asia\/Shanghai",
+        "Asia\/Urumqi"
+    ],
+    "weekInfo": {
+        "firstDay": 7,
+        "minimalDays": 1,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

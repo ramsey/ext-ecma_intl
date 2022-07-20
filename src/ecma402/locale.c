@@ -43,6 +43,7 @@ static char *getLanguage(const char *localeId, errorStatus *status);
 static bool getNumeric(const char *localeId, errorStatus *status);
 static char *getRegion(const char *localeId, errorStatus *status);
 static char *getScript(const char *localeId, errorStatus *status);
+static const char *normalizeLocaleId(const char *localeId);
 
 locale *initEmptyLocale() {
   locale *locale;
@@ -75,6 +76,7 @@ locale *initLocale(const char *localeId) {
   char *canonicalId;
   UErrorCode icuStatus = U_ZERO_ERROR;
 
+  localeId = normalizeLocaleId(localeId);
   if (localeId == NULL) {
     return NULL;
   }
@@ -84,23 +86,27 @@ locale *initLocale(const char *localeId) {
     return NULL;
   }
 
+  locale->originalId = copyOriginalId(localeId, locale->status);
+
   canonicalId = (char *)malloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
   if (!canonicalId) {
     memoryError(locale->status, __FILE__, __LINE__);
     return locale;
   }
 
-  uloc_canonicalize(localeId, canonicalId, ULOC_FULLNAME_CAPACITY, &icuStatus);
+  uloc_canonicalize(locale->originalId, canonicalId, ULOC_FULLNAME_CAPACITY,
+                    &icuStatus);
   if (U_FAILURE(icuStatus)) {
     free(canonicalId);
     icuError(locale->status, icuStatus, __FILE__, __LINE__, NULL);
     return locale;
   }
 
+  locale->canonicalId = canonicalId;
+
   locale->baseName = getBaseName(canonicalId, locale->status);
   locale->calendar =
       getKeyword(ICU_KEYWORD_CALENDAR, canonicalId, locale->status);
-  locale->canonicalId = canonicalId;
   locale->caseFirst =
       getKeyword(ICU_KEYWORD_CASE_FIRST, canonicalId, locale->status);
   locale->collation =
@@ -112,7 +118,6 @@ locale *initLocale(const char *localeId) {
   locale->numberingSystem =
       getKeyword(ICU_KEYWORD_NUMBERING_SYSTEM, canonicalId, locale->status);
   locale->numeric = getNumeric(canonicalId, locale->status);
-  locale->originalId = copyOriginalId(localeId, locale->status);
   locale->region = getRegion(canonicalId, locale->status);
   locale->script = getScript(canonicalId, locale->status);
 
@@ -142,6 +147,53 @@ locale *localeWithEcmaError(ecmaErrorCode errorCode, const char *fileName,
   ecmaError(locale->status, errorCode, fileName, lineNumber, errorMessage);
 
   return locale;
+}
+
+locale *maximizeLocale(locale *locale) {
+  char *maxLocaleId;
+  struct locale *maxLocale;
+  UErrorCode icuStatus = U_ZERO_ERROR;
+
+  maxLocaleId = (char *)malloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
+  uloc_addLikelySubtags(locale->canonicalId, maxLocaleId,
+                        ULOC_FULLNAME_CAPACITY, &icuStatus);
+
+  if (U_FAILURE(icuStatus)) {
+    free(maxLocaleId);
+    return localeWithEcmaError(UNABLE_TO_MAXIMIZE_LOCALE, __FILE__, __LINE__,
+                               NULL);
+  }
+
+  maxLocale = initLocale(getBcp47Identifier(maxLocaleId, NULL));
+  free(maxLocaleId);
+
+  return maxLocale;
+}
+
+locale *minimizeLocale(locale *locale) {
+  char *minLocaleId;
+  UErrorCode icuStatus = U_ZERO_ERROR;
+  struct locale *maxLocale;
+  struct locale *minLocale;
+
+  /* We get the max locale first and then minimize it. */
+  maxLocale = maximizeLocale(locale);
+  if (hasError(maxLocale->status)) {
+    free(maxLocale);
+    return localeWithEcmaError(UNABLE_TO_MINIMIZE_LOCALE, __FILE__, __LINE__,
+                               NULL);
+  }
+
+  minLocaleId = (char *)malloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
+  uloc_minimizeSubtags(maxLocale->canonicalId, minLocaleId,
+                       ULOC_FULLNAME_CAPACITY, &icuStatus);
+
+  minLocale = initLocale(getBcp47Identifier(minLocaleId, NULL));
+
+  free(minLocaleId);
+  free(maxLocale);
+
+  return minLocale;
 }
 
 static char *copyOriginalId(const char *localeId, errorStatus *status) {
@@ -271,9 +323,10 @@ static char *getLanguage(const char *localeId, errorStatus *status) {
     return NULL;
   }
 
-  if (strcmp(language, "") == 0) {
+  if (strcmp(language, "") == 0 ||
+      strcmp(language, UNDETERMINED_LANGUAGE) == 0) {
     free(language);
-    language = strdup(UNDETERMINED_LANGUAGE);
+    return NULL;
   }
 
   return language;
@@ -345,4 +398,31 @@ static char *getScript(const char *localeId, errorStatus *status) {
   }
 
   return script;
+}
+
+static const char *normalizeLocaleId(const char *localeId) {
+  char *defaultName;
+  int defaultNameLength = 0;
+
+  if (localeId == NULL) {
+    return NULL;
+  }
+
+  if (strcmp(localeId, "") == 0 ||
+      strcmp(localeId, UNDETERMINED_LANGUAGE) == 0) {
+
+    defaultName = (char *)malloc(sizeof(char *) * ULOC_FULLNAME_CAPACITY);
+    if (defaultName) {
+      defaultNameLength =
+          icuToBcp47LanguageTag(uloc_getDefault(), defaultName, NULL);
+    }
+
+    if (defaultNameLength > 0) {
+      localeId = defaultName;
+    } else {
+      localeId = UNDETERMINED_LANGUAGE;
+    }
+  }
+
+  return localeId;
 }

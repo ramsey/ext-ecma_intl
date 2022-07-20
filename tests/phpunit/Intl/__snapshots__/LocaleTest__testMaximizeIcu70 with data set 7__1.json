@@ -1,0 +1,88 @@
+{
+    "baseName": "jbo-Latn-001",
+    "calendar": null,
+    "calendars": [
+        "gregory"
+    ],
+    "caseFirst": null,
+    "collation": null,
+    "collations": [
+        "emoji",
+        "eor"
+    ],
+    "hourCycle": null,
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "jbo",
+    "numberingSystem": null,
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": false,
+    "region": "001",
+    "script": "Latn",
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": [
+        "CET",
+        "CST6CDT",
+        "EET",
+        "EST5EDT",
+        "Etc\/GMT",
+        "Etc\/GMT+1",
+        "Etc\/GMT+10",
+        "Etc\/GMT+11",
+        "Etc\/GMT+12",
+        "Etc\/GMT+2",
+        "Etc\/GMT+3",
+        "Etc\/GMT+4",
+        "Etc\/GMT+5",
+        "Etc\/GMT+6",
+        "Etc\/GMT+7",
+        "Etc\/GMT+8",
+        "Etc\/GMT+9",
+        "Etc\/GMT-1",
+        "Etc\/GMT-10",
+        "Etc\/GMT-11",
+        "Etc\/GMT-12",
+        "Etc\/GMT-13",
+        "Etc\/GMT-14",
+        "Etc\/GMT-2",
+        "Etc\/GMT-3",
+        "Etc\/GMT-4",
+        "Etc\/GMT-5",
+        "Etc\/GMT-6",
+        "Etc\/GMT-7",
+        "Etc\/GMT-8",
+        "Etc\/GMT-9",
+        "Etc\/UTC",
+        "Factory",
+        "MET",
+        "MST7MDT",
+        "PST8PDT",
+        "SystemV\/AST4",
+        "SystemV\/AST4ADT",
+        "SystemV\/CST6",
+        "SystemV\/CST6CDT",
+        "SystemV\/EST5",
+        "SystemV\/EST5EDT",
+        "SystemV\/HST10",
+        "SystemV\/MST7",
+        "SystemV\/MST7MDT",
+        "SystemV\/PST8",
+        "SystemV\/PST8PDT",
+        "SystemV\/YST9",
+        "SystemV\/YST9YDT",
+        "WET"
+    ],
+    "weekInfo": {
+        "firstDay": 1,
+        "minimalDays": 1,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}

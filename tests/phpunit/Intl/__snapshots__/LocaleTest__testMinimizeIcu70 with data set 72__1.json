@@ -1,0 +1,36 @@
+{
+    "baseName": "en",
+    "calendar": "gregory",
+    "calendars": [
+        "gregory"
+    ],
+    "caseFirst": "upper",
+    "collation": "emoji",
+    "collations": [
+        "emoji"
+    ],
+    "hourCycle": "h23",
+    "hourCycles": [
+        "h23"
+    ],
+    "language": "en",
+    "numberingSystem": "latn",
+    "numberingSystems": [
+        "latn"
+    ],
+    "numeric": true,
+    "region": null,
+    "script": null,
+    "textInfo": {
+        "direction": "ltr"
+    },
+    "timeZones": null,
+    "weekInfo": {
+        "firstDay": 7,
+        "minimalDays": 1,
+        "weekend": [
+            6,
+            7
+        ]
+    }
+}
