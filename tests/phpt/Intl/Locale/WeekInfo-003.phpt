@@ -12,6 +12,6 @@ new WeekInfo(WeekDay::Monday, 3, [WeekDay::Thursday, 'foo', WeekDay::Saturday]);
 --EXPECTF--
 Fatal error: Uncaught ValueError: Argument $weekend must be an array of values of type Ecma\Intl\Locale\WeekDay %s
 Stack trace:
-#0 %s/tests/phpt/intl/locale/IntlLocaleWeekInfo-003.php(5): Ecma\Intl\Locale\WeekInfo->__construct(Object(Ecma\Intl\Locale\WeekDay), 3, Array)
+#0 %s/tests/phpt/Intl/Locale/WeekInfo-003.php(5): Ecma\Intl\Locale\WeekInfo->__construct(Object(Ecma\Intl\Locale\WeekDay), 3, Array)
 #1 {main}
-  thrown in %s/tests/phpt/intl/locale/IntlLocaleWeekInfo-003.php on line %d
+  thrown in %s/tests/phpt/Intl/Locale/WeekInfo-003.php on line %d

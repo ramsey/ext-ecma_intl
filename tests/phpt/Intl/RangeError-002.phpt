@@ -1,22 +1,22 @@
 --TEST--
-IcuException instantiates
+RangeError instantiates
 --EXTENSIONS--
 ecma_intl
 --FILE--
 <?php
-use Ecma\Intl\IcuException;
+use Ecma\Intl\RangeError;
 
 $previous = new \Exception('A previous exception');
-$icuException = new IcuException('An ICU exception', 36, $previous);
+$rangeError = new RangeError('A range error', 32, $previous);
 
-var_export($icuException);
+var_export($rangeError);
 ?>
 --EXPECTF--
-Ecma\Intl\IcuException::__set_state(array(
-   'message' => 'An ICU exception',
+Ecma\Intl\RangeError::__set_state(array(
+   'message' => 'A range error',
    'string' => '',
-   'code' => 36,
-   'file' => '%s/tests/phpt/exceptions/IcuException-002.php',
+   'code' => 32,
+   'file' => '%s/tests/phpt/Intl/RangeError-002.php',
    'line' => %d,
    'trace' => 
   array (
@@ -26,7 +26,7 @@ Ecma\Intl\IcuException::__set_state(array(
      'message' => 'A previous exception',
      'string' => '',
      'code' => 0,
-     'file' => '%s/tests/phpt/exceptions/IcuException-002.php',
+     'file' => '%s/tests/phpt/Intl/RangeError-002.php',
      'line' => %d,
      'trace' => 
     array (
